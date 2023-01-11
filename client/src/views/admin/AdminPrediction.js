@@ -1194,9 +1194,10 @@ export default function AdminPrediction() {
                         <p className="text-gray-500">
                           This process also takes time because it compiles each
                           professor&#39;s courses and responses into there own
-                          respective database. This is done to make sure that the
-                          professor can access their predictions in the future.
-                          You can access the collection provider analysis in the{" "}
+                          respective database. This is done to make sure that
+                          the professor can access their predictions in the
+                          future. You can access the collection provider
+                          analysis in the{" "}
                           <span className="text-blue-500 font-medium">
                             <Link to={"/admin/management/files/data"}>
                               File Management
