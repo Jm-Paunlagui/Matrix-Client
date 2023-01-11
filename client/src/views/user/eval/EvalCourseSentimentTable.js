@@ -200,7 +200,7 @@ export default function EvalCourseSentimentTable() {
                   </div>
                   <div className="flex flex-row items-start w-full py-2">
                     <h1 className="text-base font-medium leading-none text-gray-600">
-                      Number of Responses
+                      No. of Responses:
                     </h1>
                     <h1 className="ml-2 text-base leading-none text-gray-600">
                       {file.number_of_responses}
