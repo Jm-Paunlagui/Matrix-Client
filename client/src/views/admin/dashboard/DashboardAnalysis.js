@@ -13,6 +13,10 @@ import {
   SemesterList,
 } from "../../../components/listbox/ListBox";
 import DisclosureTogglable from "../../../components/disclosure/DisclosureTogglable";
+import {ICON_PLACE_SELF_CENTER} from "../../../assets/styles/styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSquarePollVertical} from "@fortawesome/free-solid-svg-icons";
+import {DownloadImage, DownloadTextToCSV} from "../../../components/buttons/buttons";
 /**
  * @description Handles the admin profile
  */
@@ -332,15 +336,24 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
-              <img
-                alt="sentiment_v_pol"
-                className="shadow rounded-lg"
-                src={`data:image/jpeg;base64,${image_path_polarity_v_sentiment}`}
-              />
+                <>
+                  <img
+                    alt="sentiment_v_pol"
+                    className="shadow rounded-lg"
+                    src={`data:image/jpeg;base64,${image_path_polarity_v_sentiment}`}
+                  />
+                    <DownloadImage image={image_path_polarity_v_sentiment} image_name="sentiment_vs_polarity">
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faSquarePollVertical}
+                          />
+                          Download Sentiment vs Polarity Graph
+                    </DownloadImage>
+                </>
             )}
           </div>
         </div>
@@ -370,15 +383,24 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
-              <img
-                alt="review_len_v_sentiment"
-                className="shadow rounded-lg"
-                src={`data:image/jpeg;base64,${image_path_review_length_v_sentiment}`}
-              />
+              <>
+                <img
+                  alt="review_len_v_sentiment"
+                  className="shadow rounded-lg"
+                  src={`data:image/jpeg;base64,${image_path_review_length_v_sentiment}`}
+                />
+                <DownloadImage image={image_path_review_length_v_sentiment} image_name="review_length_vs_sentiment">
+                    <FontAwesomeIcon
+                        className={`${ICON_PLACE_SELF_CENTER}`}
+                        icon={faSquarePollVertical}
+                    />
+                    Download Sentiment vs Response Length Graph
+                </DownloadImage>
+              </>
             )}
           </div>
         </div>
@@ -402,15 +424,24 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
-              <img
-                alt="wordcloud"
-                className="shadow rounded-lg"
-                src={`data:image/jpeg;base64,${image_path_wordcloud}`}
-              />
+                <>
+                  <img
+                    alt="wordcloud"
+                    className="shadow rounded-lg"
+                    src={`data:image/jpeg;base64,${image_path_wordcloud}`}
+                  />
+                    <DownloadImage image={image_path_wordcloud} image_name="wordcloud_visualization">
+                            <FontAwesomeIcon
+                                className={`${ICON_PLACE_SELF_CENTER}`}
+                                icon={faSquarePollVertical}
+                            />
+                            Download Word Cloud Visualization
+                    </DownloadImage>
+                </>
             )}
           </div>
         </div>
@@ -434,6 +465,22 @@ export default function DashboardAnalysis() {
             </p>
           </DisclosureTogglable>
         </div>
+        {loading_analysis ? null : (
+          <DownloadTextToCSV data={
+            `${
+              common_phrase.map((phrase) => {
+                  return phrase.id + "," + phrase.word + "," + phrase.frequency + "," + phrase.sentiment 
+              }).join("\n")
+            }`
+          } filename="common_words_in_trigrams"
+          >
+              <FontAwesomeIcon
+                  className={`${ICON_PLACE_SELF_CENTER}`}
+                  icon={faSquarePollVertical}
+              />
+              Download Most Common Words in Trigrams (3 words)
+          </DownloadTextToCSV>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 w-full pt-4">
           {loading_analysis ? (
             <>
@@ -497,6 +544,22 @@ export default function DashboardAnalysis() {
             </p>
           </DisclosureTogglable>
         </div>
+        {loading_analysis ? null : (
+          <DownloadTextToCSV data={
+            `${
+              common_words.map((phrase) => {
+                  return phrase.id + "," + phrase.word + "," + phrase.frequency + "," + phrase.sentiment 
+              }).join("\n")
+            }`
+          } filename="common_words_in_bigrams"
+          >
+              <FontAwesomeIcon
+                  className={`${ICON_PLACE_SELF_CENTER}`}
+                  icon={faSquarePollVertical}
+              />
+              Download Most Common Words in Bigrams (2 words)
+          </DownloadTextToCSV>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full pt-4">
           {loading_analysis ? (
             <>
@@ -560,6 +623,22 @@ export default function DashboardAnalysis() {
             </p>
           </DisclosureTogglable>
         </div>
+        {loading_analysis ? null : (
+          <DownloadTextToCSV data={
+            `${
+              common_word.map((phrase) => {
+                  return phrase.id + "," + phrase.word + "," + phrase.frequency + "," + phrase.sentiment 
+              }).join("\n")
+            }`
+          } filename="common_words_in_unigrams"
+          >
+              <FontAwesomeIcon
+                  className={`${ICON_PLACE_SELF_CENTER}`}
+                  icon={faSquarePollVertical}
+              />
+              Download Most Common Words in Unigrams (1 word)
+          </DownloadTextToCSV>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full pt-4">
           {loading_analysis ? (
             <>

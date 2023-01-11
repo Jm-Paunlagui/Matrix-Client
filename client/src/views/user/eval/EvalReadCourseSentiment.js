@@ -4,7 +4,7 @@ import httpClient from "../../../http/httpClient";
 import { LoadingPageSkeletonText } from "../../../components/loading/LoadingPage";
 import { Header } from "../../../components/headers/Header";
 import { toReadableName } from "../../../helpers/Helper";
-import BackTo from "../../../components/buttons/BackTo";
+import Buttons from "../../../components/buttons/buttons";
 import { GridItemResponse } from "../../../components/grid/GridItem";
 import { isAuth } from "../../../helpers/Auth";
 import { NoData } from "../../../components/warnings/WarningMessages";
@@ -114,7 +114,7 @@ export default function EvalReadCourseSentiment() {
 
   return folderNameV === folderName ? (
     <div className="px-6 mx-auto max-w-7xl">
-      <BackTo
+      <Buttons
         text="Back"
         to={`/user/evaluation-results/files/${fileId}/${folderName}`}
       />

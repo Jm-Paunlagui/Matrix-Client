@@ -9,7 +9,7 @@ import { faFileCsv } from "@fortawesome/free-solid-svg-icons";
 import httpClient from "../../../../http/httpClient";
 import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
 import { toReadableName } from "../../../../helpers/Helper";
-import BackTo from "../../../../components/buttons/BackTo";
+import Buttons from "../../../../components/buttons/buttons";
 import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { NoData } from "../../../../components/warnings/WarningMessages";
@@ -134,7 +134,7 @@ export default function ManagementFilesListofDataResponse() {
 
   return (
     <div className="px-6 mx-auto max-w-7xl">
-      <BackTo text="Back" to={`/admin/management/files/data/${fileId}`} />
+      <Buttons text="Back" to={`/admin/management/files/data/${fileId}`} />
       <Header
         body={`Sentiment Analysis Evaluation Results for the School Year ${school_year} and School Semester ${school_semester}`}
         title={`${topic}`}

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { toReadableName } from "../../../../helpers/Helper";
 import httpClient from "../../../../http/httpClient";
 import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
-import BackTo from "../../../../components/buttons/BackTo";
+import Buttons from "../../../../components/buttons/buttons";
 import { Header } from "../../../../components/headers/Header";
 import { GridItemResponse } from "../../../../components/grid/GridItem";
 import { toast } from "react-toastify";
@@ -108,7 +108,7 @@ export default function ManagementFilesReadDataResponse() {
 
   return (
     <div className="px-6 mx-auto max-w-7xl">
-      <BackTo
+      <Buttons
         text="Back"
         to={`/admin/management/files/data/${fileId}/${read_responses}`}
       />

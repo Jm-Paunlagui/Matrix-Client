@@ -10,7 +10,7 @@ import httpClient from "../../../../http/httpClient";
 import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
 import { removeComma } from "../../../../helpers/Helper";
 import { toast } from "react-toastify";
-import BackTo from "../../../../components/buttons/BackTo";
+import Buttons from "../../../../components/buttons/buttons";
 import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { NoData } from "../../../../components/warnings/WarningMessages";
@@ -133,7 +133,7 @@ export default function ManagementFilesData() {
 
   return (
     <div className="px-6 mx-auto max-w-7xl">
-      <BackTo text="Back" to="/admin/management/files/data" />
+      <Buttons text="Back" to="/admin/management/files/data" />
       <Header
         body={"List of departments that detected in the uploaded file."}
         title={"Department Data"}

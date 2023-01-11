@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -271,8 +271,10 @@ export default function AuthLogin() {
       });
   };
 
-  return (
-    <div className="container h-full mx-auto font-Montserrat">
+  return isAuth().path ? (
+      window.location.replace(isAuth().path)
+  ) : (
+      <div className="container h-full mx-auto font-Montserrat">
       <div className="flex items-center content-center justify-center h-full">
         <div className="w-11/12 md:w-7/12 lg:w-6/12 xl:w-5/12">
           <div
@@ -357,5 +359,5 @@ export default function AuthLogin() {
         </div>
       </div>
     </div>
-  );
+  )
 }

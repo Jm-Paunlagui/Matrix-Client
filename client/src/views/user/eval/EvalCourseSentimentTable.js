@@ -13,7 +13,7 @@ import { Header } from "../../../components/headers/Header";
 import { SearchBar } from "../../../components/searchbar/SearchBar";
 import { toReadableName } from "../../../helpers/Helper";
 import { LoadingPageSkeletonText } from "../../../components/loading/LoadingPage";
-import BackTo from "../../../components/buttons/BackTo";
+import Buttons from "../../../components/buttons/buttons";
 import { isAuth } from "../../../helpers/Auth";
 import { NoData } from "../../../components/warnings/WarningMessages";
 import { toast } from "react-toastify";
@@ -136,7 +136,7 @@ export default function EvalCourseSentimentTable() {
 
   return folderNameV === folderName ? (
     <div className="px-6 mx-auto max-w-7xl">
-      <BackTo text="Back" to={`/user/evaluation-results/files`} />
+      <Buttons text="Back" to={`/user/evaluation-results/files`} />
       <Header
         body={`Sentiment Analysis Evaluation Results for the ${school_year} and School Semester ${school_semester}`}
         title={`${topic}`}
