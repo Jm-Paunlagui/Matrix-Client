@@ -134,6 +134,8 @@ export default function AdminPrediction() {
     adding_predictions_time: "",
     adding_to_db_time: "",
     analysis_user_time: "",
+    analysis_department_time: "",
+    analysis_collection_time: "",
   });
 
   const {
@@ -148,6 +150,8 @@ export default function AdminPrediction() {
     adding_predictions_time,
     adding_to_db_time,
     analysis_user_time,
+    analysis_department_time,
+    analysis_collection_time,
   } = timeAnalyze;
 
   /**
@@ -428,6 +432,8 @@ export default function AdminPrediction() {
             adding_predictions_time: response.data.adding_predictions_time,
             adding_to_db_time: response.data.adding_to_db_time,
             analysis_user_time: response.data.analysis_user_time,
+            analysis_department_time: response.data.analysis_department_time,
+            analysis_collection_time: response.data.analysis_collection_time,
           });
           setCount(count + 1);
         })
@@ -1147,6 +1153,64 @@ export default function AdminPrediction() {
                             </h1>
                             <p className="text-gray-500">
                               {timeFormat(analysis_user_time)}
+                            </p>
+                          </div>
+                        </div>
+                      </DisclosureTogglable>
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <DisclosureTogglable
+                        title={"Department Analysis Computations"}
+                      >
+                        <p className="text-gray-500">
+                          While we are processing your data, we are also
+                          computing the department analysis. This is done to
+                          make sure that you can access the department analysis
+                          in the future. You can access the department analysis
+                          in the{" "}
+                          <span className="text-blue-500 font-medium">
+                            <Link to={"/admin/management/files/data"}>
+                              File Management
+                            </Link>
+                          </span>{" "}
+                          page and choose file to view.
+                        </p>
+                        <div className="content-end flex flex-wrap justify-start w-full gap-2">
+                          <div className="bg-white p-2 rounded-lg">
+                            <h1 className="text-base font-medium text-blue-500">
+                              Time taken
+                            </h1>
+                            <p className="text-gray-500">
+                              {timeFormat(analysis_department_time)}
+                            </p>
+                          </div>
+                        </div>
+                      </DisclosureTogglable>
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <DisclosureTogglable
+                        title={"Collection Provider Analysis Computations"}
+                      >
+                        <p className="text-gray-500">
+                          This process also takes time because it compiles each
+                          professor&#39;s courses and responses into there own
+                          respective database. This is done to make sure that the
+                          professor can access their predictions in the future.
+                          You can access the collection provider analysis in the{" "}
+                          <span className="text-blue-500 font-medium">
+                            <Link to={"/admin/management/files/data"}>
+                              File Management
+                            </Link>
+                          </span>{" "}
+                          page and choose file and Professor to view.
+                        </p>
+                        <div className="content-end flex flex-wrap justify-start w-full gap-2">
+                          <div className="bg-white p-2 rounded-lg">
+                            <h1 className="text-base font-medium text-blue-500">
+                              Time taken
+                            </h1>
+                            <p className="text-gray-500">
+                              {timeFormat(analysis_collection_time)}
                             </p>
                           </div>
                         </div>
