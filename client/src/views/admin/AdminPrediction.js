@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useCallback, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import {
-  ACCENT_BUTTON, DANGER_BUTTON,
+  ACCENT_BUTTON,
+  DANGER_BUTTON,
   ICON_PLACE_SELF_CENTER,
   TEXT_FIELD,
 } from "../../assets/styles/styled-components";
@@ -18,7 +19,8 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import {
   faMagnifyingGlassChart,
   faCaretLeft,
-  faFlagCheckered, faCircleMinus,
+  faFlagCheckered,
+  faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Header } from "../../components/headers/Header";
@@ -675,9 +677,9 @@ export default function AdminPrediction() {
                         </h1>
                         <input
                           className={`${TEXT_FIELD} cursor-not-allowed text-gray-500 bg-white ${
-                          buttonDisabled &&
-                          `opacity-50 cursor-not-allowed pointer-events-none`
-                        }`}
+                            buttonDisabled &&
+                            `opacity-50 cursor-not-allowed pointer-events-none`
+                          }`}
                           disabled
                           placeholder="File Name"
                           type="text"
@@ -686,7 +688,7 @@ export default function AdminPrediction() {
                       </div>
                       <div className="flex flex-col w-full space-y-2">
                         <Listbox
-                            disabled={buttonDisabled}
+                          disabled={buttonDisabled}
                           name={"sentence"}
                           onChange={handleSelect(
                             "selected_column_for_sentence",
@@ -770,9 +772,9 @@ export default function AdminPrediction() {
                         </h1>
                         <input
                           className={`truncate ${TEXT_FIELD} text-gray-500 bg-white ${
-                          buttonDisabled &&
-                          `opacity-50 cursor-not-allowed pointer-events-none`
-                        }`}
+                            buttonDisabled &&
+                            `opacity-50 cursor-not-allowed pointer-events-none`
+                          }`}
                           disabled={buttonDisabled}
                           name="school_year"
                           onChange={handleExtras("school_year")}
@@ -780,7 +782,8 @@ export default function AdminPrediction() {
                           type="text"
                           value={school_year}
                         />
-                        <Listbox disabled={buttonDisabled}
+                        <Listbox
+                          disabled={buttonDisabled}
                           name={"semester"}
                           onChange={handleSelect("selected_semester")}
                         >
@@ -873,9 +876,9 @@ export default function AdminPrediction() {
                         <input
                           autoComplete={"off"}
                           className={`truncate ${TEXT_FIELD} text-gray-700 bg-white ${
-                          buttonDisabled &&
-                          `opacity-50 cursor-not-allowed pointer-events-none`
-                        }`}
+                            buttonDisabled &&
+                            `opacity-50 cursor-not-allowed pointer-events-none`
+                          }`}
                           disabled={buttonDisabled}
                           name="csv_question"
                           onChange={handleExtras("csv_question")}
