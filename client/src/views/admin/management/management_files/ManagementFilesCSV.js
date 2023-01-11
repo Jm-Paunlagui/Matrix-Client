@@ -567,7 +567,7 @@ export default function ManagementFilesCSV() {
                             className={`${ICON_PLACE_SELF_CENTER}`}
                             icon={faFileArrowDown}
                           />
-                          Download CSV
+                          Download Analysis
                         </>
                       )}
                     </button>
