@@ -540,7 +540,7 @@ export default function ManagementFilesUsers() {
               className="flex flex-col hover:bg-teal-500 p-0.5 rounded-lg transition delay-150 duration-500 ease-in-out hover:-translate-y-0.5 hover:shadow-lg"
               key={detail.id}
             >
-              <div className="flex-1 w-full bg-blue-50 rounded-lg shadow">
+              <div className="flex w-full bg-blue-50 rounded-lg shadow p-4">
                 <div
                   className={`flex items-center justify-center w-10 h-10 text-white rounded ${detail.color}`}
                 >

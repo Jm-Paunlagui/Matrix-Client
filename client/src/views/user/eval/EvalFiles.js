@@ -178,10 +178,10 @@ export default function EvalFiles() {
                 <div className="col-span-1 w-full">
                   <div className="flex flex-row w-full p-4">
                     <h1 className="text-md font-bold leading-none text-blue-600">
-                      File ID
+                      Evaluated File ID
                     </h1>
-                    <h1 className="text-md leading-none text-gray-500 ml-2">
-                      {file.id}
+                    <h1 className="text-md font-bold leading-none text-gray-500 ml-2">
+                      {file.id}-{file.school_year}
                     </h1>
                   </div>
                 </div>
