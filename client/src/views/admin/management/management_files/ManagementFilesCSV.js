@@ -25,7 +25,9 @@ import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { Paginator } from "../../../../components/listbox/ListBox";
 import { NoData } from "../../../../components/warnings/WarningMessages";
-import ModalConfirm, {ModalTypeOfDownload} from "../../../../components/modal/ModalConfirm";
+import ModalConfirm, {
+  ModalTypeOfDownload,
+} from "../../../../components/modal/ModalConfirm";
 import { ItemsPerPage } from "../../../../components/items/Items";
 
 /**
@@ -333,7 +335,7 @@ export default function ManagementFilesCSV() {
   };
 
   const handleDownloadAll = (type) => {
-setLoadingAnimation({
+    setLoadingAnimation({
       ...loadingAnimation,
       massDownload: true,
       textChangeDownload: "Downloading all analysis...",
@@ -351,20 +353,20 @@ setLoadingAnimation({
         link.click();
         toast.success(response.data.message);
         setLoadingAnimation({
-            ...loadingAnimation,
-            massDownload: false,
-            textChangeDownload: "Download all analysis",
+          ...loadingAnimation,
+          massDownload: false,
+          textChangeDownload: "Download all analysis",
         });
       })
       .catch((error) => {
         toast.error(error.message);
         setLoadingAnimation({
-            ...loadingAnimation,
-            massDownload: false,
-            textChangeDownload: "Download all analysis",
+          ...loadingAnimation,
+          massDownload: false,
+          textChangeDownload: "Download all analysis",
         });
       });
-  }
+  };
 
   return (
     <div className="px-6 mx-auto max-w-7xl mt-8">
@@ -413,13 +415,13 @@ setLoadingAnimation({
               )}
             </ModalConfirm>
             <ModalTypeOfDownload
-                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
-                        is_manny
-                        onConfirmCSV={() => handleDownloadAll("csv")}
-                        onConfirmExcel={() => handleDownloadAll("excel")}
-                        title="Download File"
+              description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+              is_manny
+              onConfirmCSV={() => handleDownloadAll("csv")}
+              onConfirmExcel={() => handleDownloadAll("excel")}
+              title="Download File"
             >
-                      {massDownload ? (
+              {massDownload ? (
                 <>
                   <LoadingAnimation moreClasses="text-teal-600" />
                   {textChangeDownload}
@@ -613,12 +615,12 @@ setLoadingAnimation({
                       </Link>
                     </button>
                     <ModalTypeOfDownload
-                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
-                        id={file.id}
-                        is_manny={false}
-                        onConfirmCSV={handleDownload}
-                        onConfirmExcel={handleDownload}
-                        title="Download File"
+                      description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                      id={file.id}
+                      is_manny={false}
+                      onConfirmCSV={handleDownload}
+                      onConfirmExcel={handleDownload}
+                      title="Download File"
                     >
                       {loadingIdDownload[file.id] ? (
                         <>
