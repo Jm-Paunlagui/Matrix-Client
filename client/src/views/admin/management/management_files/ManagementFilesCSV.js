@@ -25,7 +25,7 @@ import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { Paginator } from "../../../../components/listbox/ListBox";
 import { NoData } from "../../../../components/warnings/WarningMessages";
-import ModalConfirm from "../../../../components/modal/ModalConfirm";
+import ModalConfirm, {ModalTypeOfDownload} from "../../../../components/modal/ModalConfirm";
 import { ItemsPerPage } from "../../../../components/items/Items";
 
 /**
@@ -88,6 +88,8 @@ export default function ManagementFilesCSV() {
     textChangePublish: "Publish all",
     massUnpublished: false,
     textChangeUnpublished: "Unpublished all",
+    massDownload: false,
+    textChangeDownload: "Download all analysis",
   });
 
   const {
@@ -97,6 +99,8 @@ export default function ManagementFilesCSV() {
     textChangePublish,
     massUnpublished,
     textChangeUnpublished,
+    massDownload,
+    textChangeDownload,
   } = loadingAnimation;
   /**
    * @description Filters the list of files based on the search value
@@ -304,11 +308,12 @@ export default function ManagementFilesCSV() {
   /**
    * @description Handles the download of a file from the backend
    * @param file
+   * @param type
    */
-  const handleDownload = (file) => {
+  const handleDownload = (file, type) => {
     setLoadingIdDownload((files) => ({ ...files, [file]: true }));
     httpClient
-      .get(`/data/download-csv-file/${file}`, { responseType: "blob" })
+      .get(`/data/download-csv-file/${file}/${type}`, { responseType: "blob" })
       .then((response) => {
         const filename =
           response.headers["content-disposition"].split("filename=")[1];
@@ -326,6 +331,40 @@ export default function ManagementFilesCSV() {
         setLoadingIdDownload({});
       });
   };
+
+  const handleDownloadAll = (type) => {
+setLoadingAnimation({
+      ...loadingAnimation,
+      massDownload: true,
+      textChangeDownload: "Downloading all analysis...",
+    });
+    httpClient
+      .get(`/data/download-all-csv-file/${type}`, { responseType: "blob" })
+      .then((response) => {
+        const filename =
+          response.headers["content-disposition"].split("filename=")[1];
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", filename);
+        document.body.appendChild(link);
+        link.click();
+        toast.success(response.data.message);
+        setLoadingAnimation({
+            ...loadingAnimation,
+            massDownload: false,
+            textChangeDownload: "Download all analysis",
+        });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        setLoadingAnimation({
+            ...loadingAnimation,
+            massDownload: false,
+            textChangeDownload: "Download all analysis",
+        });
+      });
+  }
 
   return (
     <div className="px-6 mx-auto max-w-7xl mt-8">
@@ -373,6 +412,28 @@ export default function ManagementFilesCSV() {
                 </>
               )}
             </ModalConfirm>
+            <ModalTypeOfDownload
+                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                        is_manny
+                        onConfirmCSV={() => handleDownloadAll("csv")}
+                        onConfirmExcel={() => handleDownloadAll("excel")}
+                        title="Download File"
+            >
+                      {massDownload ? (
+                <>
+                  <LoadingAnimation moreClasses="text-teal-600" />
+                  {textChangeDownload}
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon
+                    className={`${ICON_PLACE_SELF_CENTER}`}
+                    icon={faFileArrowDown}
+                  />
+                  {textChangeDownload}
+                </>
+              )}
+            </ModalTypeOfDownload>
           </div>
         </div>
         <div className="w-full bg-blue-50 rounded-lg shadow-md p-4 mt-8">
@@ -551,10 +612,13 @@ export default function ManagementFilesCSV() {
                         View
                       </Link>
                     </button>
-                    <button
-                      className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
-                      onClick={() => handleDownload(file.id)}
-                      type="button"
+                    <ModalTypeOfDownload
+                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                        id={file.id}
+                        is_manny={false}
+                        onConfirmCSV={handleDownload}
+                        onConfirmExcel={handleDownload}
+                        title="Download File"
                     >
                       {loadingIdDownload[file.id] ? (
                         <>
@@ -570,7 +634,7 @@ export default function ManagementFilesCSV() {
                           Download Analysis
                         </>
                       )}
-                    </button>
+                    </ModalTypeOfDownload>
                     <ModalConfirm
                       body={`Are you sure you want to publish ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
                       description="This action cannot be undone. This will publish the file and its associated data to the system and can now view by the professors."

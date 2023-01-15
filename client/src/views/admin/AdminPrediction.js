@@ -896,7 +896,11 @@ export default function AdminPrediction() {
                     ) : null}
                     <div className="flex flex-col justify-end w-full mt-8 lg:flex-row lg:space-x-2 gap-2">
                       <button
-                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON} ${
+                          buttonDisabled &&
+                          `opacity-50 cursor-not-allowed pointer-events-none text-gray-500`
+                        }`}
+                        disabled={buttonDisabled}
                         onClick={() => handleResetWhenDone("done")}
                         type="button"
                       >
@@ -909,10 +913,13 @@ export default function AdminPrediction() {
                       <button
                         className={`px-5 py-1 pl-4 ${ACCENT_BUTTON} ${
                           count === 1 ? "hidden" : ""
+                        } ${
+                          buttonDisabled &&
+                          `opacity-50 cursor-not-allowed pointer-events-none text-gray-500`
                         }`}
+                        disabled={buttonDisabled}
                         onClick={() => {
                           setCount(count - 1);
-
                           setHandlers({
                             ...handlers,
                             textChange: "View",
@@ -932,7 +939,7 @@ export default function AdminPrediction() {
                       <button
                         className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
                           buttonDisabled &&
-                          `opacity-50 cursor-not-allowed pointer-events-none`
+                          `cursor-not-allowed pointer-events-none`
                         }`}
                         disabled={buttonDisabled}
                         type="submit"
