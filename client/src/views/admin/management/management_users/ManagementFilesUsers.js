@@ -107,8 +107,10 @@ export default function ManagementFilesUsers() {
   const [loadingIDUnlock, setLoadingIDUnlock] = useState({});
   const [loadingIDDelete, setLoadingIDDelete] = useState({});
   const [loadingIDRestore, setLoadingIDRestore] = useState({});
+  const [disabledAllButtons, setDisabledAllButtons] = useState({});
 
   const [loadingAnimation, setLoadingAnimation] = useState({
+    massDisable: false,
     massActivation: false,
     textChangeActivation: "Activate all",
     massDeactivation: false,
@@ -124,6 +126,7 @@ export default function ManagementFilesUsers() {
   });
 
   const {
+    massDisable,
     massActivation,
     textChangeActivation,
     massDeactivation,
@@ -137,6 +140,13 @@ export default function ManagementFilesUsers() {
     massDelete,
     textChangeDelete,
   } = loadingAnimation;
+
+
+  const disableAllButtons = (bool) => {
+    for (let i = 0; i < users.length; i++) {
+      disabledAllButtons[users[i].id] = bool;
+    }
+  }
 
   /**
    * @description Pagination handler for the users table
@@ -161,7 +171,8 @@ export default function ManagementFilesUsers() {
       return (
         user.full_name.toLowerCase().includes(searchValue.toLowerCase()) ||
         user.username.toLowerCase().includes(searchValue.toLowerCase()) ||
-        user.department_name.toLowerCase().includes(searchValue.toLowerCase())
+        user.department_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
     setFilteredListOfUsers(filteredList);
@@ -204,16 +215,19 @@ export default function ManagementFilesUsers() {
    */
   const handleCreateUser = (id) => {
     setLoadingIDActivate((ids) => ({ ...ids, [id]: true }));
+    setDisabledAllButtons((ids) => ({ ...ids, [id]: true }));
     httpClient
       .post(`/user/on-click-create/${id}`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         setLoadingIDActivate((ids) => ({ ...ids, [id]: false }));
+        setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIDActivate({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -224,16 +238,19 @@ export default function ManagementFilesUsers() {
    */
   const handleDeactivateUser = async (id) => {
     setLoadingIDDeactivate((ids) => ({ ...ids, [id]: true }));
+    setDisabledAllButtons((ids) => ({ ...ids, [id]: true }));
     await httpClient
       .post(`/user/on-click-deactivate/${id}`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         setLoadingIDDeactivate((ids) => ({ ...ids, [id]: false }));
+        setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIDDeactivate({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -244,16 +261,19 @@ export default function ManagementFilesUsers() {
    */
   const handleLockUser = async (id) => {
     setLoadingIDLock((ids) => ({ ...ids, [id]: true }));
+    setDisabledAllButtons((ids) => ({ ...ids, [id]: true }));
     await httpClient
       .post(`/user/lock-account/${id}`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         setLoadingIDLock((ids) => ({ ...ids, [id]: false }));
+        setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIDLock({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -264,16 +284,19 @@ export default function ManagementFilesUsers() {
    */
   const handleUnlockUser = async (id) => {
     setLoadingIDUnlock((ids) => ({ ...ids, [id]: true }));
+    setDisabledAllButtons((ids) => ({ ...ids, [id]: true }));
     await httpClient
       .post(`/user/unlock-account/${id}`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         setLoadingIDUnlock((ids) => ({ ...ids, [id]: false }));
+        setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIDUnlock({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -284,16 +307,19 @@ export default function ManagementFilesUsers() {
    */
   const handleDeleteUser = async (id) => {
     setLoadingIDDelete((ids) => ({ ...ids, [id]: true }));
+    setDisabledAllButtons((ids) => ({ ...ids, [id]: true }));
     await httpClient
       .delete(`/user/delete-account/${id}`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         setLoadingIDDelete((ids) => ({ ...ids, [id]: false }));
+        setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIDDelete({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -304,16 +330,19 @@ export default function ManagementFilesUsers() {
    */
   const handleRestoreUser = async (id) => {
     setLoadingIDRestore((ids) => ({ ...ids, [id]: true }));
+    setDisabledAllButtons((ids) => ({ ...ids, [id]: true }));
     await httpClient
       .post(`/user/restore-account/${id}`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         setLoadingIDRestore((ids) => ({ ...ids, [id]: false }));
+        setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIDRestore({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -322,8 +351,10 @@ export default function ManagementFilesUsers() {
    * @returns {Promise<void>}
    */
   const handleCreateAllUsers = async () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+      massDisable: true,
       massActivation: true,
       textChangeActivation: "Activating...",
     });
@@ -332,16 +363,20 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massActivation: false,
           textChangeActivation: "Activate all",
         });
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massActivation: false,
           textChangeActivation: "Activate all",
         });
@@ -353,8 +388,10 @@ export default function ManagementFilesUsers() {
    * @returns {Promise<void>}
    */
   const handleDeactivateAllUsers = async () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massDeactivation: true,
       textChangeDeactivation: "Deactivating...",
     });
@@ -363,16 +400,20 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massDeactivation: false,
           textChangeDeactivation: "Deactivate all",
         });
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massDeactivation: false,
           textChangeDeactivation: "Deactivate all",
         });
@@ -384,8 +425,10 @@ export default function ManagementFilesUsers() {
    * @returns {Promise<void>}
    */
   const handleLockAllUsers = async () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massLocked: true,
       textChangeLocked: "Locking...",
     });
@@ -394,16 +437,20 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massLocked: false,
           textChangeLocked: "Lock all",
         });
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massLocked: false,
           textChangeLocked: "Lock all",
         });
@@ -415,8 +462,10 @@ export default function ManagementFilesUsers() {
    * @returns {Promise<void>}
    */
   const handleUnlockAllUsers = async () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massUnlocked: true,
       textChangeUnlocked: "Unlocking...",
     });
@@ -425,16 +474,20 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massUnlocked: false,
           textChangeUnlocked: "Unlock all",
         });
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massUnlocked: false,
           textChangeUnlocked: "Unlock all",
         });
@@ -446,8 +499,10 @@ export default function ManagementFilesUsers() {
    * @returns {Promise<void>}
    */
   const handleDeleteAllUsers = async () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massDelete: true,
       textChangeDelete: "Deleting...",
     });
@@ -456,16 +511,20 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all",
         });
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all",
         });
@@ -477,8 +536,10 @@ export default function ManagementFilesUsers() {
    * @returns {Promise<void>}
    */
   const handleRestoreAllUsers = async () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massRestore: true,
       textChangeRestore: "Restoring...",
     });
@@ -487,16 +548,20 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massRestore: false,
           textChangeRestore: "Restore all",
         });
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massRestore: false,
           textChangeRestore: "Restore all",
         });
@@ -576,13 +641,14 @@ export default function ManagementFilesUsers() {
             <ModalConfirm
               body={`Are you sure you want to Activate all users in the system?`}
               description="This action cannot be undone. All users will able to access the system to view their sentiment scores. This action will also send an email to all users to notify them that their account has been activated."
+              disabled={massDisable}
               is_manny
               onConfirm={() => handleCreateAllUsers()}
               title="Activate All Users"
             >
               {massActivation ? (
                 <>
-                  <LoadingAnimation moreClasses="text-red-600" />
+                  <LoadingAnimation moreClasses="text-teal-600" />
                   {textChangeActivation}
                 </>
               ) : (
@@ -598,6 +664,7 @@ export default function ManagementFilesUsers() {
             <ModalConfirm
               body={`Are you sure you want to restore all users authorization to the system?`}
               description="This action cannot be undone. The user you are trying to Reauthorized access will be able to access the system to view their sentiment scores."
+              disabled={massDisable}
               is_manny
               onConfirm={() => handleUnlockAllUsers()}
               title="Restore Authorization"
@@ -620,6 +687,7 @@ export default function ManagementFilesUsers() {
             <ModalConfirm
               body={`Are you sure you want to restore all users account to the system?`}
               description="This action cannot be undone. The user you are trying to restore will be able to access the system to view their sentiment scores."
+              disabled={massDisable}
               is_manny
               onConfirm={() => handleRestoreAllUsers()}
               title="Restore Account"
@@ -651,6 +719,7 @@ export default function ManagementFilesUsers() {
             <ModalConfirm
               body={`Are you sure you want to deactivate all users?`}
               description="This action cannot be undone. The users you are trying to Deactivate will not be able to login to the system to view their sentiment scores."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleDeactivateAllUsers()}
@@ -674,6 +743,7 @@ export default function ManagementFilesUsers() {
             <ModalConfirm
               body={`Are you sure you want to remove all users authorization to the system?`}
               description="This action cannot be undone. The user you are trying to restrict access will be unable to access the system to view their sentiment scores."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleLockAllUsers()}
@@ -697,6 +767,7 @@ export default function ManagementFilesUsers() {
             <ModalConfirm
               body={`Are you sure you want to temporarily delete all users account to the system?`}
               description="This action cannot be undone. This will temporarily delete the users account from the system."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleDeleteAllUsers()}
@@ -843,6 +914,7 @@ export default function ManagementFilesUsers() {
                     <ModalConfirm
                       body={`Are you sure you want to Activate the user account of ${user.full_name}?`}
                       description="This action cannot be undone. The user you are trying to Activate will be able to access the system to view their sentiment scores."
+                      disabled={disabledAllButtons[user.id]}
                       id={user.id}
                       is_many={false}
                       onConfirm={handleCreateUser}
@@ -866,6 +938,7 @@ export default function ManagementFilesUsers() {
                     <ModalConfirm
                       body={`Are you sure you want to unlock the user account of ${user.full_name}?`}
                       description="This action cannot be undone. The user you are trying to unlock will be able to access the system to view their sentiment scores."
+                      disabled={disabledAllButtons[user.id]}
                       id={user.id}
                       is_many={false}
                       onConfirm={handleUnlockUser}
@@ -889,6 +962,7 @@ export default function ManagementFilesUsers() {
                     <ModalConfirm
                       body={`Are you sure you want to restore the account of ${user.full_name} to the system?`}
                       description="This action cannot be undone. The user you are trying to restore will be able to access the system to view their sentiment scores."
+                      disabled={disabledAllButtons[user.id]}
                       id={user.id}
                       is_many={false}
                       onConfirm={handleRestoreUser}
@@ -919,6 +993,7 @@ export default function ManagementFilesUsers() {
                     <ModalConfirm
                       body={`Are you sure you want to deactivate the user account of ${user.full_name}?`}
                       description="This action cannot be undone. The user you are trying to deactivate will be unable to access the system to view their sentiment scores."
+                      disabled={disabledAllButtons[user.id]}
                       id={user.id}
                       is_danger
                       is_many={false}
@@ -943,6 +1018,7 @@ export default function ManagementFilesUsers() {
                     <ModalConfirm
                       body={`Are you sure you want to lock the user account of ${user.full_name}?`}
                       description="This action cannot be undone. The user you are trying to lock will be unable to access the system to view their sentiment scores."
+                      disabled={disabledAllButtons[user.id]}
                       id={user.id}
                       is_danger
                       is_many={false}
@@ -967,6 +1043,7 @@ export default function ManagementFilesUsers() {
                     <ModalConfirm
                       body={`Are you sure you want to delete ${user.full_name} from the system?`}
                       description="This action cannot be undone. This will permanently delete the users account from the system."
+                      disabled={disabledAllButtons[user.id]}
                       id={user.id}
                       is_danger
                       is_many={false}

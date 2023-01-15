@@ -25,9 +25,7 @@ import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { Paginator } from "../../../../components/listbox/ListBox";
 import { NoData } from "../../../../components/warnings/WarningMessages";
-import ModalConfirm, {
-  ModalTypeOfDownload,
-} from "../../../../components/modal/ModalConfirm";
+import ModalConfirm, {ModalTypeOfDownload} from "../../../../components/modal/ModalConfirm";
 import { ItemsPerPage } from "../../../../components/items/Items";
 
 /**
@@ -72,6 +70,7 @@ export default function ManagementFilesCSV() {
   const [loadingIdPublish, setLoadingIdPublish] = useState({});
   const [loadingIdDelete, setLoadingIdDelete] = useState({});
   const [loadingIdUnpublish, setLoadingIdUnpublish] = useState({});
+  const [disabledAllButtons, setDisabledAllButtons] = useState({});
 
   /**
    * @description Search bar handler for the files
@@ -84,6 +83,7 @@ export default function ManagementFilesCSV() {
   };
 
   const [loadingAnimation, setLoadingAnimation] = useState({
+      massDisable: false,
     massDelete: false,
     textChangeDelete: "Delete all temporarily",
     massPublish: false,
@@ -95,6 +95,7 @@ export default function ManagementFilesCSV() {
   });
 
   const {
+    massDisable,
     massDelete,
     textChangeDelete,
     massPublish,
@@ -104,6 +105,14 @@ export default function ManagementFilesCSV() {
     massDownload,
     textChangeDownload,
   } = loadingAnimation;
+
+  // Disable all buttons if mass action is in progress
+  const disableAllButtons = (bool) => {
+      for (let i = 0; i < files_list.length; i++) {
+          disabledAllButtons[files_list[i].id] = bool;
+      }
+  }
+
   /**
    * @description Filters the list of files based on the search value
    * @param event
@@ -166,16 +175,19 @@ export default function ManagementFilesCSV() {
    */
   const handleDelete = (file) => {
     setLoadingIdDelete((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .put(`/data/delete-csv-file/${file}`)
       .then((response) => {
         loadFiles(page_number, per_page_limit);
         toast.success(response.data.message);
         setLoadingIdDelete((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIdDelete({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -185,16 +197,19 @@ export default function ManagementFilesCSV() {
    */
   const handlePublish = (file) => {
     setLoadingIdPublish((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .put(`/data/publish-selected-csv-file/${file}`)
       .then((response) => {
         loadFiles(page_number, per_page_limit);
         toast.success(response.data.message);
         setLoadingIdPublish((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIdPublish({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -204,16 +219,19 @@ export default function ManagementFilesCSV() {
    */
   const handleUnpublished = (file) => {
     setLoadingIdUnpublish((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .put(`/data/unpublished-selected-csv-file/${file}`)
       .then((response) => {
         loadFiles(page_number, per_page_limit);
         toast.success(response.data.message);
         setLoadingIdUnpublish((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIdUnpublish({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -221,8 +239,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass delete of files from the backend
    */
   const handleDeleteAll = () => {
+      disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massDelete: true,
       textChangeDelete: "Deleting files temporarily...",
     });
@@ -230,16 +250,20 @@ export default function ManagementFilesCSV() {
       .put("/data/delete-csv-file-all")
       .then((response) => {
         loadFiles(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all temporarily",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
+          disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all temporarily",
         });
@@ -251,8 +275,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass publish of files from the backend
    */
   const handlePublishAll = () => {
+      disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massPublish: true,
       textChangePublish: "Publishing files...",
     });
@@ -260,16 +286,20 @@ export default function ManagementFilesCSV() {
       .put("/data/publish-all-csv-file")
       .then((response) => {
         loadFiles(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massPublish: false,
           textChangePublish: "Publish all",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massPublish: false,
           textChangePublish: "Publish all",
         });
@@ -281,8 +311,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass unpublish of files from the backend
    */
   const handleUnpublishedAll = () => {
+      disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massUnpublished: true,
       textChangeUnpublished: "Unpublishing files...",
     });
@@ -290,16 +322,20 @@ export default function ManagementFilesCSV() {
       .put("/data/unpublished-all-csv-file")
       .then((response) => {
         loadFiles(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massUnpublished: false,
           textChangeUnpublished: "Unpublished all",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+            massDisable: false,
           massUnpublished: false,
           textChangeUnpublished: "Unpublished all",
         });
@@ -314,6 +350,7 @@ export default function ManagementFilesCSV() {
    */
   const handleDownload = (file, type) => {
     setLoadingIdDownload((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .get(`/data/download-csv-file/${file}/${type}`, { responseType: "blob" })
       .then((response) => {
@@ -327,16 +364,20 @@ export default function ManagementFilesCSV() {
         link.click();
         toast.success(response.data.message);
         setLoadingIdDownload((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.message);
         setLoadingIdDownload({});
+        setDisabledAllButtons({});
       });
   };
 
   const handleDownloadAll = (type) => {
+      disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+        massDisable: true,
       massDownload: true,
       textChangeDownload: "Downloading all analysis...",
     });
@@ -352,21 +393,25 @@ export default function ManagementFilesCSV() {
         document.body.appendChild(link);
         link.click();
         toast.success(response.data.message);
+        disableAllButtons(false);
         setLoadingAnimation({
-          ...loadingAnimation,
-          massDownload: false,
-          textChangeDownload: "Download all analysis",
+            ...loadingAnimation,
+                massDisable: false,
+            massDownload: false,
+            textChangeDownload: "Download all analysis",
         });
       })
       .catch((error) => {
         toast.error(error.message);
+        disableAllButtons(false);
         setLoadingAnimation({
-          ...loadingAnimation,
-          massDownload: false,
-          textChangeDownload: "Download all analysis",
+            ...loadingAnimation,
+                massDisable: false,
+            massDownload: false,
+            textChangeDownload: "Download all analysis",
         });
       });
-  };
+  }
 
   return (
     <div className="px-6 mx-auto max-w-7xl mt-8">
@@ -395,6 +440,7 @@ export default function ManagementFilesCSV() {
             <ModalConfirm
               body={`Are you sure you want to publish all files?`}
               description="This action cannot be undone. This will publish all files that have been unpublished and can now be accessed by the professors."
+              disabled={massDisable}
               is_manny
               onConfirm={() => handlePublishAll()}
               title="Publish All Files"
@@ -415,13 +461,14 @@ export default function ManagementFilesCSV() {
               )}
             </ModalConfirm>
             <ModalTypeOfDownload
-              description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
-              is_manny
-              onConfirmCSV={() => handleDownloadAll("csv")}
-              onConfirmExcel={() => handleDownloadAll("excel")}
-              title="Download File"
+                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                        disabled={massDisable}
+                        is_manny
+                        onConfirmCSV={() => handleDownloadAll("csv")}
+                        onConfirmExcel={() => handleDownloadAll("excel")}
+                        title="Download File"
             >
-              {massDownload ? (
+                      {massDownload ? (
                 <>
                   <LoadingAnimation moreClasses="text-teal-600" />
                   {textChangeDownload}
@@ -448,6 +495,7 @@ export default function ManagementFilesCSV() {
             <ModalConfirm
               body={`Are you sure you want to temporarily delete all files from the system?`}
               description="This action cannot be undone. This will temporarily delete all files from the system and they will be restored if you restore all files."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleDeleteAll()}
@@ -471,6 +519,7 @@ export default function ManagementFilesCSV() {
             <ModalConfirm
               body={`Are you sure you want to unpublished all files?`}
               description="This action cannot be undone. This will unpublished all files that have been published and can no longer be accessed by the professors."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleUnpublishedAll()}
@@ -615,12 +664,13 @@ export default function ManagementFilesCSV() {
                       </Link>
                     </button>
                     <ModalTypeOfDownload
-                      description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
-                      id={file.id}
-                      is_manny={false}
-                      onConfirmCSV={handleDownload}
-                      onConfirmExcel={handleDownload}
-                      title="Download File"
+                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                        disabled={disabledAllButtons[file.id]}
+                        id={file.id}
+                        is_manny={false}
+                        onConfirmCSV={handleDownload}
+                        onConfirmExcel={handleDownload}
+                        title="Download File"
                     >
                       {loadingIdDownload[file.id] ? (
                         <>
@@ -640,6 +690,7 @@ export default function ManagementFilesCSV() {
                     <ModalConfirm
                       body={`Are you sure you want to publish ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
                       description="This action cannot be undone. This will publish the file and its associated data to the system and can now view by the professors."
+                      disabled={disabledAllButtons[file.id]}
                       id={file.id}
                       is_manny={false}
                       onConfirm={handlePublish}
@@ -670,6 +721,7 @@ export default function ManagementFilesCSV() {
                     <ModalConfirm
                       body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
                       description="This action cannot be undone. This will unpublished the file and its associated data from the system and can no longer view by the professors."
+                      disabled={disabledAllButtons[file.id]}
                       id={file.id}
                       is_danger
                       is_manny={false}
@@ -694,6 +746,7 @@ export default function ManagementFilesCSV() {
                     <ModalConfirm
                       body={`Are you sure you want to unpublished ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
                       description="This action cannot be undone. This will unpublished all files that have been published and cannot be accessed by the professors."
+                      disabled={disabledAllButtons[file.id]}
                       id={file.id}
                       is_danger
                       is_manny={false}

@@ -939,7 +939,7 @@ export default function AdminPrediction() {
                       <button
                         className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
                           buttonDisabled &&
-                          `cursor-not-allowed pointer-events-none`
+                          `opacity-50 cursor-not-allowed pointer-events-none`
                         }`}
                         disabled={buttonDisabled}
                         type="submit"

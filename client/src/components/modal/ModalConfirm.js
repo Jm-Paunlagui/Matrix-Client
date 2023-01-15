@@ -32,6 +32,7 @@ export default function ModalConfirm({
   id,
   onConfirm,
   is_many,
+    disabled
 }) {
   ModalConfirm.propTypes = {
     title: PropTypes.string,
@@ -42,6 +43,7 @@ export default function ModalConfirm({
     id: PropTypes.number,
     onConfirm: PropTypes.func,
     is_many: PropTypes.bool,
+        disabled: PropTypes.bool
   };
 
   const [open, setOpen] = useState(false);
@@ -53,7 +55,8 @@ export default function ModalConfirm({
       <button
         className={`py-1 px-2 flex flex-row justify-center ${
           is_danger ? DANGER_BUTTON : ACCENT_BUTTON
-        }`}
+        } ${disabled && `opacity-50 cursor-not-allowed pointer-events-none` }`}
+        disabled={disabled}
         onClick={() => setOpen(true)}
         type="button"
       >
@@ -166,6 +169,7 @@ export function ModalTypeOfDownload({
   onConfirmCSV,
   onConfirmExcel,
   is_many,
+    disabled
 }) {
   ModalTypeOfDownload.propTypes = {
     title: PropTypes.string,
@@ -177,6 +181,7 @@ export function ModalTypeOfDownload({
     onConfirmCSV: PropTypes.func,
     onConfirmExcel: PropTypes.func,
     is_many: PropTypes.bool,
+    disabled: PropTypes.bool,
   };
   const [open, setOpen] = useState(false);
 
@@ -187,7 +192,8 @@ export function ModalTypeOfDownload({
       <button
         className={`py-1 px-2 flex flex-row justify-center ${
           is_danger ? DANGER_BUTTON : ACCENT_BUTTON
-        }`}
+        } ${disabled && `opacity-50 cursor-not-allowed pointer-events-none`}`}
+        disabled={disabled}
         onClick={() => setOpen(true)}
         type="button"
       >
