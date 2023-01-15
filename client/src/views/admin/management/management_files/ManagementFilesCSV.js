@@ -25,7 +25,9 @@ import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { Paginator } from "../../../../components/listbox/ListBox";
 import { NoData } from "../../../../components/warnings/WarningMessages";
-import ModalConfirm, {ModalTypeOfDownload} from "../../../../components/modal/ModalConfirm";
+import ModalConfirm, {
+  ModalTypeOfDownload,
+} from "../../../../components/modal/ModalConfirm";
 import { ItemsPerPage } from "../../../../components/items/Items";
 
 /**
@@ -83,7 +85,7 @@ export default function ManagementFilesCSV() {
   };
 
   const [loadingAnimation, setLoadingAnimation] = useState({
-      massDisable: false,
+    massDisable: false,
     massDelete: false,
     textChangeDelete: "Delete all temporarily",
     massPublish: false,
@@ -108,10 +110,10 @@ export default function ManagementFilesCSV() {
 
   // Disable all buttons if mass action is in progress
   const disableAllButtons = (bool) => {
-      for (let i = 0; i < files_list.length; i++) {
-          disabledAllButtons[files_list[i].id] = bool;
-      }
-  }
+    for (let i = 0; i < files_list.length; i++) {
+      disabledAllButtons[files_list[i].id] = bool;
+    }
+  };
 
   /**
    * @description Filters the list of files based on the search value
@@ -239,10 +241,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass delete of files from the backend
    */
   const handleDeleteAll = () => {
-      disableAllButtons(true);
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massDelete: true,
       textChangeDelete: "Deleting files temporarily...",
     });
@@ -253,17 +255,17 @@ export default function ManagementFilesCSV() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all temporarily",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
-          disableAllButtons(false);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all temporarily",
         });
@@ -275,10 +277,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass publish of files from the backend
    */
   const handlePublishAll = () => {
-      disableAllButtons(true);
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massPublish: true,
       textChangePublish: "Publishing files...",
     });
@@ -289,7 +291,7 @@ export default function ManagementFilesCSV() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massPublish: false,
           textChangePublish: "Publish all",
         });
@@ -299,7 +301,7 @@ export default function ManagementFilesCSV() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massPublish: false,
           textChangePublish: "Publish all",
         });
@@ -311,10 +313,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass unpublish of files from the backend
    */
   const handleUnpublishedAll = () => {
-      disableAllButtons(true);
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massUnpublished: true,
       textChangeUnpublished: "Unpublishing files...",
     });
@@ -325,7 +327,7 @@ export default function ManagementFilesCSV() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massUnpublished: false,
           textChangeUnpublished: "Unpublished all",
         });
@@ -335,7 +337,7 @@ export default function ManagementFilesCSV() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massUnpublished: false,
           textChangeUnpublished: "Unpublished all",
         });
@@ -374,10 +376,10 @@ export default function ManagementFilesCSV() {
   };
 
   const handleDownloadAll = (type) => {
-      disableAllButtons(true);
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massDownload: true,
       textChangeDownload: "Downloading all analysis...",
     });
@@ -395,23 +397,23 @@ export default function ManagementFilesCSV() {
         toast.success(response.data.message);
         disableAllButtons(false);
         setLoadingAnimation({
-            ...loadingAnimation,
-                massDisable: false,
-            massDownload: false,
-            textChangeDownload: "Download all analysis",
+          ...loadingAnimation,
+          massDisable: false,
+          massDownload: false,
+          textChangeDownload: "Download all analysis",
         });
       })
       .catch((error) => {
         toast.error(error.message);
         disableAllButtons(false);
         setLoadingAnimation({
-            ...loadingAnimation,
-                massDisable: false,
-            massDownload: false,
-            textChangeDownload: "Download all analysis",
+          ...loadingAnimation,
+          massDisable: false,
+          massDownload: false,
+          textChangeDownload: "Download all analysis",
         });
       });
-  }
+  };
 
   return (
     <div className="px-6 mx-auto max-w-7xl mt-8">
@@ -461,14 +463,14 @@ export default function ManagementFilesCSV() {
               )}
             </ModalConfirm>
             <ModalTypeOfDownload
-                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
-                        disabled={massDisable}
-                        is_manny
-                        onConfirmCSV={() => handleDownloadAll("csv")}
-                        onConfirmExcel={() => handleDownloadAll("excel")}
-                        title="Download File"
+              description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+              disabled={massDisable}
+              is_manny
+              onConfirmCSV={() => handleDownloadAll("csv")}
+              onConfirmExcel={() => handleDownloadAll("excel")}
+              title="Download File"
             >
-                      {massDownload ? (
+              {massDownload ? (
                 <>
                   <LoadingAnimation moreClasses="text-teal-600" />
                   {textChangeDownload}
@@ -664,13 +666,13 @@ export default function ManagementFilesCSV() {
                       </Link>
                     </button>
                     <ModalTypeOfDownload
-                        description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
-                        disabled={disabledAllButtons[file.id]}
-                        id={file.id}
-                        is_manny={false}
-                        onConfirmCSV={handleDownload}
-                        onConfirmExcel={handleDownload}
-                        title="Download File"
+                      description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                      disabled={disabledAllButtons[file.id]}
+                      id={file.id}
+                      is_manny={false}
+                      onConfirmCSV={handleDownload}
+                      onConfirmExcel={handleDownload}
+                      title="Download File"
                     >
                       {loadingIdDownload[file.id] ? (
                         <>

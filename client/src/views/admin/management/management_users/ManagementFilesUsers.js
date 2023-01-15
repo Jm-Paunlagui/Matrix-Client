@@ -141,12 +141,11 @@ export default function ManagementFilesUsers() {
     textChangeDelete,
   } = loadingAnimation;
 
-
   const disableAllButtons = (bool) => {
     for (let i = 0; i < users.length; i++) {
       disabledAllButtons[users[i].id] = bool;
     }
-  }
+  };
 
   /**
    * @description Pagination handler for the users table
@@ -171,7 +170,9 @@ export default function ManagementFilesUsers() {
       return (
         user.full_name.toLowerCase().includes(searchValue.toLowerCase()) ||
         user.username.toLowerCase().includes(searchValue.toLowerCase()) ||
-        user.department_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        user.department_name
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()) ||
         user.email.toLowerCase().includes(searchValue.toLowerCase())
       );
     });
@@ -376,7 +377,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massActivation: false,
           textChangeActivation: "Activate all",
         });
@@ -391,7 +392,7 @@ export default function ManagementFilesUsers() {
     disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massDeactivation: true,
       textChangeDeactivation: "Deactivating...",
     });
@@ -403,7 +404,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massDeactivation: false,
           textChangeDeactivation: "Deactivate all",
         });
@@ -413,7 +414,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massDeactivation: false,
           textChangeDeactivation: "Deactivate all",
         });
@@ -428,7 +429,7 @@ export default function ManagementFilesUsers() {
     disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massLocked: true,
       textChangeLocked: "Locking...",
     });
@@ -440,7 +441,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massLocked: false,
           textChangeLocked: "Lock all",
         });
@@ -450,7 +451,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massLocked: false,
           textChangeLocked: "Lock all",
         });
@@ -465,7 +466,7 @@ export default function ManagementFilesUsers() {
     disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massUnlocked: true,
       textChangeUnlocked: "Unlocking...",
     });
@@ -477,7 +478,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massUnlocked: false,
           textChangeUnlocked: "Unlock all",
         });
@@ -487,7 +488,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massUnlocked: false,
           textChangeUnlocked: "Unlock all",
         });
@@ -502,7 +503,7 @@ export default function ManagementFilesUsers() {
     disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massDelete: true,
       textChangeDelete: "Deleting...",
     });
@@ -514,7 +515,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all",
         });
@@ -524,7 +525,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all",
         });
@@ -539,7 +540,7 @@ export default function ManagementFilesUsers() {
     disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
-        massDisable: true,
+      massDisable: true,
       massRestore: true,
       textChangeRestore: "Restoring...",
     });
@@ -551,7 +552,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massRestore: false,
           textChangeRestore: "Restore all",
         });
@@ -561,7 +562,7 @@ export default function ManagementFilesUsers() {
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
-            massDisable: false,
+          massDisable: false,
           massRestore: false,
           textChangeRestore: "Restore all",
         });
