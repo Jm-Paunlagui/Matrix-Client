@@ -185,10 +185,6 @@ export default function ManagementFilesUsers() {
    * @param per_page_limit
    */
   const loadListOfUsers = (page, per_page_limit) => {
-    // setUserDatas({
-    //   ...userDatas,
-    //   loading: true,
-    // });
     httpClient
       .get(`/data/list-of-users-to-view/${page}/${per_page_limit}`)
       .then((response) => {
@@ -222,6 +218,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         setLoadingIDActivate((ids) => ({ ...ids, [id]: false }));
         setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
@@ -245,6 +242,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         setLoadingIDDeactivate((ids) => ({ ...ids, [id]: false }));
         setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
@@ -268,6 +266,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         setLoadingIDLock((ids) => ({ ...ids, [id]: false }));
         setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
@@ -291,6 +290,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         setLoadingIDUnlock((ids) => ({ ...ids, [id]: false }));
         setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
@@ -314,6 +314,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         setLoadingIDDelete((ids) => ({ ...ids, [id]: false }));
         setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
@@ -337,6 +338,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         setLoadingIDRestore((ids) => ({ ...ids, [id]: false }));
         setDisabledAllButtons((ids) => ({ ...ids, [id]: false }));
       })
@@ -364,6 +366,7 @@ export default function ManagementFilesUsers() {
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
+        get_file_details();
         disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
@@ -402,6 +405,7 @@ export default function ManagementFilesUsers() {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         disableAllButtons(false);
+        get_file_details();
         setLoadingAnimation({
           ...loadingAnimation,
           massDisable: false,
@@ -439,6 +443,7 @@ export default function ManagementFilesUsers() {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         disableAllButtons(false);
+        get_file_details();
         setLoadingAnimation({
           ...loadingAnimation,
           massDisable: false,
@@ -476,6 +481,7 @@ export default function ManagementFilesUsers() {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         disableAllButtons(false);
+        get_file_details();
         setLoadingAnimation({
           ...loadingAnimation,
           massDisable: false,
@@ -513,6 +519,7 @@ export default function ManagementFilesUsers() {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         disableAllButtons(false);
+        get_file_details();
         setLoadingAnimation({
           ...loadingAnimation,
           massDisable: false,
@@ -550,6 +557,7 @@ export default function ManagementFilesUsers() {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
         disableAllButtons(false);
+        get_file_details();
         setLoadingAnimation({
           ...loadingAnimation,
           massDisable: false,
