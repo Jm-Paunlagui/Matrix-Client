@@ -290,7 +290,9 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <h1 className="text-md font-bold text-blue-500 mb-4">Overall Sentiment</h1>
+          <h1 className="text-md font-bold text-blue-500 mb-4">
+            Overall Sentiment
+          </h1>
           {loading_analysis ? (
             <>
               <LoadingPageSkeletonText />
@@ -320,7 +322,9 @@ export default function DashboardAnalysis() {
               </div>
             ))
           )}
-          <h1 className="text-md font-bold text-blue-500 mb-4">Department Sentiment</h1>
+          <h1 className="text-md font-bold text-blue-500 mb-4">
+            Department Sentiment
+          </h1>
         </div>
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
           <div className="w-full z-30">
