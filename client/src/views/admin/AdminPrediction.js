@@ -358,6 +358,8 @@ export default function AdminPrediction() {
         if (type === "done") {
           toast.success(response.data.message);
           get_previous_evaluated_file();
+        } else if (type === "cancel") {
+          toast.warning("Discard the changes");
         } else {
           toast.error("File deleted due to error.");
         }
@@ -901,7 +903,7 @@ export default function AdminPrediction() {
                           `opacity-50 cursor-not-allowed pointer-events-none text-gray-500`
                         }`}
                         disabled={buttonDisabled}
-                        onClick={() => handleResetWhenDone("done")}
+                        onClick={() => handleResetWhenDone("cancel")}
                         type="button"
                       >
                         <FontAwesomeIcon
@@ -910,32 +912,6 @@ export default function AdminPrediction() {
                         />
                         Discard
                       </button>
-                      <button
-                        className={`px-5 py-1 pl-4 ${ACCENT_BUTTON} ${
-                          count === 1 ? "hidden" : ""
-                        } ${
-                          buttonDisabled &&
-                          `opacity-50 cursor-not-allowed pointer-events-none text-gray-500`
-                        }`}
-                        disabled={buttonDisabled}
-                        onClick={() => {
-                          setCount(count - 1);
-                          setHandlers({
-                            ...handlers,
-                            textChange: "View",
-                            textChangeToAnS: "Analyze and Save",
-                            errorMessageToAnS: "",
-                          });
-                        }}
-                        type="button"
-                      >
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faCaretLeft}
-                        />
-                        Previous
-                      </button>
-
                       <button
                         className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
                           buttonDisabled &&

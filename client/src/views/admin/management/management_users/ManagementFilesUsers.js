@@ -508,7 +508,7 @@ export default function ManagementFilesUsers() {
       textChangeDelete: "Deleting...",
     });
     await httpClient
-      .delete(`/user/mass-delete-account`)
+      .put(`/user/mass-delete-account`)
       .then((response) => {
         toast.success(response.data.message);
         loadListOfUsers(page_number, per_page_limit);
