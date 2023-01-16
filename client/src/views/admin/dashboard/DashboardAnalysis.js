@@ -64,6 +64,7 @@ export default function DashboardAnalysis() {
   const [analysis, setAnalysis] = useState({
     loading_analysis: true,
     overall_sentiments: [],
+    overall_sentiments_department: [],
     image_path_polarity_v_sentiment: "",
     image_path_review_length_v_sentiment: "",
     image_path_wordcloud: "",
@@ -74,6 +75,7 @@ export default function DashboardAnalysis() {
   const {
     loading_analysis,
     overall_sentiments,
+    overall_sentiments_department,
     image_path_polarity_v_sentiment,
     image_path_review_length_v_sentiment,
     image_path_wordcloud,
@@ -288,6 +290,7 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
+          <h1 className="text-md font-bold text-blue-500 mb-4">Overall Sentiment</h1>
           {loading_analysis ? (
             <>
               <LoadingPageSkeletonText />
@@ -317,6 +320,7 @@ export default function DashboardAnalysis() {
               </div>
             ))
           )}
+          <h1 className="text-md font-bold text-blue-500 mb-4">Department Sentiment</h1>
         </div>
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
           <div className="w-full z-30">
