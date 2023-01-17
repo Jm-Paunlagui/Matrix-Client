@@ -29,9 +29,9 @@ import {
   Tooltip,
   Legend,
   PointElement,
-    LineElement
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+  LineElement,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -40,8 +40,8 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-    PointElement,
-    LineElement
+  PointElement,
+  LineElement,
 );
 /**
  * @description Handles the admin profile
@@ -218,28 +218,30 @@ export default function DashboardAnalysis() {
   }, [school_year, school_semester, csv_question]);
 
   const dept = {
-    labels: overall_departments.map(department => department.name),
+    labels: overall_departments.map((department) => department.name),
     datasets: [
       {
-        type: 'bar',
-        label: 'Negative Sentiment (%)',
-        data: overall_departments.map(department => parseFloat(department.negative_sentiments_percentage.slice(0, -1))),
-          backgroundColor: 'rgba(254, 242, 242, 1)',
-          borderColor: 'rgba(239, 68, 68, 1)',
+        type: "bar",
+        label: "Negative Sentiment (%)",
+        data: overall_departments.map((department) =>
+          parseFloat(department.negative_sentiments_percentage.slice(0, -1)),
+        ),
+        backgroundColor: "rgba(254, 242, 242, 1)",
+        borderColor: "rgba(239, 68, 68, 1)",
         borderWidth: 1,
       },
       {
-        type: 'bar',
-        label: 'Positive Sentiment (%)',
-        data: overall_departments.map(department => parseFloat(department.positive_sentiments_percentage.slice(0, -1))),
-          backgroundColor: 'rgba(240, 253, 244, 1)',
-          borderColor: 'rgba(34, 197, 94, 1)',
+        type: "bar",
+        label: "Positive Sentiment (%)",
+        data: overall_departments.map((department) =>
+          parseFloat(department.positive_sentiments_percentage.slice(0, -1)),
+        ),
+        backgroundColor: "rgba(240, 253, 244, 1)",
+        borderColor: "rgba(34, 197, 94, 1)",
         borderWidth: 1,
       },
-    ]
+    ],
   };
-
-
 
   const deptOptions = {
     responsive: true,
@@ -247,23 +249,23 @@ export default function DashboardAnalysis() {
       y: {
         beginAtZero: true,
         max: 100,
-      }
+      },
     },
-    backgroundColor: '#ecfeff',
+    backgroundColor: "#ecfeff",
     tooltips: {
       callbacks: {
-          label: function(tooltipItem, data) {
-            let label = data.datasets[tooltipItem.datasetIndex].label || '';
-            if (label) {
-                label += ': ';
-            }
-            label += `${tooltipItem.yLabel}%  `;
-            label += overall_departments[tooltipItem.index].number_of_sentiments;
-            return label;
+        label: function (tooltipItem, data) {
+          let label = data.datasets[tooltipItem.datasetIndex].label || "";
+          if (label) {
+            label += ": ";
           }
-      }
+          label += `${tooltipItem.yLabel}%  `;
+          label += overall_departments[tooltipItem.index].number_of_sentiments;
+          return label;
+        },
+      },
     },
-  }
+  };
 
   return (
     <div className="px-6 mx-auto max-w-7xl pt-8 pb-8">

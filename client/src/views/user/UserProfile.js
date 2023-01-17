@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {getCookie, signout, verifyJWT} from "../../helpers/Auth";
+import { getCookie, signout, verifyJWT } from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
 import { toast } from "react-toastify";
 import {

@@ -28,7 +28,7 @@ import { useDropzone } from "react-dropzone";
 import { LoadingAnimation } from "../../components/loading/LoadingPage";
 import { Link } from "react-router-dom";
 import DisclosureTogglable from "../../components/disclosure/DisclosureTogglable";
-import {getCookie, signout} from "../../helpers/Auth";
+import { getCookie, signout } from "../../helpers/Auth";
 
 /**
  * @description Handles the admin prediction

@@ -6,7 +6,7 @@ import {
 } from "../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faSignIn } from "@fortawesome/free-solid-svg-icons";
-import {signout} from "../../helpers/Auth";
+import { signout } from "../../helpers/Auth";
 
 /**
  * @description Unauthorized component for the application
