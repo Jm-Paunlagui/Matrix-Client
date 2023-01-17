@@ -113,8 +113,8 @@ export function UsernamePassword({
         </button>
 
         <button className={`${ACCENT_BUTTON}`} type={"button"}>
-          <Link to={"/forgot-password"}>
-            <h1 className="px-5 py-1">Forgot Password?</h1>
+          <Link to={"/cant-sign-in"}>
+            <h1 className="px-5 py-1">Can&#39;t sign in?</h1>
           </Link>
         </button>
       </div>
@@ -495,6 +495,11 @@ export function Username({
             />
           )}
           {textChange}
+        </button>
+        <button className={`${ACCENT_BUTTON}`} type={"button"}>
+          <Link to={"/forgot-username"}>
+            <h1 className="px-5 py-1">Forgot Username?</h1>
+          </Link>
         </button>
       </div>
     </form>

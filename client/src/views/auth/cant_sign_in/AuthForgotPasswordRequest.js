@@ -1,26 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-import { faSignIn } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SuccessAnimation from "actually-accessible-react-success-animation";
 
 import { toast } from "react-toastify";
-import logo from "../../assets/img/android-chrome-192x192.png";
-import {
-  ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-} from "../../assets/styles/styled-components";
-import BackNavigation from "../../components/navbars/BackNavigation";
+import logo from "../../../assets/img/android-chrome-192x192.png";
+import BackNavigation from "../../../components/navbars/BackNavigation";
 import {
   AssociatedEmails,
   SendToEmail,
   Username,
-} from "../../components/forms/CredentialForms";
-import { maskEmail, MATRIX_RSA_PUBLIC_KEY } from "../../helpers/Helper";
-import httpClient from "../../http/httpClient";
+} from "../../../components/forms/CredentialForms";
+import { maskEmail, MATRIX_RSA_PUBLIC_KEY } from "../../../helpers/Helper";
+import httpClient from "../../../http/httpClient";
 
 import { jwtVerify, importSPKI } from "jose";
+import {MailOptions} from "../../../components/buttons/buttons";
+import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER} from "../../../assets/styles/styled-components";
+import {faSignIn} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
 
 /**
  * @description Handles the forgot password request listbox
@@ -177,7 +174,7 @@ export default function AuthForgotPasswordRequest() {
                           ${errorEffect && `animate-wiggle`}`}
             onAnimationEnd={() => setErrorEffect(false)}
           >
-            <BackNavigation backTo={"/auth"} hasText={false} isSmall />
+            <BackNavigation backTo={"/cant-sign-in"} hasText={false} isSmall />
             {ok ? (
               <div className="py-12 bg-blue-50 rounded-lg shadow">
                 <SuccessAnimation color="#5cb85c" text="Success!" />
@@ -189,19 +186,20 @@ export default function AuthForgotPasswordRequest() {
                   <p className="text-lg">
                     If you don&#39;t see it, check your spam folder.
                   </p>
-                  <div className="flex flex-col justify-center">
-                    <button className={`${ACCENT_BUTTON}`} type={"button"}>
-                      <Link to={"/auth"}>
-                        <h1 className="px-5 py-1">
-                          Done?
-                          <FontAwesomeIcon
-                            className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
-                            icon={faSignIn}
-                          />{" "}
-                          Sign in
-                        </h1>
-                      </Link>
-                    </button>
+                  <div className="flex flex-col justify-center mt-6 space-y-4">
+                          <MailOptions />
+                          <button className={`${ACCENT_BUTTON}`} type={"button"}>
+                            <Link to={"/auth"}>
+                              <h1 className="px-5 py-1">
+                                Done?
+                                <FontAwesomeIcon
+                                  className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
+                                  icon={faSignIn}
+                                />{" "}
+                                Sign in
+                              </h1>
+                            </Link>
+                          </button>
                   </div>
                 </div>
               </div>
