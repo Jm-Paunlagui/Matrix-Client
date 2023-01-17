@@ -13,11 +13,14 @@ import { maskEmail, MATRIX_RSA_PUBLIC_KEY } from "../../../helpers/Helper";
 import httpClient from "../../../http/httpClient";
 
 import { jwtVerify, importSPKI } from "jose";
-import {MailOptions} from "../../../components/buttons/buttons";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER} from "../../../assets/styles/styled-components";
-import {faSignIn} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Link} from "react-router-dom";
+import { MailOptions } from "../../../components/buttons/buttons";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+} from "../../../assets/styles/styled-components";
+import { faSignIn } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 /**
  * @description Handles the forgot password request listbox
@@ -64,8 +67,7 @@ export default function AuthForgotPasswordRequest() {
    * @description Destructs the state variables
    */
 
-  const { confirm_email, email, id1, id3, textChange, username } =
-    resetForm; // Hide email address with mask
+  const { confirm_email, email, id1, id3, textChange, username } = resetForm; // Hide email address with mask
 
   /**
    * @description Handles the form submission and makes a POST request to the backend to check user email.
@@ -187,19 +189,19 @@ export default function AuthForgotPasswordRequest() {
                     If you don&#39;t see it, check your spam folder.
                   </p>
                   <div className="flex flex-col justify-center mt-6 space-y-4">
-                          <MailOptions />
-                          <button className={`${ACCENT_BUTTON}`} type={"button"}>
-                            <Link to={"/auth"}>
-                              <h1 className="px-5 py-1">
-                                Done?
-                                <FontAwesomeIcon
-                                  className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
-                                  icon={faSignIn}
-                                />{" "}
-                                Sign in
-                              </h1>
-                            </Link>
-                          </button>
+                    <MailOptions />
+                    <button className={`${ACCENT_BUTTON}`} type={"button"}>
+                      <Link to={"/auth"}>
+                        <h1 className="px-5 py-1">
+                          Done?
+                          <FontAwesomeIcon
+                            className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
+                            icon={faSignIn}
+                          />{" "}
+                          Sign in
+                        </h1>
+                      </Link>
+                    </button>
                   </div>
                 </div>
               </div>

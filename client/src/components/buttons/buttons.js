@@ -5,9 +5,9 @@ import {
 } from "../../assets/styles/styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faArrowLeft, faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import {faGoogle, faYahoo} from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faYahoo } from "@fortawesome/free-brands-svg-icons";
 
 export default function Buttons({ to, text }) {
   Buttons.propTypes = {
@@ -89,38 +89,48 @@ export function DownloadTextToCSV({ data, filename, children }) {
   );
 }
 
-export function MailOptions(){
-  return(
-
-                    <div className="flex flex-wrap mx-auto gap-3">
-                        <button className={`${ACCENT_BUTTON}`} onClick={() => window.open("https://mail.google.com/")} type={"button"}>
-                          <h1 className="px-5 py-1">
-                            <FontAwesomeIcon
-                              className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
-                              icon={faGoogle}
-                            />{" "}
-                            Open Gmail
-                          </h1>
-                      </button>
-                      <button className={`${ACCENT_BUTTON}`} onClick={() => window.open("https://outlook.com/")} type={"button"}>
-                          <h1 className="px-5 py-1">
-                            <FontAwesomeIcon
-                              className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
-                              icon={faEnvelope}
-                            />{" "}
-                            Open Outlook
-                          </h1>
-                      </button>
-                      <button className={`${ACCENT_BUTTON}`} onClick={() => window.open("https://mail.yahoo.com/")} type={"button"}>
-                          <h1 className="px-5 py-1">
-                            <FontAwesomeIcon
-                              className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
-                              icon={faYahoo}
-                            />{" "}
-                            Open Yahoo
-                          </h1>
-                      </button>
-                    </div>
-
-  )
+export function MailOptions() {
+  return (
+    <div className="flex flex-wrap mx-auto gap-3">
+      <button
+        className={`${ACCENT_BUTTON}`}
+        onClick={() => window.open("https://mail.google.com/")}
+        type={"button"}
+      >
+        <h1 className="px-5 py-1">
+          <FontAwesomeIcon
+            className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
+            icon={faGoogle}
+          />{" "}
+          Open Gmail
+        </h1>
+      </button>
+      <button
+        className={`${ACCENT_BUTTON}`}
+        onClick={() => window.open("https://outlook.com/")}
+        type={"button"}
+      >
+        <h1 className="px-5 py-1">
+          <FontAwesomeIcon
+            className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
+            icon={faEnvelope}
+          />{" "}
+          Open Outlook
+        </h1>
+      </button>
+      <button
+        className={`${ACCENT_BUTTON}`}
+        onClick={() => window.open("https://mail.yahoo.com/")}
+        type={"button"}
+      >
+        <h1 className="px-5 py-1">
+          <FontAwesomeIcon
+            className={`ml-2 ${ICON_PLACE_SELF_CENTER}`}
+            icon={faYahoo}
+          />{" "}
+          Open Yahoo
+        </h1>
+      </button>
+    </div>
+  );
 }

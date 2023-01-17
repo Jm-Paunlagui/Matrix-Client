@@ -134,15 +134,20 @@ export default function App() {
              * auth routes.
              */}
             <Route element={<IndexAuth />}>
-              <Route element={<IndexCantSignIn />} exact="true" path="cant-sign-in" />
               <Route
-                  element={<AuthForgotPasswordRequest />}
-                  exact="true"
-                  path="forgot-password"
+                element={<IndexCantSignIn />}
+                exact="true"
+                path="cant-sign-in"
               />
-              <Route element={<AuthForgotUsernameRequest />}
-                  exact="true"
-                  path="forgot-username"
+              <Route
+                element={<AuthForgotPasswordRequest />}
+                exact="true"
+                path="forgot-password"
+              />
+              <Route
+                element={<AuthForgotUsernameRequest />}
+                exact="true"
+                path="forgot-username"
               />
               <Route element={<AuthLogin />} exact="true" path="auth" />
 
