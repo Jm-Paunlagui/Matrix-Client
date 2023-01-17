@@ -20,6 +20,29 @@ import {
   DownloadImage,
   DownloadTextToCSV,
 } from "../../../components/buttons/buttons";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+    LineElement
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+    PointElement,
+    LineElement
+);
 /**
  * @description Handles the admin profile
  */
@@ -64,6 +87,7 @@ export default function DashboardAnalysis() {
   const [analysis, setAnalysis] = useState({
     loading_analysis: true,
     overall_sentiments: [],
+    overall_departments: [],
     overall_sentiments_department: [],
     image_path_polarity_v_sentiment: "",
     image_path_review_length_v_sentiment: "",
@@ -75,7 +99,7 @@ export default function DashboardAnalysis() {
   const {
     loading_analysis,
     overall_sentiments,
-    overall_sentiments_department,
+    overall_departments,
     image_path_polarity_v_sentiment,
     image_path_review_length_v_sentiment,
     image_path_wordcloud,
@@ -129,6 +153,7 @@ export default function DashboardAnalysis() {
           ...analysis,
           loading_analysis: false,
           overall_sentiments: response.data.overall_sentiments,
+          overall_departments: response.data.overall_departments,
           image_path_polarity_v_sentiment:
             response.data.image_path_polarity_v_sentiment,
           image_path_review_length_v_sentiment:
@@ -191,6 +216,54 @@ export default function DashboardAnalysis() {
     });
     loadPolarityVsentiment(school_year, school_semester, csv_question);
   }, [school_year, school_semester, csv_question]);
+
+  const dept = {
+    labels: overall_departments.map(department => department.name),
+    datasets: [
+      {
+        type: 'bar',
+        label: 'Negative Sentiment (%)',
+        data: overall_departments.map(department => parseFloat(department.negative_sentiments_percentage.slice(0, -1))),
+          backgroundColor: 'rgba(254, 242, 242, 1)',
+          borderColor: 'rgba(239, 68, 68, 1)',
+        borderWidth: 1,
+      },
+      {
+        type: 'bar',
+        label: 'Positive Sentiment (%)',
+        data: overall_departments.map(department => parseFloat(department.positive_sentiments_percentage.slice(0, -1))),
+          backgroundColor: 'rgba(240, 253, 244, 1)',
+          borderColor: 'rgba(34, 197, 94, 1)',
+        borderWidth: 1,
+      },
+    ]
+  };
+
+
+
+  const deptOptions = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+      }
+    },
+    backgroundColor: '#ecfeff',
+    tooltips: {
+      callbacks: {
+          label: function(tooltipItem, data) {
+            let label = data.datasets[tooltipItem.datasetIndex].label || '';
+            if (label) {
+                label += ': ';
+            }
+            label += `${tooltipItem.yLabel}%  `;
+            label += overall_departments[tooltipItem.index].number_of_sentiments;
+            return label;
+          }
+      }
+    },
+  }
 
   return (
     <div className="px-6 mx-auto max-w-7xl pt-8 pb-8">
@@ -325,6 +398,14 @@ export default function DashboardAnalysis() {
           <h1 className="text-md font-bold text-blue-500 mb-4">
             Department Sentiment
           </h1>
+          {loading_analysis ? (
+            <>
+              <LoadingPageSkeletonText />
+              <LoadingPageSkeletonText />
+            </>
+          ) : (
+            <Bar data={dept} options={deptOptions} />
+          )}
         </div>
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
           <div className="w-full z-30">

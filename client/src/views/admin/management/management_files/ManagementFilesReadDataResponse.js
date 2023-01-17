@@ -76,7 +76,7 @@ export default function ManagementFilesReadDataResponse() {
   ) => {
     httpClient
       .get(
-        `/data/read-data-response/${fileId}/${read_responses}/${file_name}//${page}/${per_page}`,
+        `/data/read-data-response/${fileId}/${read_responses}/${file_name}/${page}/${per_page}`,
       )
       .then((response) => {
         setReadDataResponse({

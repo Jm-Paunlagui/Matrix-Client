@@ -28,7 +28,7 @@ import { useDropzone } from "react-dropzone";
 import { LoadingAnimation } from "../../components/loading/LoadingPage";
 import { Link } from "react-router-dom";
 import DisclosureTogglable from "../../components/disclosure/DisclosureTogglable";
-import { getCookie } from "../../helpers/Auth";
+import {getCookie, signout} from "../../helpers/Auth";
 
 /**
  * @description Handles the admin prediction
@@ -55,6 +55,8 @@ export default function AdminPrediction() {
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        // Remove cookie and token
+        signout();
         window.location.href = "/login-timeout";
       });
   };
