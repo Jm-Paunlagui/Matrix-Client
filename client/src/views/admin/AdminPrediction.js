@@ -40,6 +40,7 @@ function CsvPreview({ file, rowCount = 5 }) {
   const [data, setData] = useState([]);
   const [numRows, setNumRows] = useState(0);
   const [numCols, setNumCols] = useState(0);
+  const [headersMatch, setHeadersMatch] = useState(false);
 
 
   useEffect(() => {
@@ -50,6 +51,15 @@ function CsvPreview({ file, rowCount = 5 }) {
           setData(results.data);
           setNumRows(results.data.length);
           setNumCols(Object.keys(results.data[0]).length);
+
+          // Check if first 4 headers match expected headers
+          const expectedHeaders = ["evaluatee", "email", "department", "course_code"];
+          const firstFourHeaders = Object.keys(results.data[0]).slice(0, 4);
+          if (JSON.stringify(firstFourHeaders) === JSON.stringify(expectedHeaders)) {
+            setHeadersMatch(true);
+          } else {
+            setHeadersMatch(false);
+          }
         }
       });
     }
@@ -57,14 +67,22 @@ function CsvPreview({ file, rowCount = 5 }) {
 
   return (
     <>
-      <h1 className="text-xl font-bold text-blue-500 mt-4">
-        Preview CSV File (First 5 Rows)
-      </h1>
-      <div>
-        <p className="text-sm text-gray-500">
+      <div className="flex flex-col md:flex-row justify-start items-center">
+        <h1 className="text-xl font-bold text-blue-500 py-2">
+          Preview CSV File (First 5 Rows)
+        </h1>
+        <div className={`p-4 md:ml-4 max-w-fit rounded-lg ${
+              headersMatch ? "bg-green-100 border-green-400 text-green-700" : "bg-red-100 border-red-400 text-red-700"
+          }`}
+        >
+          <p className="text-sm font-medium">
+            {headersMatch ? "Headers match expected first 4 headers" : "Headers do not match expected headers"}
+          </p>
+        </div>
+      </div>
+        <p className="text-sm text-gray-500 mt-2">
             {numRows} rows x {numCols} columns
         </p>
-      </div>
       <div className="overflow-auto overscroll-auto rounded-lg">
         <table>
           <thead>
