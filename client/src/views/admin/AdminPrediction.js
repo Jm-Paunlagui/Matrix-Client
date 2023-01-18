@@ -20,7 +20,8 @@ import {
   faMagnifyingGlassChart,
   faCaretLeft,
   faFlagCheckered,
-  faCircleMinus, faFileCsv,
+  faCircleMinus,
+  faFileCsv,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Header } from "../../components/headers/Header";
@@ -29,37 +30,52 @@ import { LoadingAnimation } from "../../components/loading/LoadingPage";
 import { Link } from "react-router-dom";
 import DisclosureTogglable from "../../components/disclosure/DisclosureTogglable";
 import { getCookie, signout } from "../../helpers/Auth";
-import Papa from 'papaparse';
+import Papa from "papaparse";
 import PropTypes from "prop-types";
-
 
 function SampleCSVFormat() {
   const expectedHeaders = ["evaluatee", "email", "department", "course_code"];
-  const sampleData = [              {                evaluatee: "John Doe",                email: "johndoe@example.com",                department: "IT",                course_code: "IT101",                "Question 1": "The course content was relevant and useful.",                "Question 2": "The course was well-organized and easy to follow."              },              {                evaluatee: "Jane Smith",                email: "janesmith@example.com",                department: "Marketing",                course_code: "MKT202",                "Question 1": "The course was engaging and interactive.",                "Question 2": "I would recommend this course to others."              }            ];
+  const sampleData = [
+    {
+      evaluatee: "John Doe",
+      email: "johndoe@example.com",
+      department: "IT",
+      course_code: "IT101",
+      "Question 1": "The course content was relevant and useful.",
+      "Question 2": "The course was well-organized and easy to follow.",
+    },
+    {
+      evaluatee: "Jane Smith",
+      email: "janesmith@example.com",
+      department: "Marketing",
+      course_code: "MKT202",
+      "Question 1": "The course was engaging and interactive.",
+      "Question 2": "I would recommend this course to others.",
+    },
+  ];
 
-            const csvFile = Papa.unparse({
-              fields: [...expectedHeaders, ...Object.keys(sampleData[0]).slice(4)],
-              data: sampleData
-            });
-            // Time stamp for file name
-              const timeStamp = new Date().toISOString().replace(/:/g, "-");
-            // Download the new CSV file
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(new Blob([csvFile], { type: "text/csv" }));
-            link.download = `sample-csv-format-${timeStamp}.csv`;
-            link.click();
+  const csvFile = Papa.unparse({
+    fields: [...expectedHeaders, ...Object.keys(sampleData[0]).slice(4)],
+    data: sampleData,
+  });
+  // Time stamp for file name
+  const timeStamp = new Date().toISOString().replace(/:/g, "-");
+  // Download the new CSV file
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([csvFile], { type: "text/csv" }));
+  link.download = `sample-csv-format-${timeStamp}.csv`;
+  link.click();
 }
 
 function CsvPreview({ file, rowCount = 5 }) {
   CsvPreview.propTypes = {
-  file: PropTypes.any,
-  rowCount: PropTypes.number,
-}
+    file: PropTypes.any,
+    rowCount: PropTypes.number,
+  };
   const [data, setData] = useState([]);
   const [numRows, setNumRows] = useState(0);
   const [numCols, setNumCols] = useState(0);
   const [headersMatch, setHeadersMatch] = useState(false);
-
 
   useEffect(() => {
     if (file) {
@@ -71,16 +87,23 @@ function CsvPreview({ file, rowCount = 5 }) {
           setNumCols(Object.keys(results.data[0]).length);
 
           // Check if first 4 headers match expected headers
-          const expectedHeaders = ["evaluatee", "email", "department", "course_code"];
+          const expectedHeaders = [
+            "evaluatee",
+            "email",
+            "department",
+            "course_code",
+          ];
           const firstFourHeaders = Object.keys(results.data[0]).slice(0, 4);
-          if (JSON.stringify(firstFourHeaders) === JSON.stringify(expectedHeaders)) {
+          if (
+            JSON.stringify(firstFourHeaders) === JSON.stringify(expectedHeaders)
+          ) {
             setHeadersMatch(true);
           } else {
             setHeadersMatch(false);
             // Generate new CSV file with sample data
             SampleCSVFormat();
           }
-        }
+        },
       });
     }
   }, [file]);
@@ -91,32 +114,45 @@ function CsvPreview({ file, rowCount = 5 }) {
         <h1 className="text-xl font-bold text-blue-500 py-2 md:mr-4">
           Preview CSV File (First 5 Rows)
         </h1>
-        <div className={`p-4 max-w-fit rounded-lg ${
-              headersMatch ? "bg-green-100 border-green-400 text-green-700" : "bg-red-100 border-red-400 text-red-700"
+        <div
+          className={`p-4 max-w-fit rounded-lg ${
+            headersMatch
+              ? "bg-green-100 border-green-400 text-green-700"
+              : "bg-red-100 border-red-400 text-red-700"
           }`}
         >
           <p className="text-sm font-medium">
-            {headersMatch ? "Headers match expected first 4 headers" : "Headers do not match expected headers. A sample CSV file has been generated and downloaded to your computer. Please use this file as a reference and try again."}
+            {headersMatch
+              ? "Headers match expected first 4 headers"
+              : "Headers do not match expected headers. A sample CSV file has been generated and downloaded to your computer. Please use this file as a reference and try again."}
           </p>
         </div>
       </div>
-        <p className="text-sm text-gray-500 mt-2">
-            {numRows} rows x {numCols} columns
-        </p>
+      <p className="text-sm text-gray-500 mt-2">
+        {numRows} rows x {numCols} columns
+      </p>
       <div className="overflow-auto overscroll-auto rounded-lg">
         <table>
           <thead>
             <tr className="bg-blue-100">
-              {data.length > 0 && Object.keys(data[0]).map((key) => (
-                <th className="px-4 py-2 text-blue-500 truncate" key={key} >{key}</th>
-              ))}
+              {data.length > 0 &&
+                Object.keys(data[0]).map((key) => (
+                  <th className="px-4 py-2 text-blue-500 truncate" key={key}>
+                    {key}
+                  </th>
+                ))}
             </tr>
           </thead>
           <tbody>
             {data.slice(0, rowCount).map((row, index) => (
-              <tr className="bg-white" key={index} >
+              <tr className="bg-white" key={index}>
                 {Object.values(row).map((cell, cellIndex) => (
-                  <td className="px-4 py-2 text-gray-500 truncate" key={cellIndex} >{cell}</td>
+                  <td
+                    className="px-4 py-2 text-gray-500 truncate"
+                    key={cellIndex}
+                  >
+                    {cell}
+                  </td>
                 ))}
               </tr>
             ))}
@@ -126,8 +162,6 @@ function CsvPreview({ file, rowCount = 5 }) {
     </>
   );
 }
-
-
 
 /**
  * @description Handles the admin prediction
@@ -583,16 +617,19 @@ export default function AdminPrediction() {
             is the header that contains the responses of the students.
           </p>
           <button
-              className={`mb-4 px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
-                          buttonDisabled && `opacity-50 cursor-not-allowed pointer-events-none`
-                        }`}
-              disabled={buttonDisabled}
-               onClick={() => {SampleCSVFormat()}}
-              type="button"
+            className={`mb-4 px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
+              buttonDisabled &&
+              `opacity-50 cursor-not-allowed pointer-events-none`
+            }`}
+            disabled={buttonDisabled}
+            onClick={() => {
+              SampleCSVFormat();
+            }}
+            type="button"
           >
             <FontAwesomeIcon
-                className={`${ICON_PLACE_SELF_CENTER}`}
-                icon={faFileCsv}
+              className={`${ICON_PLACE_SELF_CENTER}`}
+              icon={faFileCsv}
             />
             Download Sample CSV File
           </button>
@@ -749,10 +786,10 @@ export default function AdminPrediction() {
                                   className="px-4 text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-500"
                                   key={file.path}
                                 >
-                                {file
-                                  ? `${file.path} - ${file.size} bytes`
-                                  : ""}
-                              </p>
+                                  {file
+                                    ? `${file.path} - ${file.size} bytes`
+                                    : ""}
+                                </p>
                               </>
                             ))}
                           </label>
@@ -765,11 +802,11 @@ export default function AdminPrediction() {
                         </p>
                       </div>
                     </div>
-                     <div className="flex space-y-2 overscroll-auto overflow-auto">
-                       {acceptedFiles.map((file) => (
-                           <div key={file.size}>
-                             <CsvPreview file={file} />
-                           </div>
+                    <div className="flex space-y-2 overscroll-auto overflow-auto">
+                      {acceptedFiles.map((file) => (
+                        <div key={file.size}>
+                          <CsvPreview file={file} />
+                        </div>
                       ))}
                     </div>
                     {/* Error message */}
@@ -788,7 +825,6 @@ export default function AdminPrediction() {
                         {textChange}
                       </button>
                     </div>
-
                   </form>
                 ) : count === 2 ? (
                   <form onSubmit={handleSubmitToAnalyzeAndSave}>
