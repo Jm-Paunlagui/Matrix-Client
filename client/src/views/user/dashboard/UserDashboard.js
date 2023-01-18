@@ -257,11 +257,11 @@ export default function UserDashboard() {
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
-                <img
-                  alt="sentiment_v_pol"
-                  className="shadow rounded-lg"
-                  src={`data:image/jpeg;base64,${image_path_polarity_v_sentiment}`}
-                />
+              <img
+                alt="sentiment_v_pol"
+                className="shadow rounded-lg"
+                src={`data:image/jpeg;base64,${image_path_polarity_v_sentiment}`}
+              />
             )}
           </div>
         </div>
@@ -295,11 +295,11 @@ export default function UserDashboard() {
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
-                <img
-                  alt="review_len_v_sentiment"
-                  className="shadow rounded-lg"
-                  src={`data:image/jpeg;base64,${image_path_review_length_v_sentiment}`}
-                />
+              <img
+                alt="review_len_v_sentiment"
+                className="shadow rounded-lg"
+                src={`data:image/jpeg;base64,${image_path_review_length_v_sentiment}`}
+              />
             )}
           </div>
         </div>
@@ -327,11 +327,11 @@ export default function UserDashboard() {
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
-                <img
-                  alt="wordcloud"
-                  className="shadow rounded-lg"
-                  src={`data:image/jpeg;base64,${image_path_wordcloud}`}
-                />
+              <img
+                alt="wordcloud"
+                className="shadow rounded-lg"
+                src={`data:image/jpeg;base64,${image_path_wordcloud}`}
+              />
             )}
           </div>
         </div>
