@@ -106,7 +106,7 @@ export default function EvalFiles() {
         setFileData({
           ...fileData,
           loading: false,
-          files: response.data.csv_files,
+          files_list: response.data.csv_files,
           current_page: response.data.current_page,
           has_next: response.data.has_next,
           has_prev: response.data.has_prev,
@@ -132,7 +132,7 @@ export default function EvalFiles() {
     <div className="px-6 mx-auto max-w-7xl mt-8">
       <Header
         body={
-          "Files that have been uploaded by the admin. You can download the files and view the data."
+          "Files that have been uploaded and analyzed by the system. Click on the file to view the collections."
         }
         title="File Results"
       />
