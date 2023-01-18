@@ -29,18 +29,17 @@ import { LoadingAnimation } from "../../components/loading/LoadingPage";
 import { Link } from "react-router-dom";
 import DisclosureTogglable from "../../components/disclosure/DisclosureTogglable";
 import { getCookie, signout } from "../../helpers/Auth";
-import Papa from 'papaparse';
+import Papa from "papaparse";
 import PropTypes from "prop-types";
 
 function CsvPreview({ file, rowCount = 5 }) {
   CsvPreview.propTypes = {
-  file: PropTypes.any,
-  rowCount: PropTypes.number,
-}
+    file: PropTypes.any,
+    rowCount: PropTypes.number,
+  };
   const [data, setData] = useState([]);
   const [numRows, setNumRows] = useState(0);
   const [numCols, setNumCols] = useState(0);
-
 
   useEffect(() => {
     if (file) {
@@ -50,7 +49,7 @@ function CsvPreview({ file, rowCount = 5 }) {
           setData(results.data);
           setNumRows(results.data.length);
           setNumCols(Object.keys(results.data[0]).length);
-        }
+        },
       });
     }
   }, [file]);
@@ -62,23 +61,31 @@ function CsvPreview({ file, rowCount = 5 }) {
       </h1>
       <div>
         <p className="text-sm text-gray-500">
-            {numRows} rows x {numCols} columns
+          {numRows} rows x {numCols} columns
         </p>
       </div>
       <div className="overflow-auto overscroll-auto rounded-lg">
         <table>
           <thead>
             <tr className="bg-blue-100">
-              {data.length > 0 && Object.keys(data[0]).map((key) => (
-                <th className="px-4 py-2 text-blue-500 truncate" key={key} >{key}</th>
-              ))}
+              {data.length > 0 &&
+                Object.keys(data[0]).map((key) => (
+                  <th className="px-4 py-2 text-blue-500 truncate" key={key}>
+                    {key}
+                  </th>
+                ))}
             </tr>
           </thead>
           <tbody>
             {data.slice(0, rowCount).map((row, index) => (
-              <tr className="bg-white" key={index} >
+              <tr className="bg-white" key={index}>
                 {Object.values(row).map((cell, cellIndex) => (
-                  <td className="px-4 py-2 text-gray-500 truncate" key={cellIndex} >{cell}</td>
+                  <td
+                    className="px-4 py-2 text-gray-500 truncate"
+                    key={cellIndex}
+                  >
+                    {cell}
+                  </td>
                 ))}
               </tr>
             ))}
@@ -88,8 +95,6 @@ function CsvPreview({ file, rowCount = 5 }) {
     </>
   );
 }
-
-
 
 /**
  * @description Handles the admin prediction
@@ -697,10 +702,10 @@ export default function AdminPrediction() {
                                   className="px-4 text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-500"
                                   key={file.path}
                                 >
-                                {file
-                                  ? `${file.path} - ${file.size} bytes`
-                                  : ""}
-                              </p>
+                                  {file
+                                    ? `${file.path} - ${file.size} bytes`
+                                    : ""}
+                                </p>
                               </>
                             ))}
                           </label>
@@ -713,11 +718,11 @@ export default function AdminPrediction() {
                         </p>
                       </div>
                     </div>
-                     <div className="flex space-y-2 overscroll-auto overflow-auto">
-                       {acceptedFiles.map((file) => (
-                           <div key={file.size}>
-                             <CsvPreview file={file} />
-                           </div>
+                    <div className="flex space-y-2 overscroll-auto overflow-auto">
+                      {acceptedFiles.map((file) => (
+                        <div key={file.size}>
+                          <CsvPreview file={file} />
+                        </div>
                       ))}
                     </div>
                     {/* Error message */}
@@ -736,7 +741,6 @@ export default function AdminPrediction() {
                         {textChange}
                       </button>
                     </div>
-
                   </form>
                 ) : count === 2 ? (
                   <form onSubmit={handleSubmitToAnalyzeAndSave}>
