@@ -20,7 +20,7 @@ import {
   faMagnifyingGlassChart,
   faCaretLeft,
   faFlagCheckered,
-  faCircleMinus,
+  faCircleMinus, faFileCsv,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Header } from "../../components/headers/Header";
@@ -31,6 +31,24 @@ import DisclosureTogglable from "../../components/disclosure/DisclosureTogglable
 import { getCookie, signout } from "../../helpers/Auth";
 import Papa from 'papaparse';
 import PropTypes from "prop-types";
+
+
+function SampleCSVFormat() {
+  const expectedHeaders = ["evaluatee", "email", "department", "course_code"];
+  const sampleData = [              {                evaluatee: "John Doe",                email: "johndoe@example.com",                department: "IT",                course_code: "IT101",                "Question 1": "The course content was relevant and useful.",                "Question 2": "The course was well-organized and easy to follow."              },              {                evaluatee: "Jane Smith",                email: "janesmith@example.com",                department: "Marketing",                course_code: "MKT202",                "Question 1": "The course was engaging and interactive.",                "Question 2": "I would recommend this course to others."              }            ];
+
+            const csvFile = Papa.unparse({
+              fields: [...expectedHeaders, ...Object.keys(sampleData[0]).slice(4)],
+              data: sampleData
+            });
+            // Time stamp for file name
+              const timeStamp = new Date().toISOString().replace(/:/g, "-");
+            // Download the new CSV file
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(new Blob([csvFile], { type: "text/csv" }));
+            link.download = `sample-csv-format-${timeStamp}.csv`;
+            link.click();
+}
 
 function CsvPreview({ file, rowCount = 5 }) {
   CsvPreview.propTypes = {
@@ -59,6 +77,8 @@ function CsvPreview({ file, rowCount = 5 }) {
             setHeadersMatch(true);
           } else {
             setHeadersMatch(false);
+            // Generate new CSV file with sample data
+            SampleCSVFormat();
           }
         }
       });
@@ -67,16 +87,16 @@ function CsvPreview({ file, rowCount = 5 }) {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-start items-center">
-        <h1 className="text-xl font-bold text-blue-500 py-2">
+      <div className="flex flex-wrap justify-start items-center">
+        <h1 className="text-xl font-bold text-blue-500 py-2 md:mr-4">
           Preview CSV File (First 5 Rows)
         </h1>
-        <div className={`p-4 md:ml-4 max-w-fit rounded-lg ${
+        <div className={`p-4 max-w-fit rounded-lg ${
               headersMatch ? "bg-green-100 border-green-400 text-green-700" : "bg-red-100 border-red-400 text-red-700"
           }`}
         >
           <p className="text-sm font-medium">
-            {headersMatch ? "Headers match expected first 4 headers" : "Headers do not match expected headers"}
+            {headersMatch ? "Headers match expected first 4 headers" : "Headers do not match expected headers. A sample CSV file has been generated and downloaded to your computer. Please use this file as a reference and try again."}
           </p>
         </div>
       </div>
@@ -562,6 +582,20 @@ export default function AdminPrediction() {
             </b>{" "}
             is the header that contains the responses of the students.
           </p>
+          <button
+              className={`mb-4 px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
+                          buttonDisabled && `opacity-50 cursor-not-allowed pointer-events-none`
+                        }`}
+              disabled={buttonDisabled}
+               onClick={() => {SampleCSVFormat()}}
+              type="button"
+          >
+            <FontAwesomeIcon
+                className={`${ICON_PLACE_SELF_CENTER}`}
+                icon={faFileCsv}
+            />
+            Download Sample CSV File
+          </button>
           <h1 className="mb-4 text-xl font-bold text-blue-500">
             System&#39;s First Run
           </h1>
