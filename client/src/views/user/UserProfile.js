@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCookie, verifyJWT } from "../../helpers/Auth";
+import { getCookie, signout, verifyJWT } from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
 import { toast } from "react-toastify";
 import {
@@ -19,12 +19,14 @@ export default function UserProfile() {
     email: "",
     full_name: "",
     okforPersonalInfo: false,
+    okforPersonalInfo2: false,
     errorEffectforPersonalInfo: false,
     errorMessageforPersonalInfo: "",
     showButtonforPersonalInfo: true,
     textChangeforPersonalInfo: "Update",
     recovery_email: "",
     okforSecurityInfo: false,
+    okforSecurityInfo2: false,
     errorEffectforSecurityInfo: false,
     errorMessageforSecurityInfo: "",
     showButtonforSecurityInfo: true,
@@ -45,6 +47,8 @@ export default function UserProfile() {
     textChangeforPassword: "Update",
     template: true,
     role: "",
+    verified_email: "",
+    verified_recovery_email: "",
   });
   /**
    * @description Deconstructs the state variables for the admin profile form.
@@ -53,12 +57,14 @@ export default function UserProfile() {
     email,
     full_name,
     okforPersonalInfo,
+    okforPersonalInfo2,
     errorEffectforPersonalInfo,
     errorMessageforPersonalInfo,
     showButtonforPersonalInfo,
     textChangeforPersonalInfo,
     recovery_email,
     okforSecurityInfo,
+    okforSecurityInfo2,
     errorEffectforSecurityInfo,
     errorMessageforSecurityInfo,
     showButtonforSecurityInfo,
@@ -79,6 +85,8 @@ export default function UserProfile() {
     textChangeforPassword,
     template,
     role,
+    verified_email,
+    verified_recovery_email,
   } = profile;
 
   /**
@@ -100,10 +108,21 @@ export default function UserProfile() {
           recovery_email: response.data.user.recovery_email,
           username: response.data.user.username,
           role: response.data.user.role,
+          verified_email: response.data.user.verified_email,
+          verified_recovery_email: response.data.user.verified_recovery_email,
         });
+        if (response.data.user.verified_email === "Unverified") {
+          toast.warn("Unverified email. Please verify your email.");
+        }
+        if (response.data.user.verified_recovery_email === "Unverified") {
+          toast.warn(
+            "Unverified recovery email. Please verify your recovery email.",
+          );
+        }
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        signout();
         window.location.href = "/login-timeout";
       });
   };
@@ -200,6 +219,7 @@ export default function UserProfile() {
               okforPersonalInfo: false,
               showButtonforPersonalInfo: true,
               textChangeforPersonalInfo: "Update",
+              verified_email: "Unverified",
             });
           })
           .catch((error) => {
@@ -219,6 +239,58 @@ export default function UserProfile() {
           errorMessageforPersonalInfo: error.response.data.message,
           okforPersonalInfo: false,
           textChangeforPersonalInfo: "Update",
+        });
+      });
+  };
+
+  const handleVerifyEmail = async (event) => {
+    event.preventDefault();
+    setProfile({
+      ...profile,
+      okforPersonalInfo2: true,
+    });
+    await httpClient
+      .post("/user/verify-email", {
+        email,
+      })
+      .then(async (response) => {
+        toast.success(response.data.message);
+        setProfile({
+          ...profile,
+          okforPersonalInfo2: false,
+        });
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProfile({
+          ...profile,
+          okforPersonalInfo2: false,
+        });
+      });
+  };
+
+  const handleVerifyEmailRecovery = async (event) => {
+    event.preventDefault();
+    setProfile({
+      ...profile,
+      okforSecurityInfo2: true,
+    });
+    await httpClient
+      .post("/user/verify-email", {
+        email: recovery_email,
+      })
+      .then(async (response) => {
+        toast.success(response.data.message);
+        setProfile({
+          ...profile,
+          okforSecurityInfo2: false,
+        });
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProfile({
+          ...profile,
+          okforSecurityInfo2: false,
         });
       });
   };
@@ -247,6 +319,7 @@ export default function UserProfile() {
               okforSecurityInfo: false,
               showButtonforSecurityInfo: true,
               textChangeforSecurityInfo: "Update",
+              verified_recovery_email: "Unverified",
             });
           })
           .catch((error) => {
@@ -342,6 +415,7 @@ export default function UserProfile() {
           new_password: "",
           confirm_password: "",
           okforPassword: false,
+          template: true,
           textChangeforPassword: "Update",
         });
         toast(response.data.message, { type: "success" });
@@ -417,12 +491,15 @@ export default function UserProfile() {
               full_name={full_name}
               handleChangeForPersonalInfo={handleChangeForPersonalInfo}
               handleUpdatePersonalInfo={handleUpdatePersonalInfo}
+              handleVerifyEmail={handleVerifyEmail}
               is_editable={false}
               okforPersonalInfo={okforPersonalInfo}
+              okforPersonalInfo2={okforPersonalInfo2}
               profile={profile}
               setProfile={setProfile}
               showButtonforPersonalInfo={showButtonforPersonalInfo}
               textChangeforPersonalInfo={textChangeforPersonalInfo}
+              verified_email={verified_email}
             />
           }
           {
@@ -431,12 +508,15 @@ export default function UserProfile() {
               errorMessageforSecurityInfo={errorMessageforSecurityInfo}
               handleChangeForSecurityInfo={handleChangeForSecurityInfo}
               handleUpdateSecurityInfo={handleUpdateSecurityInfo}
+              handleVerifyEmailRecovery={handleVerifyEmailRecovery}
               okforSecurityInfo={okforSecurityInfo}
+              okforSecurityInfo2={okforSecurityInfo2}
               profile={profile}
               recovery_email={recovery_email}
               setProfile={setProfile}
               showButtonforSecurityInfo={showButtonforSecurityInfo}
               textChangeforSecurityInfo={textChangeforSecurityInfo}
+              verified_recovery_email={verified_recovery_email}
             />
           }
           {

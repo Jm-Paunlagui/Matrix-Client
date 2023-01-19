@@ -5,6 +5,7 @@ import httpClient from "../../http/httpClient";
 import { Header } from "../../components/headers/Header";
 import { SearchBar } from "../../components/searchbar/SearchBar";
 import { NoData } from "../../components/warnings/WarningMessages";
+import { isAuth } from "../../helpers/Auth";
 
 /**
  * @description Handles the Insights for the department
@@ -28,7 +29,7 @@ export default function InsightsDepartment() {
   const handleSearchForDepartment = (event) => {
     const value = event.target.value.toLowerCase();
     const result = top_department.filter((data) => {
-      return data.department.toLowerCase().search(value) !== -1;
+      return data.name.toLowerCase().search(value) !== -1;
     });
     setFilteredTopDepartment(result);
   };
@@ -87,12 +88,12 @@ export default function InsightsDepartment() {
                 >
                   <div className="flex flex-col items-center justify-center w-full p-4">
                     <h1 className="text-5xl font-black leading-none tracking-tight text-gray-500">
-                      {department.department}
+                      {department.name}
                     </h1>
                   </div>
                 </div>
                 <div className="col-span-4 place-self-center">
-                  <div className="grid grid-cols-3 gap-8 py-4 md:grid-cols-6 md:gap-20">
+                  <div className="grid grid-cols-2 gap-8 py-4 md:grid-cols-3 lg:grid-cols-4 md:gap-20">
                     <div className="flex flex-col items-center justify-center w-full">
                       <div
                         className={`flex items-center justify-center w-10 h-10 text-white rounded ${
@@ -125,38 +126,42 @@ export default function InsightsDepartment() {
                       </h1>
                     </div>
                     <div className="flex flex-col items-center justify-center w-full">
-                      <div className="flex items-center justify-center w-10 h-10 text-white rounded bg-gradient-to-br from-red-500 to-teal-500">
-                        <i className="fas fa-masks-theater" />
+                      <div className="flex items-center justify-center w-10 h-10 text-white rounded bg-blue-500">
+                        <i className="fas fa-user-tie" />
                       </div>
                       <h1 className="text-2xl font-bold text-gray-500">
-                        {department.overall_sentiment}
+                        {department.department}
                       </h1>
                       <h1 className="text-sm font-medium text-gray-500">
-                        Overall
+                        Professors
                       </h1>
                     </div>
-                    <div className="flex flex-col items-center justify-center w-full">
-                      <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded">
-                        <i className="fas fa-face-smile-beam" />
-                      </div>
-                      <h1 className="text-2xl font-bold text-gray-500">
-                        {department.positive_sentiments_percentage}
-                      </h1>
-                      <h1 className="text-sm font-medium text-gray-500">
-                        Positivity Rate
-                      </h1>
-                    </div>
-                    <div className="flex flex-col items-center justify-center w-full">
-                      <div className="flex items-center justify-center w-10 h-10 text-white bg-red-500 rounded">
-                        <i className="fas fa-face-frown" />
-                      </div>
-                      <h1 className="text-2xl font-bold text-gray-500">
-                        {department.negative_sentiments_percentage}
-                      </h1>
-                      <h1 className="text-sm font-medium text-gray-500">
-                        Negativity Rate
-                      </h1>
-                    </div>
+                    {isAuth().role === "admin" || isAuth().role === "user" ? (
+                      <>
+                        <div className="flex flex-col items-center justify-center w-full">
+                          <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded">
+                            <i className="fas fa-face-smile-beam" />
+                          </div>
+                          <h1 className="text-2xl font-bold text-gray-500">
+                            {department.positive_sentiments_percentage}
+                          </h1>
+                          <h1 className="text-sm font-medium text-gray-500">
+                            Positivity Rate
+                          </h1>
+                        </div>
+                        <div className="flex flex-col items-center justify-center w-full">
+                          <div className="flex items-center justify-center w-10 h-10 text-white bg-red-500 rounded">
+                            <i className="fas fa-face-frown" />
+                          </div>
+                          <h1 className="text-2xl font-bold text-gray-500">
+                            {department.negative_sentiments_percentage}
+                          </h1>
+                          <h1 className="text-sm font-medium text-gray-500">
+                            Negativity Rate
+                          </h1>
+                        </div>
+                      </>
+                    ) : null}
                     <div className="flex flex-col items-center justify-center w-full">
                       <div className="flex items-center justify-center w-10 h-10 text-white rounded bg-violet-500">
                         <i className="fa-regular fa-comments" />

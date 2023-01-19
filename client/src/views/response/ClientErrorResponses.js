@@ -6,12 +6,14 @@ import {
 } from "../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faSignIn } from "@fortawesome/free-solid-svg-icons";
+import { signout } from "../../helpers/Auth";
 
 /**
  * @description Unauthorized component for the application
  * for text -text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-rose-500 to-red-500
  */
 export function Unauthorized() {
+  signout();
   return (
     <div className="flex justify-center min-h-screen overflow-hidden text-white font-Montserrat bg-gradient-to-br from-pink-600 via-red-600 to-orange-600">
       <div className="flex flex-col items-center justify-center text-center ">
@@ -66,6 +68,7 @@ export function PageNotFound() {
  * @description SessionExpired component for the application
  */
 export function LoginTimeOut() {
+  signout();
   return (
     <div className="flex justify-center min-h-screen overflow-hidden text-white font-Montserrat bg-gradient-to-br from-pink-600 via-red-600 to-orange-600">
       <div className="flex flex-col items-center justify-center">

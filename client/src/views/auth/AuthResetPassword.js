@@ -106,7 +106,7 @@ export default function AuthResetPassword() {
         if (res.data.status === "success") {
           setNewPassword({
             ...newPassword,
-            buttonDisabled: false,
+            buttonDisabled: true,
           });
         }
       })

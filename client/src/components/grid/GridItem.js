@@ -10,7 +10,7 @@ export function GridItemResponse({ sentiment }) {
   };
   return (
     <div className="justify-start">
-      <div className="flex flex-col w-full">
+      <div className="flex-1 w-full rounded-lg">
         <h1 className="text-md font-bold text-blue-500">Response</h1>
         <h1 className="text-md font-medium text-gray-500">
           {sentiment.sentences}

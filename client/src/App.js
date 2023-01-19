@@ -18,7 +18,8 @@ import InsightsDepartment from "./views/insights/InsightsDepartment";
 import InsightsEmployees from "./views/insights/InsightsEmployees";
 import InsightsPerSemesterDepartment from "./views/insights/InsightsPerSemesterDepartment";
 import InsightsPerSemesterEmployees from "./views/insights/InsightsPerSemesterEmployees";
-import AuthForgotPasswordRequest from "./views/auth/AuthForgotPasswordRequest.js";
+import AuthForgotPasswordRequest from "./views/auth/cant_sign_in/AuthForgotPasswordRequest.js";
+import AuthForgotUsernameRequest from "./views/auth/cant_sign_in/AuthForgotUsernameRequest";
 import AuthLogin from "./views/auth/AuthLogin.js";
 import AuthLogout from "./views/auth/AuthLogout";
 import AuthRemoveEmailFromAccount from "./views/auth/AuthRemoveEmailFromAccount";
@@ -56,6 +57,8 @@ import UserDashboard from "./views/user/dashboard/UserDashboard";
 import EvalReadCourseSentiment from "./views/user/eval/EvalReadCourseSentiment";
 import ManagementFileBin from "./views/admin/management/management_files/ManagementFileBin";
 import IndexLegal from "./views/legal/IndexLegal";
+import IndexCantSignIn from "./views/auth/cant_sign_in/IndexCantSignIn";
+import AuthVerifyEmail from "./views/auth/AuthVerifyEmail";
 
 /**
  * @description Main component for the application
@@ -133,9 +136,19 @@ export default function App() {
              */}
             <Route element={<IndexAuth />}>
               <Route
+                element={<IndexCantSignIn />}
+                exact="true"
+                path="cant-sign-in"
+              />
+              <Route
                 element={<AuthForgotPasswordRequest />}
                 exact="true"
                 path="forgot-password"
+              />
+              <Route
+                element={<AuthForgotUsernameRequest />}
+                exact="true"
+                path="forgot-username"
               />
               <Route element={<AuthLogin />} exact="true" path="auth" />
 
@@ -154,6 +167,11 @@ export default function App() {
               element={<AuthRemoveEmailFromAccount />}
               exact="true"
               path="remove-email-from-account/:token"
+            />
+            <Route
+              element={<AuthVerifyEmail />}
+              exact="true"
+              path="verify-email/:token"
             />
             {/**
              * End of auth routes

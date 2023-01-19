@@ -49,7 +49,7 @@ export default function LoadingPage() {
  */
 export function LoadingPageSkeletonText() {
   return (
-    <div className="bg-blue-50 shadow rounded-md p-4  w-full">
+    <div className="bg-blue-50 shadow rounded-md p-4 w-full">
       <div className="animate-pulse flex space-x-4">
         <div className="rounded-full bg-blue-300 h-10 w-10" />
         <div className="flex-1 space-y-6 py-1">

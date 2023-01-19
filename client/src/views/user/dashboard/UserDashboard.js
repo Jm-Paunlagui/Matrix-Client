@@ -12,6 +12,7 @@ import {
   SemesterList,
 } from "../../../components/listbox/ListBox";
 import DisclosureTogglable from "../../../components/disclosure/DisclosureTogglable";
+
 /**
  * @description Handles the admin profile
  */
@@ -198,6 +199,9 @@ export default function UserDashboard() {
               </p>
             </DisclosureTogglable>
           </div>
+          <h1 className="text-md font-bold text-blue-500 mb-4">
+            Your Overall Sentiments
+          </h1>
           {loading_analysis ? (
             <>
               <LoadingPageSkeletonText />
@@ -249,7 +253,7 @@ export default function UserDashboard() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
@@ -287,7 +291,7 @@ export default function UserDashboard() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
@@ -319,7 +323,7 @@ export default function UserDashboard() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (

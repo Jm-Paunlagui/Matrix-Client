@@ -2,19 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   ACCENT_BUTTON,
   ICON_PLACE_SELF_CENTER,
-  MAIN_BUTTON,
   STATUS_GREEN,
   STATUS_RED,
   STATUS_WARNING,
 } from "../../../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCaretLeft,
-  faCaretRight,
   faFileCsv,
   faFileArrowDown,
   faTrash,
-  faRotate,
   faUpLong,
   faDownLong,
 } from "@fortawesome/free-solid-svg-icons";
@@ -29,7 +25,10 @@ import { Header } from "../../../../components/headers/Header";
 import { SearchBar } from "../../../../components/searchbar/SearchBar";
 import { Paginator } from "../../../../components/listbox/ListBox";
 import { NoData } from "../../../../components/warnings/WarningMessages";
-import ModalConfirm from "../../../../components/modal/ModalConfirm";
+import ModalConfirm, {
+  ModalTypeOfDownload,
+} from "../../../../components/modal/ModalConfirm";
+import { ItemsPerPage } from "../../../../components/items/Items";
 
 /**
  * @description Handles the files to view and delete
@@ -70,10 +69,10 @@ export default function ManagementFilesCSV() {
   const [filteredListOfFiles, setFilteredListOfFiles] = useState(files_list);
 
   const [loadingIdDownload, setLoadingIdDownload] = useState({});
-  const [loadingIdRestore, setLoadingIdRestore] = useState({});
   const [loadingIdPublish, setLoadingIdPublish] = useState({});
   const [loadingIdDelete, setLoadingIdDelete] = useState({});
   const [loadingIdUnpublish, setLoadingIdUnpublish] = useState({});
+  const [disabledAllButtons, setDisabledAllButtons] = useState({});
 
   /**
    * @description Search bar handler for the files
@@ -86,26 +85,36 @@ export default function ManagementFilesCSV() {
   };
 
   const [loadingAnimation, setLoadingAnimation] = useState({
-    massRestore: false,
-    textChangeRestore: "Restore all",
+    massDisable: false,
     massDelete: false,
     textChangeDelete: "Delete all temporarily",
     massPublish: false,
     textChangePublish: "Publish all",
     massUnpublished: false,
     textChangeUnpublished: "Unpublished all",
+    massDownload: false,
+    textChangeDownload: "Download all analysis",
   });
 
   const {
-    massRestore,
-    textChangeRestore,
+    massDisable,
     massDelete,
     textChangeDelete,
     massPublish,
     textChangePublish,
     massUnpublished,
     textChangeUnpublished,
+    massDownload,
+    textChangeDownload,
   } = loadingAnimation;
+
+  // Disable all buttons if mass action is in progress
+  const disableAllButtons = (bool) => {
+    for (let i = 0; i < files_list.length; i++) {
+      disabledAllButtons[files_list[i].id] = bool;
+    }
+  };
+
   /**
    * @description Filters the list of files based on the search value
    * @param event
@@ -168,35 +177,19 @@ export default function ManagementFilesCSV() {
    */
   const handleDelete = (file) => {
     setLoadingIdDelete((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .put(`/data/delete-csv-file/${file}`)
       .then((response) => {
         loadFiles(page_number, per_page_limit);
         toast.success(response.data.message);
         setLoadingIdDelete((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIdDelete({});
-      });
-  };
-
-  /**
-   * @description Handles the restore of a file from the backend
-   * @param file
-   */
-  const handleRestore = (file) => {
-    setLoadingIdRestore((files) => ({ ...files, [file]: true }));
-    httpClient
-      .put(`/data/unflag-delete-csv-file/${file}`)
-      .then((response) => {
-        loadFiles(page_number, per_page_limit);
-        toast.success(response.data.message);
-        setLoadingIdRestore((files) => ({ ...files, [file]: false }));
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        setLoadingIdRestore({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -206,16 +199,19 @@ export default function ManagementFilesCSV() {
    */
   const handlePublish = (file) => {
     setLoadingIdPublish((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .put(`/data/publish-selected-csv-file/${file}`)
       .then((response) => {
         loadFiles(page_number, per_page_limit);
         toast.success(response.data.message);
         setLoadingIdPublish((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIdPublish({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -225,16 +221,19 @@ export default function ManagementFilesCSV() {
    */
   const handleUnpublished = (file) => {
     setLoadingIdUnpublish((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
       .put(`/data/unpublished-selected-csv-file/${file}`)
       .then((response) => {
         loadFiles(page_number, per_page_limit);
         toast.success(response.data.message);
         setLoadingIdUnpublish((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.response.data.message);
         setLoadingIdUnpublish({});
+        setDisabledAllButtons({});
       });
   };
 
@@ -242,8 +241,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass delete of files from the backend
    */
   const handleDeleteAll = () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+      massDisable: true,
       massDelete: true,
       textChangeDelete: "Deleting files temporarily...",
     });
@@ -251,48 +252,22 @@ export default function ManagementFilesCSV() {
       .put("/data/delete-csv-file-all")
       .then((response) => {
         loadFiles(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all temporarily",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massDelete: false,
           textChangeDelete: "Delete all temporarily",
-        });
-        toast.error(error.response.data.message);
-      });
-  };
-
-  /**
-   * @description Handles the mass restore of files from the backend
-   */
-  const handleRestoreAll = () => {
-    setLoadingAnimation({
-      ...loadingAnimation,
-      massRestore: true,
-      textChangeRestore: "Restoring files...",
-    });
-    httpClient
-      .put("/data/unflag-all-delete-csv-file")
-      .then((response) => {
-        loadFiles(page_number, per_page_limit);
-        setLoadingAnimation({
-          ...loadingAnimation,
-          massRestore: false,
-          textChangeRestore: "Restore all",
-        });
-        toast.success(response.data.message);
-      })
-      .catch((error) => {
-        setLoadingAnimation({
-          ...loadingAnimation,
-          massRestore: false,
-          textChangeRestore: "Restore all",
         });
         toast.error(error.response.data.message);
       });
@@ -302,8 +277,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass publish of files from the backend
    */
   const handlePublishAll = () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+      massDisable: true,
       massPublish: true,
       textChangePublish: "Publishing files...",
     });
@@ -311,16 +288,20 @@ export default function ManagementFilesCSV() {
       .put("/data/publish-all-csv-file")
       .then((response) => {
         loadFiles(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massPublish: false,
           textChangePublish: "Publish all",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massPublish: false,
           textChangePublish: "Publish all",
         });
@@ -332,8 +313,10 @@ export default function ManagementFilesCSV() {
    * @description Handles the mass unpublish of files from the backend
    */
   const handleUnpublishedAll = () => {
+    disableAllButtons(true);
     setLoadingAnimation({
       ...loadingAnimation,
+      massDisable: true,
       massUnpublished: true,
       textChangeUnpublished: "Unpublishing files...",
     });
@@ -341,16 +324,20 @@ export default function ManagementFilesCSV() {
       .put("/data/unpublished-all-csv-file")
       .then((response) => {
         loadFiles(page_number, per_page_limit);
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massUnpublished: false,
           textChangeUnpublished: "Unpublished all",
         });
         toast.success(response.data.message);
       })
       .catch((error) => {
+        disableAllButtons(false);
         setLoadingAnimation({
           ...loadingAnimation,
+          massDisable: false,
           massUnpublished: false,
           textChangeUnpublished: "Unpublished all",
         });
@@ -361,11 +348,13 @@ export default function ManagementFilesCSV() {
   /**
    * @description Handles the download of a file from the backend
    * @param file
+   * @param type
    */
-  const handleDownload = (file) => {
+  const handleDownload = (file, type) => {
     setLoadingIdDownload((files) => ({ ...files, [file]: true }));
+    setDisabledAllButtons((files) => ({ ...files, [file]: true }));
     httpClient
-      .get(`/data/download-csv-file/${file}`, { responseType: "blob" })
+      .get(`/data/download-csv-file/${file}/${type}`, { responseType: "blob" })
       .then((response) => {
         const filename =
           response.headers["content-disposition"].split("filename=")[1];
@@ -377,10 +366,52 @@ export default function ManagementFilesCSV() {
         link.click();
         toast.success(response.data.message);
         setLoadingIdDownload((files) => ({ ...files, [file]: false }));
+        setDisabledAllButtons((files) => ({ ...files, [file]: false }));
       })
       .catch((error) => {
         toast.error(error.message);
         setLoadingIdDownload({});
+        setDisabledAllButtons({});
+      });
+  };
+
+  const handleDownloadAll = (type) => {
+    disableAllButtons(true);
+    setLoadingAnimation({
+      ...loadingAnimation,
+      massDisable: true,
+      massDownload: true,
+      textChangeDownload: "Downloading all analysis...",
+    });
+    httpClient
+      .get(`/data/download-all-csv-file/${type}`, { responseType: "blob" })
+      .then((response) => {
+        const filename =
+          response.headers["content-disposition"].split("filename=")[1];
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", filename);
+        document.body.appendChild(link);
+        link.click();
+        toast.success(response.data.message);
+        disableAllButtons(false);
+        setLoadingAnimation({
+          ...loadingAnimation,
+          massDisable: false,
+          massDownload: false,
+          textChangeDownload: "Download all analysis",
+        });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        disableAllButtons(false);
+        setLoadingAnimation({
+          ...loadingAnimation,
+          massDisable: false,
+          massDownload: false,
+          textChangeDownload: "Download all analysis",
+        });
       });
   };
 
@@ -405,48 +436,13 @@ export default function ManagementFilesCSV() {
           <div className="content-end flex flex-wrap justify-start w-full gap-2">
             <div className="flex flex-row w-full">
               <h1 className="text-base font-bold leading-none text-blue-500">
-                Number of records per page
-              </h1>
-            </div>
-            <Paginator
-              handleSelect={handleSelect}
-              per_page={per_page}
-              per_page_limit={per_page_limit}
-            />
-          </div>
-        </div>
-        <div className="w-full bg-blue-50 rounded-lg shadow-md p-4 mt-8">
-          <div className="content-end flex flex-wrap justify-start w-full gap-2">
-            <div className="flex flex-row w-full">
-              <h1 className="text-base font-bold leading-none text-blue-500">
                 Mass Actions
               </h1>
             </div>
             <ModalConfirm
-              body={`Are you sure you want to restore all files?`}
-              description="This action cannot be undone. This will restore all files that have been deleted."
-              is_manny
-              onConfirm={() => handleRestoreAll()}
-              title="Restore All Files"
-            >
-              {massRestore ? (
-                <>
-                  <LoadingAnimation moreClasses="text-teal-600" />
-                  {textChangeRestore}
-                </>
-              ) : (
-                <>
-                  <FontAwesomeIcon
-                    className={`${ICON_PLACE_SELF_CENTER}`}
-                    icon={faRotate}
-                  />
-                  {textChangeRestore}
-                </>
-              )}
-            </ModalConfirm>
-            <ModalConfirm
               body={`Are you sure you want to publish all files?`}
               description="This action cannot be undone. This will publish all files that have been unpublished and can now be accessed by the professors."
+              disabled={massDisable}
               is_manny
               onConfirm={() => handlePublishAll()}
               title="Publish All Files"
@@ -466,15 +462,42 @@ export default function ManagementFilesCSV() {
                 </>
               )}
             </ModalConfirm>
+            <ModalTypeOfDownload
+              description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+              disabled={massDisable}
+              is_manny
+              onConfirmCSV={() => handleDownloadAll("csv")}
+              onConfirmExcel={() => handleDownloadAll("excel")}
+              title="Download File"
+            >
+              {massDownload ? (
+                <>
+                  <LoadingAnimation moreClasses="text-teal-600" />
+                  {textChangeDownload}
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon
+                    className={`${ICON_PLACE_SELF_CENTER}`}
+                    icon={faFileArrowDown}
+                  />
+                  {textChangeDownload}
+                </>
+              )}
+            </ModalTypeOfDownload>
+          </div>
+        </div>
+        <div className="w-full bg-blue-50 rounded-lg shadow-md p-4 mt-8">
+          <div className="content-end flex flex-wrap justify-start w-full gap-2">
             <div className="flex flex-row w-full">
               <h1 className="text-base font-bold leading-none text-blue-500">
                 Mass Danger Actions
               </h1>
             </div>
-
             <ModalConfirm
               body={`Are you sure you want to temporarily delete all files from the system?`}
               description="This action cannot be undone. This will temporarily delete all files from the system and they will be restored if you restore all files."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleDeleteAll()}
@@ -498,6 +521,7 @@ export default function ManagementFilesCSV() {
             <ModalConfirm
               body={`Are you sure you want to unpublished all files?`}
               description="This action cannot be undone. This will unpublished all files that have been published and can no longer be accessed by the professors."
+              disabled={massDisable}
               is_danger
               is_manny
               onConfirm={() => handleUnpublishedAll()}
@@ -521,48 +545,24 @@ export default function ManagementFilesCSV() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-end w-full mt-8 mb-8 p-4 space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0 bg-blue-50 rounded-lg shadow">
-        <div className="flex flex-col md:flex-row items-center w-full justify-between ">
-          {/*    Page details*/}
-          <h1 className="font-medium text-blue-500 text-start">
-            Page {current_page} of {total_pages}
-          </h1>
-          <h1 className="text-base font-medium leading-none text-blue-500 t">
-            Showing {files_list.length} of {total_items} Users in total (
-            {total_pages} pages)
-          </h1>
-        </div>
-        <button
-          className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}
-                  ${has_prev ? "" : "cursor-not-allowed opacity-50"}`}
-          disabled={!has_prev}
-          onClick={() =>
-            setFileData({ ...fileData, page_number: page_number - 1 })
-          }
-          type="button"
-        >
-          <FontAwesomeIcon
-            className={`${ICON_PLACE_SELF_CENTER}`}
-            icon={faCaretLeft}
-          />
-          Newer
-        </button>
-        <button
-          className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}
-                  ${has_next ? "" : "cursor-not-allowed opacity-50"}`}
-          disabled={!has_next}
-          onClick={() =>
-            setFileData({ ...fileData, page_number: page_number + 1 })
-          }
-          type="button"
-        >
-          <FontAwesomeIcon
-            className={`${ICON_PLACE_SELF_CENTER}`}
-            icon={faCaretRight}
-          />
-          Older
-        </button>
-      </div>
+      <ItemsPerPage
+        Datas={fileData}
+        current_page={current_page}
+        has_next={has_next}
+        has_prev={has_prev}
+        items={files_list}
+        moreClasses={"mt-8 mb-8"}
+        page_number={page_number}
+        setDatas={setFileData}
+        total_items={total_items}
+        total_pages={total_pages}
+      >
+        <Paginator
+          handleSelect={handleSelect}
+          per_page={per_page}
+          per_page_limit={per_page_limit}
+        />
+      </ItemsPerPage>
       <div className="grid grid-cols-1 pb-8 md:grid-cols-2 lg:grid-cols-3 gap-y-6 md:gap-6">
         {loading ? (
           <>
@@ -573,216 +573,204 @@ export default function ManagementFilesCSV() {
         ) : filteredListOfFiles.length > 0 ? (
           filteredListOfFiles.map((file) => (
             <div
-              className="flex flex-col mb-4 w-full bg-blue-50 rounded-lg shadow-md"
+              className="flex flex-col hover:bg-teal-500 p-0.5 rounded-lg transition delay-150 duration-500 ease-in-out hover:-translate-y-0.5 hover:shadow-lg"
               key={file.id}
             >
-              <div className="col-span-1 w-full">
-                <div className="flex flex-row w-full p-4">
-                  <h1 className="text-md font-bold leading-none text-blue-600">
-                    File ID
-                  </h1>
-                  <h1 className="text-md leading-none text-gray-500 ml-2">
-                    {file.id}
-                  </h1>
-                </div>
-              </div>
-              <hr className="w-full border-gray-300" />
-              <div className="col-span-4 text-start p-4">
-                <div className="flex flex-row w-full py-2">
-                  <h1 className="text-base font-bold leading-none text-blue-500">
-                    Status
-                  </h1>
-                </div>
-                <div className="content-end flex flex-wrap justify-start w-full gap-2">
-                  <div
-                    className={`p-2 flex flex-row justify-center ${
-                      file.flag_deleted ? STATUS_RED : STATUS_GREEN
-                    }`}
-                  >
-                    <h1 className="text-sm leading-none uppercase">
-                      {file.flag_deleted ? "Deleted Temporarily" : "Available"}
+              <div className="flex-1 w-full bg-blue-50 rounded-lg shadow">
+                <div className="col-span-1 w-full">
+                  <div className="flex flex-row w-full p-4">
+                    <h1 className="text-md font-bold leading-none text-blue-600">
+                      Evaluated File ID
                     </h1>
-                  </div>
-                  <div
-                    className={`p-2 flex flex-row justify-center ${
-                      file.flag_release ? STATUS_GREEN : STATUS_WARNING
-                    }`}
-                  >
-                    <h1 className="text-sm leading-none uppercase">
-                      {file.flag_release ? "Published" : "Unpublished"}
+                    <h1 className="text-md font-bold leading-none text-gray-500 ml-2">
+                      {file.id}-{file.school_year}
                     </h1>
                   </div>
                 </div>
-                <div className="flex flex-row w-full py-2">
-                  <h1 className="text-base font-bold leading-none text-blue-500">
-                    Details
-                  </h1>
+                <hr className="w-full border-gray-300" />
+                <div className="col-span-4 text-start p-4">
+                  <div className="flex flex-row w-full py-2">
+                    <h1 className="text-base font-bold leading-none text-blue-500">
+                      Status
+                    </h1>
+                  </div>
+                  <div className="content-end flex flex-wrap justify-start w-full gap-2">
+                    <div
+                      className={`p-2 flex flex-row justify-center ${
+                        file.flag_deleted ? STATUS_RED : STATUS_GREEN
+                      }`}
+                    >
+                      <h1 className="text-sm leading-none uppercase">
+                        {file.flag_deleted
+                          ? "Deleted Temporarily"
+                          : "Available"}
+                      </h1>
+                    </div>
+                    <div
+                      className={`p-2 flex flex-row justify-center ${
+                        file.flag_release ? STATUS_GREEN : STATUS_WARNING
+                      }`}
+                    >
+                      <h1 className="text-sm leading-none uppercase">
+                        {file.flag_release ? "Published" : "Unpublished"}
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="flex flex-row w-full py-2">
+                    <h1 className="text-base font-bold leading-none text-blue-500">
+                      Details
+                    </h1>
+                  </div>
+                  <div className="flex flex-row items-start w-full py-2">
+                    <h1 className="text-base font-medium leading-none text-gray-500">
+                      School Year:
+                    </h1>
+                    <h1 className="ml-2 text-base leading-none text-gray-600">
+                      {file.school_year}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row items-start w-full py-2">
+                    <h1 className="text-base font-medium leading-none text-gray-500">
+                      School Semester:
+                    </h1>
+                    <h1 className="ml-2 text-base leading-none text-gray-500">
+                      {file.school_semester}
+                    </h1>
+                  </div>
+                  <div className="flex flex-row items-start w-full py-2">
+                    <h1 className="text-base font-medium leading-none text-gray-500">
+                      Topic:
+                    </h1>
+                    <h1 className="ml-2 text-base leading-none text-gray-500">
+                      {file.csv_question}
+                    </h1>
+                  </div>
                 </div>
-                <div className="flex flex-row items-start w-full py-2">
-                  <h1 className="text-base font-medium leading-none text-gray-500">
-                    School Year:
-                  </h1>
-                  <h1 className="ml-2 text-base leading-none text-gray-600">
-                    {file.school_year}
-                  </h1>
-                </div>
-                <div className="flex flex-row items-start w-full py-2">
-                  <h1 className="text-base font-medium leading-none text-gray-500">
-                    School Semester:
-                  </h1>
-                  <h1 className="ml-2 text-base leading-none text-gray-500">
-                    {file.school_semester}
-                  </h1>
-                </div>
-                <div className="flex flex-row items-start w-full py-2">
-                  <h1 className="text-base font-medium leading-none text-gray-500">
-                    Topic:
-                  </h1>
-                  <h1 className="ml-2 text-base leading-none text-gray-500">
-                    {file.csv_question}
-                  </h1>
-                </div>
-              </div>
-              <div className="col-span-1 w-full">
-                <div className="flex flex-row w-full px-4">
-                  <h1 className="text-base font-bold leading-none text-blue-500">
-                    Actions
-                  </h1>
-                </div>
-                <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
-                  <button
-                    className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
-                    type="button"
-                  >
-                    <Link to={`${file.id}`}>
-                      <FontAwesomeIcon
-                        className={`${ICON_PLACE_SELF_CENTER}`}
-                        icon={faFileCsv}
-                      />
-                      View
-                    </Link>
-                  </button>
-                  <button
-                    className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
-                    onClick={() => handleDownload(file.id)}
-                    type="button"
-                  >
-                    {loadingIdDownload[file.id] ? (
-                      <>
-                        <LoadingAnimation moreClasses="text-teal-600" />
-                        Downloading...
-                      </>
-                    ) : (
-                      <>
+                <div className="col-span-1 w-full">
+                  <div className="flex flex-row w-full px-4">
+                    <h1 className="text-base font-bold leading-none text-blue-500">
+                      Actions
+                    </h1>
+                  </div>
+                  <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
+                    <button
+                      className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                      type="button"
+                    >
+                      <Link to={`${file.id}`}>
                         <FontAwesomeIcon
                           className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faFileArrowDown}
+                          icon={faFileCsv}
                         />
-                        Download
-                      </>
-                    )}
-                  </button>
-                  <ModalConfirm
-                    body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                    description="This action cannot be undone. This will permanently delete the file and its associated data from the system."
-                    id={file.id}
-                    is_manny={false}
-                    onConfirm={handleRestore}
-                    title="Restore File Confirmation"
-                  >
-                    {loadingIdRestore[file.id] ? (
-                      <>
-                        <LoadingAnimation moreClasses="text-teal-600" />
-                        Restoring...
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faRotate}
-                        />
-                        Restore
-                      </>
-                    )}
-                  </ModalConfirm>
-                  <ModalConfirm
-                    body={`Are you sure you want to publish ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                    description="This action cannot be undone. This will publish the file and its associated data to the system and can now view by the professors."
-                    id={file.id}
-                    is_manny={false}
-                    onConfirm={handlePublish}
-                    title="Publish File"
-                  >
-                    {loadingIdPublish[file.id] ? (
-                      <>
-                        <LoadingAnimation moreClasses="text-teal-600" />
-                        Publishing File...
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faUpLong}
-                        />
-                        Publish File
-                      </>
-                    )}
-                  </ModalConfirm>
-                </div>
-                <div className="flex flex-row w-full px-4">
-                  <h1 className="text-base font-bold leading-none text-blue-500">
-                    Danger Zone
-                  </h1>
-                </div>
-                <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
-                  <ModalConfirm
-                    body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                    description="This action cannot be undone. This will unpublished the file and its associated data from the system and can no longer view by the professors."
-                    id={file.id}
-                    is_danger
-                    is_manny={false}
-                    onConfirm={handleDelete}
-                    title="Delete File Confirmation"
-                  >
-                    {loadingIdDelete[file.id] ? (
-                      <>
-                        <LoadingAnimation moreClasses="text-red-600" />
-                        Deleting...
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faTrash}
-                        />
-                        Delete
-                      </>
-                    )}
-                  </ModalConfirm>
-                  <ModalConfirm
-                    body={`Are you sure you want to unpublished ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                    description="This action cannot be undone. This will unpublished all files that have been published and cannot be accessed by the professors."
-                    id={file.id}
-                    is_danger
-                    is_manny={false}
-                    onConfirm={handleUnpublished}
-                    title="Unpublish File"
-                  >
-                    {loadingIdUnpublish[file.id] ? (
-                      <>
-                        <LoadingAnimation moreClasses="text-red-600" />
-                        Unpublishing File...
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faDownLong}
-                        />
-                        Unpublish File
-                      </>
-                    )}
-                  </ModalConfirm>
+                        View
+                      </Link>
+                    </button>
+                    <ModalTypeOfDownload
+                      description="Choose the type of download you want to perform. File can be downloaded as a CSV or XLSX file."
+                      disabled={disabledAllButtons[file.id]}
+                      id={file.id}
+                      is_manny={false}
+                      onConfirmCSV={handleDownload}
+                      onConfirmExcel={handleDownload}
+                      title="Download File"
+                    >
+                      {loadingIdDownload[file.id] ? (
+                        <>
+                          <LoadingAnimation moreClasses="text-teal-600" />
+                          Downloading...
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faFileArrowDown}
+                          />
+                          Download Analysis
+                        </>
+                      )}
+                    </ModalTypeOfDownload>
+                    <ModalConfirm
+                      body={`Are you sure you want to publish ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
+                      description="This action cannot be undone. This will publish the file and its associated data to the system and can now view by the professors."
+                      disabled={disabledAllButtons[file.id]}
+                      id={file.id}
+                      is_manny={false}
+                      onConfirm={handlePublish}
+                      title="Publish File"
+                    >
+                      {loadingIdPublish[file.id] ? (
+                        <>
+                          <LoadingAnimation moreClasses="text-teal-600" />
+                          Publishing File...
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faUpLong}
+                          />
+                          Publish File
+                        </>
+                      )}
+                    </ModalConfirm>
+                  </div>
+                  <div className="flex flex-row w-full px-4">
+                    <h1 className="text-base font-bold leading-none text-blue-500">
+                      Danger Zone
+                    </h1>
+                  </div>
+                  <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
+                    <ModalConfirm
+                      body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
+                      description="This action cannot be undone. This will unpublished the file and its associated data from the system and can no longer view by the professors."
+                      disabled={disabledAllButtons[file.id]}
+                      id={file.id}
+                      is_danger
+                      is_manny={false}
+                      onConfirm={handleDelete}
+                      title="Delete File Confirmation"
+                    >
+                      {loadingIdDelete[file.id] ? (
+                        <>
+                          <LoadingAnimation moreClasses="text-red-600" />
+                          Deleting...
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faTrash}
+                          />
+                          Delete
+                        </>
+                      )}
+                    </ModalConfirm>
+                    <ModalConfirm
+                      body={`Are you sure you want to unpublished ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
+                      description="This action cannot be undone. This will unpublished all files that have been published and cannot be accessed by the professors."
+                      disabled={disabledAllButtons[file.id]}
+                      id={file.id}
+                      is_danger
+                      is_manny={false}
+                      onConfirm={handleUnpublished}
+                      title="Unpublish File"
+                    >
+                      {loadingIdUnpublish[file.id] ? (
+                        <>
+                          <LoadingAnimation moreClasses="text-red-600" />
+                          Unpublishing File...
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faDownLong}
+                          />
+                          Unpublish File
+                        </>
+                      )}
+                    </ModalConfirm>
+                  </div>
                 </div>
               </div>
             </div>
@@ -793,48 +781,23 @@ export default function ManagementFilesCSV() {
           </div>
         )}
       </div>
-      <div className="flex flex-col justify-end w-full p-4 space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0 bg-blue-50 rounded-lg shadow">
-        <div className="flex flex-col md:flex-row items-center w-full justify-between ">
-          {/*    Page details*/}
-          <h1 className="font-medium text-blue-500 text-start">
-            Page {current_page} of {total_pages}
-          </h1>
-          <h1 className="text-base font-medium leading-none text-blue-500 t">
-            Showing {files_list.length} of {total_items} Users in total (
-            {total_pages} pages)
-          </h1>
-        </div>
-        <button
-          className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}
-                  ${has_prev ? "" : "cursor-not-allowed opacity-50"}`}
-          disabled={!has_prev}
-          onClick={() =>
-            setFileData({ ...fileData, page_number: page_number - 1 })
-          }
-          type="button"
-        >
-          <FontAwesomeIcon
-            className={`${ICON_PLACE_SELF_CENTER}`}
-            icon={faCaretLeft}
-          />
-          Newer
-        </button>
-        <button
-          className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}
-                  ${has_next ? "" : "cursor-not-allowed opacity-50"}`}
-          disabled={!has_next}
-          onClick={() =>
-            setFileData({ ...fileData, page_number: page_number + 1 })
-          }
-          type="button"
-        >
-          <FontAwesomeIcon
-            className={`${ICON_PLACE_SELF_CENTER}`}
-            icon={faCaretRight}
-          />
-          Older
-        </button>
-      </div>
+      <ItemsPerPage
+        Datas={fileData}
+        current_page={current_page}
+        has_next={has_next}
+        has_prev={has_prev}
+        items={files_list}
+        page_number={page_number}
+        setDatas={setFileData}
+        total_items={total_items}
+        total_pages={total_pages}
+      >
+        <Paginator
+          handleSelect={handleSelect}
+          per_page={per_page}
+          per_page_limit={per_page_limit}
+        />
+      </ItemsPerPage>
     </div>
   );
 }

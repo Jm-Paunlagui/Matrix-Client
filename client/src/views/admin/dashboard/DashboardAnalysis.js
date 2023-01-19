@@ -13,6 +13,30 @@ import {
   SemesterList,
 } from "../../../components/listbox/ListBox";
 import DisclosureTogglable from "../../../components/disclosure/DisclosureTogglable";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+);
 /**
  * @description Handles the admin profile
  */
@@ -57,6 +81,8 @@ export default function DashboardAnalysis() {
   const [analysis, setAnalysis] = useState({
     loading_analysis: true,
     overall_sentiments: [],
+    overall_departments: [],
+    overall_sentiments_department: [],
     image_path_polarity_v_sentiment: "",
     image_path_review_length_v_sentiment: "",
     image_path_wordcloud: "",
@@ -67,6 +93,7 @@ export default function DashboardAnalysis() {
   const {
     loading_analysis,
     overall_sentiments,
+    overall_departments,
     image_path_polarity_v_sentiment,
     image_path_review_length_v_sentiment,
     image_path_wordcloud,
@@ -120,6 +147,7 @@ export default function DashboardAnalysis() {
           ...analysis,
           loading_analysis: false,
           overall_sentiments: response.data.overall_sentiments,
+          overall_departments: response.data.overall_departments,
           image_path_polarity_v_sentiment:
             response.data.image_path_polarity_v_sentiment,
           image_path_review_length_v_sentiment:
@@ -183,6 +211,56 @@ export default function DashboardAnalysis() {
     loadPolarityVsentiment(school_year, school_semester, csv_question);
   }, [school_year, school_semester, csv_question]);
 
+  const dept = {
+    labels: overall_departments.map((department) => department.name),
+    datasets: [
+      {
+        type: "bar",
+        label: "Negative Sentiment (%)",
+        data: overall_departments.map((department) =>
+          parseFloat(department.negative_sentiments_percentage.slice(0, -1)),
+        ),
+        backgroundColor: "rgba(254, 242, 242, 1)",
+        borderColor: "rgba(239, 68, 68, 1)",
+        borderWidth: 1,
+      },
+      {
+        type: "bar",
+        label: "Positive Sentiment (%)",
+        data: overall_departments.map((department) =>
+          parseFloat(department.positive_sentiments_percentage.slice(0, -1)),
+        ),
+        backgroundColor: "rgba(240, 253, 244, 1)",
+        borderColor: "rgba(34, 197, 94, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const deptOptions = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+      },
+    },
+    backgroundColor: "#ecfeff",
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          let label = data.datasets[tooltipItem.datasetIndex].label || "";
+          if (label) {
+            label += ": ";
+          }
+          label += `${tooltipItem.yLabel}%  `;
+          label += overall_departments[tooltipItem.index].number_of_sentiments;
+          return label;
+        },
+      },
+    },
+  };
+
   return (
     <div className="px-6 mx-auto max-w-7xl pt-8 pb-8">
       <Header
@@ -200,10 +278,10 @@ export default function DashboardAnalysis() {
         ) : (
           details.map((detail) => (
             <div
-              className="flex items-start p-4 bg-blue-50 rounded-lg shadow"
+              className="flex items-start hover:bg-teal-500 p-0.5 rounded-lg transition delay-150 duration-500 ease-in-out hover:-translate-y-0.5 hover:shadow-lg"
               key={detail.id}
             >
-              <div className="flex items-center justify-center">
+              <div className="flex items-center p-4 bg-blue-50 rounded-lg shadow w-full">
                 <div
                   className={`flex items-center justify-center w-10 h-10 text-white rounded ${
                     detail.id === 1
@@ -271,7 +349,7 @@ export default function DashboardAnalysis() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8 ">
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
-          <div className="w-full">
+          <div className="w-full z-30">
             <h1 className="text-md font-bold text-blue-500 mb-4">
               Number of Positive and Negative Sentiments
             </h1>
@@ -281,6 +359,9 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
+          <h1 className="text-md font-bold text-blue-500 mb-4">
+            Overall Sentiment
+          </h1>
           {loading_analysis ? (
             <>
               <LoadingPageSkeletonText />
@@ -310,9 +391,20 @@ export default function DashboardAnalysis() {
               </div>
             ))
           )}
+          <h1 className="text-md font-bold text-blue-500 mb-4">
+            Department Sentiment
+          </h1>
+          {loading_analysis ? (
+            <>
+              <LoadingPageSkeletonText />
+              <LoadingPageSkeletonText />
+            </>
+          ) : (
+            <Bar data={dept} options={deptOptions} />
+          )}
         </div>
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
-          <div className="w-full">
+          <div className="w-full z-30">
             <h1 className="text-md font-bold text-blue-500 mb-4">
               Sentiment vs Polarity
             </h1>
@@ -332,7 +424,7 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
@@ -345,7 +437,7 @@ export default function DashboardAnalysis() {
           </div>
         </div>
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
-          <div className="w-full">
+          <div className="w-full z-30">
             <h1 className="text-md font-bold text-blue-500 mb-4">
               Sentiment vs Response Length
             </h1>
@@ -370,7 +462,7 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
@@ -383,7 +475,7 @@ export default function DashboardAnalysis() {
           </div>
         </div>
         <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
-          <div className="w-full">
+          <div className="w-full z-30">
             <h1 className="text-md font-bold text-blue-500 mb-4">Word Cloud</h1>
             <DisclosureTogglable title="What is a Word Cloud?">
               <p className="text-base font-medium text-gray-500 mb-4">
@@ -402,7 +494,7 @@ export default function DashboardAnalysis() {
               </p>
             </DisclosureTogglable>
           </div>
-          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg">
+          <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
             {loading_analysis ? (
               <LoadingPageSkeletonImage />
             ) : (
@@ -417,7 +509,7 @@ export default function DashboardAnalysis() {
       </div>
 
       <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
-        <div className="w-full">
+        <div className="w-full z-30">
           <h1 className="text-md font-bold text-blue-500 mb-4">
             Most Common Words in Trigrams (3 words)
           </h1>
@@ -480,7 +572,7 @@ export default function DashboardAnalysis() {
         </div>
       </div>
       <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2 mt-8">
-        <div className="w-full">
+        <div className="w-full z-30">
           <h1 className="text-md font-bold text-blue-500 mb-4">
             Most Common Words in Bigrams (2 words)
           </h1>
@@ -544,7 +636,7 @@ export default function DashboardAnalysis() {
         </div>
       </div>
       <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2 mt-8">
-        <div className="w-full">
+        <div className="w-full z-30">
           <h1 className="text-md font-bold text-blue-500 mb-4">
             Most Common Words in Unigrams (1 word)
           </h1>
