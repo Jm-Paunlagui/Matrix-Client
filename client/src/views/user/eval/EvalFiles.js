@@ -9,10 +9,14 @@ import {
   ICON_PLACE_SELF_CENTER,
   STATUS_GREEN,
   STATUS_RED,
-  STATUS_WARNING, WARNING_BUTTON,
+  STATUS_WARNING,
+  WARNING_BUTTON,
 } from "../../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCircleExclamation, faFileCsv} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleExclamation,
+  faFileCsv,
+} from "@fortawesome/free-solid-svg-icons";
 import { isAuth } from "../../../helpers/Auth";
 import { NoData } from "../../../components/warnings/WarningMessages";
 import { toast } from "react-toastify";
@@ -244,52 +248,51 @@ export default function EvalFiles() {
                     </h1>
                   </div>
                 </div>
-                {!file.flag_release ? null : (
-                  isAuth().verified_email === "Verified" ? (
-                      <div className="col-span-1 w-full">
-                        <div className="flex flex-row w-full px-4">
-                          <h1 className="text-base font-bold leading-none text-blue-500">
-                            Actions
-                          </h1>
-                        </div>
-                        <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
-                          <button
-                            className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
-                            type="button"
-                          >
-                            <Link to={`${file.id}/${folderName}`}>
-                              <FontAwesomeIcon
-                                className={`${ICON_PLACE_SELF_CENTER}`}
-                                icon={faFileCsv}
-                              />
-                              View
-                            </Link>
-                          </button>
-                        </div>
-                      </div>
-                  ) : (
-                      <div className="col-span-1 w-full">
-                        <div className="flex flex-row w-full px-4">
-                          <h1 className="text-base font-bold leading-none text-blue-500">
-                            You need to verify your email to view this file
-                          </h1>
-                        </div>
-                        <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
-                          <button
-                              className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
-                              type="button"
-                          >
-                            <Link to={`/user/profile/${isAuth().username}`}>
-                              <FontAwesomeIcon
-                                  className={`${ICON_PLACE_SELF_CENTER}`}
-                                  icon={faCircleExclamation}
-                              />
-                              Unverified Email Address
-                            </Link>
-                          </button>
-                        </div>
-                      </div>
-                  )
+                {!file.flag_release ? null : isAuth().verified_email ===
+                  "Verified" ? (
+                  <div className="col-span-1 w-full">
+                    <div className="flex flex-row w-full px-4">
+                      <h1 className="text-base font-bold leading-none text-blue-500">
+                        Actions
+                      </h1>
+                    </div>
+                    <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
+                      <button
+                        className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                        type="button"
+                      >
+                        <Link to={`${file.id}/${folderName}`}>
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faFileCsv}
+                          />
+                          View
+                        </Link>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="col-span-1 w-full">
+                    <div className="flex flex-row w-full px-4">
+                      <h1 className="text-base font-bold leading-none text-blue-500">
+                        You need to verify your email to view this file
+                      </h1>
+                    </div>
+                    <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
+                      <button
+                        className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                        type="button"
+                      >
+                        <Link to={`/user/profile/${isAuth().username}`}>
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faCircleExclamation}
+                          />
+                          Unverified Email Address
+                        </Link>
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
