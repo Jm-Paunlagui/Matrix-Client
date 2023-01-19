@@ -6,13 +6,13 @@ import { LoadingPageSkeletonText } from "../../../components/loading/LoadingPage
 import { SearchBar } from "../../../components/searchbar/SearchBar";
 import {
   ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER, MAIN_BUTTON,
+  ICON_PLACE_SELF_CENTER,
   STATUS_GREEN,
   STATUS_RED,
-  STATUS_WARNING,
+  STATUS_WARNING, WARNING_BUTTON,
 } from "../../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faFileCsv, faIdBadge} from "@fortawesome/free-solid-svg-icons";
+import {faCircleExclamation, faFileCsv} from "@fortawesome/free-solid-svg-icons";
 import { isAuth } from "../../../helpers/Auth";
 import { NoData } from "../../../components/warnings/WarningMessages";
 import { toast } from "react-toastify";
@@ -275,16 +275,18 @@ export default function EvalFiles() {
                           </h1>
                         </div>
                         <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
-                          <div
-                              className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
-
+                          <button
+                              className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                              type="button"
                           >
-                            <FontAwesomeIcon
-                                className={`${ICON_PLACE_SELF_CENTER}`}
-                                icon={faIdBadge}
-                            />
-                            Unverified Account
-                          </div>
+                            <Link to={`/user/profile/${isAuth().username}`}>
+                              <FontAwesomeIcon
+                                  className={`${ICON_PLACE_SELF_CENTER}`}
+                                  icon={faCircleExclamation}
+                              />
+                              Unverified Email Address
+                            </Link>
+                          </button>
                         </div>
                       </div>
                   )
