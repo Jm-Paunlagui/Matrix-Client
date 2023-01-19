@@ -519,8 +519,8 @@ export default function AdminPrediction() {
       textChangeToAnS: "Processing File...",
     });
     const regex = /S\.Y\.\s\d{4}-\d{4}/;
-    if (!getNumberFromString(selected_column_for_sentence)){
-       setHandlers({
+    if (!getNumberFromString(selected_column_for_sentence)) {
+      setHandlers({
         ...handlers,
         okToAnS: false,
         errorEffectToAnS: true,
@@ -535,7 +535,7 @@ export default function AdminPrediction() {
         errorMessageToAnS: "Invalid school year format.",
         textChangeToAnS: "Analyze Sentiment and Save",
       });
-    } else if (!selected_semester){
+    } else if (!selected_semester) {
       setHandlers({
         ...handlers,
         okToAnS: false,

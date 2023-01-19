@@ -19,7 +19,7 @@ import SuccessAnimation from "actually-accessible-react-success-animation";
 import httpClient from "../../http/httpClient";
 import { importSPKI, jwtVerify } from "jose";
 import { toast } from "react-toastify";
-import {MailOptions} from "../../components/buttons/buttons";
+import { MailOptions } from "../../components/buttons/buttons";
 
 export default function AuthAdminUnlock() {
   /**
