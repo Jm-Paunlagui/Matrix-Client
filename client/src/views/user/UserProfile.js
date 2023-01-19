@@ -25,7 +25,7 @@ export default function UserProfile() {
     textChangeforPersonalInfo: "Update",
     recovery_email: "",
     okforSecurityInfo: false,
-        okforSecurityInfo2: false,
+    okforSecurityInfo2: false,
     errorEffectforSecurityInfo: false,
     errorMessageforSecurityInfo: "",
     showButtonforSecurityInfo: true,
@@ -46,7 +46,7 @@ export default function UserProfile() {
     textChangeforPassword: "Update",
     template: true,
     role: "",
-        verified_email: "",
+    verified_email: "",
     verified_recovery_email: "",
   });
   /**
@@ -83,7 +83,7 @@ export default function UserProfile() {
     textChangeforPassword,
     template,
     role,
-          verified_email,
+    verified_email,
     verified_recovery_email,
   } = profile;
 
@@ -239,46 +239,50 @@ export default function UserProfile() {
       okforPersonalInfo: true,
     });
     await httpClient
-        .post("/user/verify-email", {
-            email,
-        }).then(async (response) => {
-          toast.success(response.data.message);
-          setProfile({
-            ...profile,
-            okforPersonalInfo: false
-          });
-        }).catch((error) => {
-            toast.error(error.response.data.message);
-            setProfile({
-            ...profile,
-            okforPersonalInfo: false
-          });
+      .post("/user/verify-email", {
+        email,
+      })
+      .then(async (response) => {
+        toast.success(response.data.message);
+        setProfile({
+          ...profile,
+          okforPersonalInfo: false,
         });
-  }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProfile({
+          ...profile,
+          okforPersonalInfo: false,
+        });
+      });
+  };
 
-    const handleVerifyEmailRecovery = async (event) => {
+  const handleVerifyEmailRecovery = async (event) => {
     event.preventDefault();
     setProfile({
-        ...profile,
-        okforSecurityInfo2: true,
+      ...profile,
+      okforSecurityInfo2: true,
     });
     await httpClient
-        .post("/user/verify-email", {
-            email: recovery_email,
-        }).then(async (response) => {
-            toast.success(response.data.message);
-            setProfile({
-        ...profile,
-        okforSecurityInfo2: false,
-    });
-        }).catch((error) => {
-            toast.error(error.response.data.message);
-                        setProfile({
-        ...profile,
-        okforSecurityInfo2: false,
-    });
+      .post("/user/verify-email", {
+        email: recovery_email,
+      })
+      .then(async (response) => {
+        toast.success(response.data.message);
+        setProfile({
+          ...profile,
+          okforSecurityInfo2: false,
         });
-    }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProfile({
+          ...profile,
+          okforSecurityInfo2: false,
+        });
+      });
+  };
 
   /**
    * @description Handles the Security Information form submission
