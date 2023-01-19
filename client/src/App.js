@@ -58,6 +58,7 @@ import EvalReadCourseSentiment from "./views/user/eval/EvalReadCourseSentiment";
 import ManagementFileBin from "./views/admin/management/management_files/ManagementFileBin";
 import IndexLegal from "./views/legal/IndexLegal";
 import IndexCantSignIn from "./views/auth/cant_sign_in/IndexCantSignIn";
+import AuthVerifyEmail from "./views/auth/AuthVerifyEmail";
 
 /**
  * @description Main component for the application
@@ -166,6 +167,11 @@ export default function App() {
               element={<AuthRemoveEmailFromAccount />}
               exact="true"
               path="remove-email-from-account/:token"
+            />
+            <Route
+              element={<AuthVerifyEmail />}
+              exact="true"
+              path="verify-email/:token"
             />
             {/**
              * End of auth routes

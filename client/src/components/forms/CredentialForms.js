@@ -11,16 +11,16 @@ import {
   faSignIn,
   faPenToSquare,
   faCaretLeft,
-  faCheckDouble,
+  faCheckDouble, faIdBadge,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   ACCENT_BUTTON,
   EMAIL_NOT_SET,
-  ICON_PLACE_SELF_CENTER,
+  ICON_PLACE_SELF_CENTER, MAIN_BUTTON,
   PRIMARY_RADIO,
-  TEXT_FIELD,
+  TEXT_FIELD, WARNING_BUTTON,
 } from "../../assets/styles/styled-components";
 import { maskEmail, emailRegex } from "../../helpers/Helper";
 import PasswordChecklist from "react-password-checklist";
@@ -740,11 +740,13 @@ export function SendToEmail({
 /**
  * @description Personal information form.
  * @param email
+ * @param verified_email
  * @param errorEffectforPersonalInfo
  * @param errorMessageforPersonalInfo
  * @param full_name
  * @param handleChangeForPersonalInfo
  * @param handleUpdatePersonalInfo
+ * @param handleVerifyEmail
  * @param okforPersonalInfo
  * @param profile
  * @param setProfile
@@ -754,12 +756,12 @@ export function SendToEmail({
  * @constructor
  */
 export function PersonalInformation({
-  email,
+  email, verified_email,
   errorEffectforPersonalInfo,
   errorMessageforPersonalInfo,
   full_name,
   handleChangeForPersonalInfo,
-  handleUpdatePersonalInfo,
+  handleUpdatePersonalInfo, handleVerifyEmail,
   okforPersonalInfo,
   profile,
   setProfile,
@@ -768,12 +770,13 @@ export function PersonalInformation({
   is_editable,
 }) {
   PersonalInformation.propTypes = {
-    email: PropTypes.string,
+    email: PropTypes.string, verified_email: PropTypes.string,
     errorEffectforPersonalInfo: PropTypes.bool,
     errorMessageforPersonalInfo: PropTypes.string,
     full_name: PropTypes.string,
     handleChangeForPersonalInfo: PropTypes.func,
     handleUpdatePersonalInfo: PropTypes.func,
+    handleVerifyEmail: PropTypes.func,
     okforPersonalInfo: PropTypes.bool,
     profile: PropTypes.shape({}),
     setProfile: PropTypes.func,
@@ -808,7 +811,43 @@ export function PersonalInformation({
           <form onSubmit={handleUpdatePersonalInfo}>
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col w-full space-y-2">
-                <h1 className="text-base font-medium text-gray-500">Email</h1>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="text-base font-medium text-gray-500">Email</h1>
+                    {verified_email === "Unverified" ?
+                        (
+                            <div className="flex flex-row justify-between">
+                              <button
+                                className={`px-8 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                                onClick={handleVerifyEmail}
+                                type="button"
+                              >
+                                {okforPersonalInfo ? (
+                                  <LoadingAnimation />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    className={`${ICON_PLACE_SELF_CENTER}`}
+                                    icon={faIdBadge}
+                                  />
+                                )}
+                                {verified_email}
+                              </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-row justify-between">
+                              <div className="flex flex-row justify-between">
+                                <div
+                                  className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+                                >
+                                    <FontAwesomeIcon
+                                      className={`${ICON_PLACE_SELF_CENTER}`}
+                                      icon={faIdBadge}
+                                    />
+                                  {verified_email}
+                                </div>
+                              </div>
+                            </div>
+                        )}
+                    </div>
                 <input
                   className={`${TEXT_FIELD} outline outline-2 ${
                     errorEffectforPersonalInfo
@@ -894,8 +933,10 @@ export function SecurityInformation({
   handleChangeForSecurityInfo,
   handleUpdateSecurityInfo,
   okforSecurityInfo,
+    okforSecurityInfo2,
   profile,
-  recovery_email,
+  recovery_email, verified_recovery_email,
+  handleVerifyEmailRecovery,
   setProfile,
   showButtonforSecurityInfo,
   textChangeforSecurityInfo,
@@ -906,8 +947,10 @@ export function SecurityInformation({
     handleChangeForSecurityInfo: PropTypes.func,
     handleUpdateSecurityInfo: PropTypes.func,
     okforSecurityInfo: PropTypes.bool,
+    okforSecurityInfo2: PropTypes.bool,
     profile: PropTypes.shape({}),
-    recovery_email: PropTypes.string,
+    recovery_email: PropTypes.string, verified_recovery_email: PropTypes.string,
+    handleVerifyEmailRecovery: PropTypes.func,
     setProfile: PropTypes.func,
     showButtonforSecurityInfo: PropTypes.bool,
     textChangeforSecurityInfo: PropTypes.string,
@@ -939,9 +982,45 @@ export function SecurityInformation({
             <form onSubmit={handleUpdateSecurityInfo}>
               <div className="flex flex-col space-y-4">
                 <div className="flex flex-col w-full space-y-2">
-                  <h1 className="text-base font-medium text-gray-500">
-                    Recovery Email
-                  </h1>
+                  <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="text-base font-medium text-gray-500">Recovery Email</h1>
+                    {recovery_email === null ? null : (
+                        verified_recovery_email === "Unverified" ?
+                        (
+                            <div className="flex flex-row justify-between">
+                              <button
+                                className={`px-8 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                                onClick={handleVerifyEmailRecovery}
+                                type="button"
+                              >
+                                {okforSecurityInfo2 ? (
+                                  <LoadingAnimation />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    className={`${ICON_PLACE_SELF_CENTER}`}
+                                    icon={faIdBadge}
+                                  />
+                                )}
+                                {verified_recovery_email}
+                              </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-row justify-between">
+                              <div className="flex flex-row justify-between">
+                                <div
+                                  className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+                                >
+                                    <FontAwesomeIcon
+                                      className={`${ICON_PLACE_SELF_CENTER}`}
+                                      icon={faIdBadge}
+                                    />
+                                  {verified_recovery_email}
+                                </div>
+                              </div>
+                            </div>
+                        )
+                    )}
+                    </div>
                   <input
                     className={`${TEXT_FIELD} outline outline-2 ${
                       errorEffectforSecurityInfo
