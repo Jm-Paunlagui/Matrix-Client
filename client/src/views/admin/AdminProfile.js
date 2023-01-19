@@ -250,46 +250,50 @@ export default function AdminProfile() {
       okforPersonalInfo2: true,
     });
     await httpClient
-        .post("/user/verify-email", {
-            email,
-        }).then(async (response) => {
-          toast.success(response.data.message);
-          setProfile({
-            ...profile,
-            okforPersonalInfo2: false
-          });
-        }).catch((error) => {
-            toast.error(error.response.data.message);
-            setProfile({
-            ...profile,
-            okforPersonalInfo2: false
-          });
+      .post("/user/verify-email", {
+        email,
+      })
+      .then(async (response) => {
+        toast.success(response.data.message);
+        setProfile({
+          ...profile,
+          okforPersonalInfo2: false,
         });
-  }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProfile({
+          ...profile,
+          okforPersonalInfo2: false,
+        });
+      });
+  };
 
-    const handleVerifyEmailRecovery = async (event) => {
+  const handleVerifyEmailRecovery = async (event) => {
     event.preventDefault();
     setProfile({
-        ...profile,
-        okforSecurityInfo2: true,
+      ...profile,
+      okforSecurityInfo2: true,
     });
     await httpClient
-        .post("/user/verify-email", {
-            email: recovery_email,
-        }).then(async (response) => {
-            toast.success(response.data.message);
-            setProfile({
-        ...profile,
-        okforSecurityInfo2: false,
-    });
-        }).catch((error) => {
-            toast.error(error.response.data.message);
-                        setProfile({
-        ...profile,
-        okforSecurityInfo2: false,
-    });
+      .post("/user/verify-email", {
+        email: recovery_email,
+      })
+      .then(async (response) => {
+        toast.success(response.data.message);
+        setProfile({
+          ...profile,
+          okforSecurityInfo2: false,
         });
-    }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        setProfile({
+          ...profile,
+          okforSecurityInfo2: false,
+        });
+      });
+  };
 
   /**
    * @description Handles the Security Information form submission

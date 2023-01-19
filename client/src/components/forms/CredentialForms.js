@@ -11,16 +11,22 @@ import {
   faSignIn,
   faPenToSquare,
   faCaretLeft,
-  faCheckDouble, faCircleExclamation, faCircleCheck, faCircleMinus,
+  faCheckDouble,
+  faCircleExclamation,
+  faCircleCheck,
+  faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
-  ACCENT_BUTTON, DANGER_BUTTON,
+  ACCENT_BUTTON,
+  DANGER_BUTTON,
   EMAIL_NOT_SET,
-  ICON_PLACE_SELF_CENTER, MAIN_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+  MAIN_BUTTON,
   PRIMARY_RADIO,
-  TEXT_FIELD, WARNING_BUTTON,
+  TEXT_FIELD,
+  WARNING_BUTTON,
 } from "../../assets/styles/styled-components";
 import { maskEmail, emailRegex } from "../../helpers/Helper";
 import PasswordChecklist from "react-password-checklist";
@@ -757,13 +763,16 @@ export function SendToEmail({
  * @constructor
  */
 export function PersonalInformation({
-  email, verified_email,
+  email,
+  verified_email,
   errorEffectforPersonalInfo,
   errorMessageforPersonalInfo,
   full_name,
   handleChangeForPersonalInfo,
-  handleUpdatePersonalInfo, handleVerifyEmail,
-  okforPersonalInfo, okforPersonalInfo2,
+  handleUpdatePersonalInfo,
+  handleVerifyEmail,
+  okforPersonalInfo,
+  okforPersonalInfo2,
   profile,
   setProfile,
   showButtonforPersonalInfo,
@@ -771,7 +780,8 @@ export function PersonalInformation({
   is_editable,
 }) {
   PersonalInformation.propTypes = {
-    email: PropTypes.string, verified_email: PropTypes.string,
+    email: PropTypes.string,
+    verified_email: PropTypes.string,
     errorEffectforPersonalInfo: PropTypes.bool,
     errorMessageforPersonalInfo: PropTypes.string,
     full_name: PropTypes.string,
@@ -788,12 +798,12 @@ export function PersonalInformation({
   };
 
   function DiscardChangeEmail() {
-    const user = JSON.parse(localStorage.getItem("user"))
-    const originalEmail = user.email
-    setProfile(prevState => ({
-        ...prevState,
-        email: originalEmail,
-        showButtonforPersonalInfo: true,
+    const user = JSON.parse(localStorage.getItem("user"));
+    const originalEmail = user.email;
+    setProfile((prevState) => ({
+      ...prevState,
+      email: originalEmail,
+      showButtonforPersonalInfo: true,
       errorMessageforPersonalInfo: "",
     }));
   }
@@ -827,41 +837,40 @@ export function PersonalInformation({
               <div className="flex flex-col w-full space-y-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-base font-medium text-gray-500">Email</h1>
-                    {verified_email === "Unverified" && email !== "" ?
-                        (
-                            <div className="flex flex-row justify-between">
-                              <button
-                                className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
-                                onClick={handleVerifyEmail}
-                                type="button"
-                              >
-                                {okforPersonalInfo2 ? (
-                                  <LoadingAnimation />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    className={`${ICON_PLACE_SELF_CENTER}`}
-                                    icon={faCircleExclamation}
-                                  />
-                                )}
-                                {verified_email}
-                              </button>
-                            </div>
-                        ) : verified_email === "Verified" && email !== "" ? (
-                            <div className="flex flex-row justify-between">
-                              <div className="flex flex-row justify-between">
-                                <div
-                                  className={`px-2 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
-                                >
-                                    <FontAwesomeIcon
-                                      className={`${ICON_PLACE_SELF_CENTER}`}
-                                      icon={faCircleCheck}
-                                    />
-                                  {verified_email}
-                                </div>
-                              </div>
-                            </div>
-                        ) : null}
+                  {verified_email === "Unverified" && email !== "" ? (
+                    <div className="flex flex-row justify-between">
+                      <button
+                        className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                        onClick={handleVerifyEmail}
+                        type="button"
+                      >
+                        {okforPersonalInfo2 ? (
+                          <LoadingAnimation />
+                        ) : (
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faCircleExclamation}
+                          />
+                        )}
+                        {verified_email}
+                      </button>
                     </div>
+                  ) : verified_email === "Verified" && email !== "" ? (
+                    <div className="flex flex-row justify-between">
+                      <div className="flex flex-row justify-between">
+                        <div
+                          className={`px-2 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+                        >
+                          <FontAwesomeIcon
+                            className={`${ICON_PLACE_SELF_CENTER}`}
+                            icon={faCircleCheck}
+                          />
+                          {verified_email}
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
                 <input
                   className={`${TEXT_FIELD} outline outline-2 ${
                     errorEffectforPersonalInfo
@@ -905,16 +914,16 @@ export function PersonalInformation({
                         ${showButtonforPersonalInfo ? "hidden" : "block"}`}
             >
               <button
-                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
-                        onClick={DiscardChangeEmail}
-                        type="button"
+                className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                onClick={DiscardChangeEmail}
+                type="button"
               >
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faCircleMinus}
-                        />
-                        Discard
-                      </button>
+                <FontAwesomeIcon
+                  className={`${ICON_PLACE_SELF_CENTER}`}
+                  icon={faCircleMinus}
+                />
+                Discard
+              </button>
               <button
                 className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
                 type="submit"
@@ -958,9 +967,10 @@ export function SecurityInformation({
   handleChangeForSecurityInfo,
   handleUpdateSecurityInfo,
   okforSecurityInfo,
-    okforSecurityInfo2,
+  okforSecurityInfo2,
   profile,
-  recovery_email, verified_recovery_email,
+  recovery_email,
+  verified_recovery_email,
   handleVerifyEmailRecovery,
   setProfile,
   showButtonforSecurityInfo,
@@ -974,23 +984,24 @@ export function SecurityInformation({
     okforSecurityInfo: PropTypes.bool,
     okforSecurityInfo2: PropTypes.bool,
     profile: PropTypes.shape({}),
-    recovery_email: PropTypes.string, verified_recovery_email: PropTypes.string,
+    recovery_email: PropTypes.string,
+    verified_recovery_email: PropTypes.string,
     handleVerifyEmailRecovery: PropTypes.func,
     setProfile: PropTypes.func,
     showButtonforSecurityInfo: PropTypes.bool,
     textChangeforSecurityInfo: PropTypes.string,
   };
 
-function DiscardChangeRecovery() {
-    const user = JSON.parse(localStorage.getItem("user"))
-    const originalRecoveryEmail = user.recovery_email
-    setProfile(prevState => ({
-        ...prevState,
-        recovery_email: originalRecoveryEmail,
-        showButtonforSecurityInfo: true,
+  function DiscardChangeRecovery() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const originalRecoveryEmail = user.recovery_email;
+    setProfile((prevState) => ({
+      ...prevState,
+      recovery_email: originalRecoveryEmail,
+      showButtonforSecurityInfo: true,
       errorMessageforSecurityInfo: "",
     }));
-}
+  }
 
   return (
     <div
@@ -1020,44 +1031,46 @@ function DiscardChangeRecovery() {
               <div className="flex flex-col space-y-4">
                 <div className="flex flex-col w-full space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-base font-medium text-gray-500">Recovery Email</h1>
-                    {recovery_email === null ? null : (
-                        verified_recovery_email === "Unverified" && recovery_email !== ""  ?
-                        (
-                            <div className="flex flex-row justify-between">
-                              <button
-                                className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
-                                onClick={handleVerifyEmailRecovery}
-                                type="button"
-                              >
-                                {okforSecurityInfo2 ? (
-                                  <LoadingAnimation />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    className={`${ICON_PLACE_SELF_CENTER}`}
-                                    icon={faCircleExclamation}
-                                  />
-                                )}
-                                {verified_recovery_email}
-                              </button>
-                            </div>
-                        ) : verified_recovery_email === "Verified" && recovery_email !== "" ? (
-                            <div className="flex flex-row justify-between">
-                              <div className="flex flex-row justify-between">
-                                <div
-                                  className={`px-2 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
-                                >
-                                    <FontAwesomeIcon
-                                      className={`${ICON_PLACE_SELF_CENTER}`}
-                                      icon={faCircleCheck}
-                                    />
-                                  {verified_recovery_email}
-                                </div>
-                              </div>
-                            </div>
-                        ) : null
-                    )}
-                    </div>
+                    <h1 className="text-base font-medium text-gray-500">
+                      Recovery Email
+                    </h1>
+                    {recovery_email ===
+                    null ? null : verified_recovery_email === "Unverified" &&
+                      recovery_email !== "" ? (
+                      <div className="flex flex-row justify-between">
+                        <button
+                          className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                          onClick={handleVerifyEmailRecovery}
+                          type="button"
+                        >
+                          {okforSecurityInfo2 ? (
+                            <LoadingAnimation />
+                          ) : (
+                            <FontAwesomeIcon
+                              className={`${ICON_PLACE_SELF_CENTER}`}
+                              icon={faCircleExclamation}
+                            />
+                          )}
+                          {verified_recovery_email}
+                        </button>
+                      </div>
+                    ) : verified_recovery_email === "Verified" &&
+                      recovery_email !== "" ? (
+                      <div className="flex flex-row justify-between">
+                        <div className="flex flex-row justify-between">
+                          <div
+                            className={`px-2 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+                          >
+                            <FontAwesomeIcon
+                              className={`${ICON_PLACE_SELF_CENTER}`}
+                              icon={faCircleCheck}
+                            />
+                            {verified_recovery_email}
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
                   <input
                     className={`${TEXT_FIELD} outline outline-2 ${
                       errorEffectforSecurityInfo
@@ -1083,16 +1096,16 @@ function DiscardChangeRecovery() {
                           ${showButtonforSecurityInfo ? "hidden" : "block"}`}
               >
                 <button
-                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
-                        onClick={DiscardChangeRecovery}
-                        type="button"
+                  className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                  onClick={DiscardChangeRecovery}
+                  type="button"
                 >
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faCircleMinus}
-                        />
-                        Discard
-                      </button>
+                  <FontAwesomeIcon
+                    className={`${ICON_PLACE_SELF_CENTER}`}
+                    icon={faCircleMinus}
+                  />
+                  Discard
+                </button>
                 <button
                   className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
                   type="submit"
@@ -1189,28 +1202,27 @@ export function SignInInformation({
   };
 
   function DiscardChangePassword() {
-    setProfile(prevState => ({
-        ...prevState,
-        template: true,
-        old_password: "",
-        new_password: "",
-        confirm_password: "",
-        showButtonforPassword: true,
+    setProfile((prevState) => ({
+      ...prevState,
+      template: true,
+      old_password: "",
+      new_password: "",
+      confirm_password: "",
+      showButtonforPassword: true,
       errorMessageforPassword: "",
     }));
   }
 
   function DiscardChangeUsername() {
-    const user = JSON.parse(localStorage.getItem("user"))
-    const originalUsername = user.username
-    setProfile(prevState => ({
-        ...prevState,
-        username: originalUsername,
-        showButtonforUsername: true,
+    const user = JSON.parse(localStorage.getItem("user"));
+    const originalUsername = user.username;
+    setProfile((prevState) => ({
+      ...prevState,
+      username: originalUsername,
+      showButtonforUsername: true,
       errorMessageforUsername: "",
-
     }));
-}
+  }
 
   return (
     <div
@@ -1272,16 +1284,16 @@ export function SignInInformation({
                           ${showButtonforUsername ? "hidden" : "block"}`}
               >
                 <button
-                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
-                        onClick={DiscardChangeUsername}
-                        type="button"
+                  className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                  onClick={DiscardChangeUsername}
+                  type="button"
                 >
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faCircleMinus}
-                        />
-                        Discard
-                      </button>
+                  <FontAwesomeIcon
+                    className={`${ICON_PLACE_SELF_CENTER}`}
+                    icon={faCircleMinus}
+                  />
+                  Discard
+                </button>
                 <button
                   className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
                   type="submit"
@@ -1400,18 +1412,20 @@ export function SignInInformation({
                   className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2`}
                 >
                   <button
-                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
-                        onClick={DiscardChangePassword}
-                        type="button"
+                    className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                    onClick={DiscardChangePassword}
+                    type="button"
                   >
-                        <FontAwesomeIcon
-                          className={`${ICON_PLACE_SELF_CENTER}`}
-                          icon={faCircleMinus}
-                        />
-                        Discard
-                      </button>
+                    <FontAwesomeIcon
+                      className={`${ICON_PLACE_SELF_CENTER}`}
+                      icon={faCircleMinus}
+                    />
+                    Discard
+                  </button>
                   <button
-                    className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${showButtonforPassword ? "hidden" : "block"}`}
+                    className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
+                      showButtonforPassword ? "hidden" : "block"
+                    }`}
                     type="submit"
                   >
                     {okforPassword ? (
