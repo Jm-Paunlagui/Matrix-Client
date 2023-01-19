@@ -16,7 +16,7 @@ export default function IndexAdmin() {
         <BreadCrumb />
         <Outlet />
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </>
   ) : (
     <Navigate to="/unauthorized-access" />

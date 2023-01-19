@@ -29,7 +29,7 @@ export default function InsightsDepartment() {
   const handleSearchForDepartment = (event) => {
     const value = event.target.value.toLowerCase();
     const result = top_department.filter((data) => {
-      return data.department.toLowerCase().search(value) !== -1;
+      return data.name.toLowerCase().search(value) !== -1;
     });
     setFilteredTopDepartment(result);
   };

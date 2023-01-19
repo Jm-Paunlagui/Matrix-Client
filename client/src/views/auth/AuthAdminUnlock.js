@@ -19,6 +19,7 @@ import SuccessAnimation from "actually-accessible-react-success-animation";
 import httpClient from "../../http/httpClient";
 import { importSPKI, jwtVerify } from "jose";
 import { toast } from "react-toastify";
+import {MailOptions} from "../../components/buttons/buttons";
 
 export default function AuthAdminUnlock() {
   /**
@@ -304,7 +305,8 @@ export default function AuthAdminUnlock() {
                   <p className="text-lg">
                     If you don&#39;t see it, check your spam folder.
                   </p>
-                  <div className="flex flex-col justify-center">
+                  <div className="flex flex-col justify-center mt-6 space-y-4">
+                    <MailOptions />
                     <button className={`${ACCENT_BUTTON}`} type={"button"}>
                       <Link to={"/auth"}>
                         <h1 className="px-5 py-1">

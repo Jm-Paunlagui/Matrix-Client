@@ -144,7 +144,7 @@ export default function InsightsPerSemesterDepartment() {
   const handleSearchForDepartment = (event) => {
     const value = event.target.value.toLowerCase();
     const result = top_department_per_sem.filter((data) => {
-      return data.department.toLowerCase().search(value) !== -1;
+      return data.name.toLowerCase().search(value) !== -1;
     });
     setFilteredTopDepartmentPerSem(result);
   };

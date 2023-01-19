@@ -240,11 +240,11 @@ export default function AdminPrediction() {
     ok: false,
     errorEffect: false,
     errorMessage: "",
-    textChange: "View",
+    textChange: "Upload File",
     okToAnS: false,
     errorEffectToAnS: false,
     errorMessageToAnS: "",
-    textChangeToAnS: "Analyze and Save",
+    textChangeToAnS: "Analyze Sentiment and Save",
   });
 
   const {
@@ -395,7 +395,7 @@ export default function AdminPrediction() {
     setHandlers({
       ...handlers,
       ok: true,
-      textChange: "Viewing...",
+      textChange: "Uploading File...",
     });
     const formData = new FormData();
     formData.append("csv_file_to_view", csv_file_to_view);
@@ -406,7 +406,7 @@ export default function AdminPrediction() {
           ...handlers,
           ok: false,
           showButtonToView: false,
-          textChange: "View",
+          textChange: "Upload File",
         });
         toast.success(response.data.message);
         jwtVerify(
@@ -434,7 +434,7 @@ export default function AdminPrediction() {
           ok: false,
           errorEffect: true,
           errorMessage: error.response.data.message,
-          textChange: "View",
+          textChange: "Upload File",
         }) || toast.error(error.message);
       });
   };
@@ -463,11 +463,11 @@ export default function AdminPrediction() {
     });
     setHandlers({
       ...handlers,
-      textChange: "View",
+      textChange: "Upload File",
       okToAnS: false,
       errorEffectToAnS: false,
       errorMessageToAnS: "",
-      textChangeToAnS: "Analyze and Save",
+      textChangeToAnS: "Analyze Sentiment and Save",
     });
     setTimeAnalyze({
       ...timeAnalyze,
@@ -516,16 +516,32 @@ export default function AdminPrediction() {
       ...handlers,
       buttonDisabled: true,
       okToAnS: true,
-      textChangeToAnS: "Analyzing and Saving...",
+      textChangeToAnS: "Processing File...",
     });
     const regex = /S\.Y\.\s\d{4}-\d{4}/;
-    if (!regex.test(school_year)) {
+    if (!getNumberFromString(selected_column_for_sentence)){
+       setHandlers({
+        ...handlers,
+        okToAnS: false,
+        errorEffectToAnS: true,
+        errorMessageToAnS: "Select a source header column for sentence",
+        textChangeToAnS: "Analyze Sentiment and Save",
+      });
+    } else if (!regex.test(school_year)) {
       setHandlers({
         ...handlers,
         okToAnS: false,
         errorEffectToAnS: true,
         errorMessageToAnS: "Invalid school year format.",
-        textChangeToAnS: "Analyze and Save",
+        textChangeToAnS: "Analyze Sentiment and Save",
+      });
+    } else if (!selected_semester){
+      setHandlers({
+        ...handlers,
+        okToAnS: false,
+        errorEffectToAnS: true,
+        errorMessageToAnS: "Select a school semester",
+        textChangeToAnS: "Analyze Sentiment and Save",
       });
     } else if (
       getNameFromString(selected_column_for_sentence) !== csv_question
@@ -536,7 +552,7 @@ export default function AdminPrediction() {
         errorEffectToAnS: true,
         errorMessageToAnS:
           "Question column does not match the selected column for sentence",
-        textChangeToAnS: "Analyze and Save",
+        textChangeToAnS: "Analyze Sentiment and Save",
       });
     } else {
       await httpClient
@@ -556,7 +572,7 @@ export default function AdminPrediction() {
             ...handlers,
             buttonDisabled: false,
             okToAnS: false,
-            textChangeToAnS: "Analyzed and Saved",
+            textChangeToAnS: "Analyze Sentiment and Save",
           });
           setTimeAnalyze({
             ...timeAnalyze,
@@ -1402,8 +1418,8 @@ export default function AdminPrediction() {
                           setHandlers({
                             ...handlers,
                             buttonDisabled: false,
-                            textChange: "View",
-                            textChangeToAnS: "Analyze and Save",
+                            textChange: "Upload File",
+                            textChangeToAnS: "Analyze Sentiment and Save",
                             errorMessageToAnS: "",
                           });
                         }}
