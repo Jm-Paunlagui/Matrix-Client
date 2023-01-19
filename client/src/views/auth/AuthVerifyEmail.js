@@ -20,18 +20,20 @@ export default function AuthVerifyEmail() {
     const [oki, setOki] = useState(true);
     const [errorEffect, setErrorEffect] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState("");
+    const [message, setMessage] = React.useState("");
 
     function decodeToken() {
     httpClient
       .get(`/user/verify-email/${token}`)
       .then(async (res) => {
         setOki(false);
-        toast.success(res.data.message);
+        setMessage(res.data.message);
         await verifyJWT(res.data.token)
             .then(() => {
                 toast.info("Please reload the page");
             }).catch((err) => {
                 toast.error(err.message);
+                setErrorMessage(err.message);
             });
       })
       .catch((err) => {
@@ -86,7 +88,7 @@ export default function AuthVerifyEmail() {
                         ) : (
                             <div className="flex flex-col items-center justify-center">
                                 <h1 className="text-2xl font-bold text-gray-800">
-                                    Email verified!
+                                    {message}
                                 </h1>
                             </div>
                         )

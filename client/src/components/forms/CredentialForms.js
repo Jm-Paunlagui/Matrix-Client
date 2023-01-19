@@ -11,12 +11,12 @@ import {
   faSignIn,
   faPenToSquare,
   faCaretLeft,
-  faCheckDouble, faIdBadge,
+  faCheckDouble, faCircleExclamation, faCircleCheck, faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
-  ACCENT_BUTTON,
+  ACCENT_BUTTON, DANGER_BUTTON,
   EMAIL_NOT_SET,
   ICON_PLACE_SELF_CENTER, MAIN_BUTTON,
   PRIMARY_RADIO,
@@ -748,6 +748,7 @@ export function SendToEmail({
  * @param handleUpdatePersonalInfo
  * @param handleVerifyEmail
  * @param okforPersonalInfo
+ * @param okforPersonalInfo2
  * @param profile
  * @param setProfile
  * @param showButtonforPersonalInfo
@@ -762,7 +763,7 @@ export function PersonalInformation({
   full_name,
   handleChangeForPersonalInfo,
   handleUpdatePersonalInfo, handleVerifyEmail,
-  okforPersonalInfo,
+  okforPersonalInfo, okforPersonalInfo2,
   profile,
   setProfile,
   showButtonforPersonalInfo,
@@ -778,12 +779,25 @@ export function PersonalInformation({
     handleUpdatePersonalInfo: PropTypes.func,
     handleVerifyEmail: PropTypes.func,
     okforPersonalInfo: PropTypes.bool,
+    okforPersonalInfo2: PropTypes.bool,
     profile: PropTypes.shape({}),
     setProfile: PropTypes.func,
     showButtonforPersonalInfo: PropTypes.bool,
     textChangeforPersonalInfo: PropTypes.string,
     is_editable: PropTypes.bool,
   };
+
+  function DiscardChangeEmail() {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const originalEmail = user.email
+    setProfile(prevState => ({
+        ...prevState,
+        email: originalEmail,
+        showButtonforPersonalInfo: true,
+      errorMessageforPersonalInfo: "",
+    }));
+  }
+
   return (
     <div
       className={`flex flex-col w-full mb-8 p-8 bg-blue-50 rounded-lg shadow
@@ -813,40 +827,40 @@ export function PersonalInformation({
               <div className="flex flex-col w-full space-y-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-base font-medium text-gray-500">Email</h1>
-                    {verified_email === "Unverified" ?
+                    {verified_email === "Unverified" && email !== "" ?
                         (
                             <div className="flex flex-row justify-between">
                               <button
-                                className={`px-8 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                                className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
                                 onClick={handleVerifyEmail}
                                 type="button"
                               >
-                                {okforPersonalInfo ? (
+                                {okforPersonalInfo2 ? (
                                   <LoadingAnimation />
                                 ) : (
                                   <FontAwesomeIcon
                                     className={`${ICON_PLACE_SELF_CENTER}`}
-                                    icon={faIdBadge}
+                                    icon={faCircleExclamation}
                                   />
                                 )}
                                 {verified_email}
                               </button>
                             </div>
-                        ) : (
+                        ) : verified_email === "Verified" && email !== "" ? (
                             <div className="flex flex-row justify-between">
                               <div className="flex flex-row justify-between">
                                 <div
-                                  className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+                                  className={`px-2 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
                                 >
                                     <FontAwesomeIcon
                                       className={`${ICON_PLACE_SELF_CENTER}`}
-                                      icon={faIdBadge}
+                                      icon={faCircleCheck}
                                     />
                                   {verified_email}
                                 </div>
                               </div>
                             </div>
-                        )}
+                        ) : null}
                     </div>
                 <input
                   className={`${TEXT_FIELD} outline outline-2 ${
@@ -890,6 +904,17 @@ export function PersonalInformation({
               className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
                         ${showButtonforPersonalInfo ? "hidden" : "block"}`}
             >
+              <button
+                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                        onClick={DiscardChangeEmail}
+                        type="button"
+              >
+                        <FontAwesomeIcon
+                          className={`${ICON_PLACE_SELF_CENTER}`}
+                          icon={faCircleMinus}
+                        />
+                        Discard
+                      </button>
               <button
                 className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
                 type="submit"
@@ -955,6 +980,18 @@ export function SecurityInformation({
     showButtonforSecurityInfo: PropTypes.bool,
     textChangeforSecurityInfo: PropTypes.string,
   };
+
+function DiscardChangeRecovery() {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const originalRecoveryEmail = user.recovery_email
+    setProfile(prevState => ({
+        ...prevState,
+        recovery_email: originalRecoveryEmail,
+        showButtonforSecurityInfo: true,
+      errorMessageforSecurityInfo: "",
+    }));
+}
+
   return (
     <div
       className={`flex flex-col w-full mb-8 p-8 bg-blue-50 rounded-lg shadow
@@ -985,11 +1022,11 @@ export function SecurityInformation({
                   <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-base font-medium text-gray-500">Recovery Email</h1>
                     {recovery_email === null ? null : (
-                        verified_recovery_email === "Unverified" ?
+                        verified_recovery_email === "Unverified" && recovery_email !== ""  ?
                         (
                             <div className="flex flex-row justify-between">
                               <button
-                                className={`px-8 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
+                                className={`px-2 py-1 flex flex-row justify-center ${WARNING_BUTTON}`}
                                 onClick={handleVerifyEmailRecovery}
                                 type="button"
                               >
@@ -998,27 +1035,27 @@ export function SecurityInformation({
                                 ) : (
                                   <FontAwesomeIcon
                                     className={`${ICON_PLACE_SELF_CENTER}`}
-                                    icon={faIdBadge}
+                                    icon={faCircleExclamation}
                                   />
                                 )}
                                 {verified_recovery_email}
                               </button>
                             </div>
-                        ) : (
+                        ) : verified_recovery_email === "Verified" && recovery_email !== "" ? (
                             <div className="flex flex-row justify-between">
                               <div className="flex flex-row justify-between">
                                 <div
-                                  className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+                                  className={`px-2 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
                                 >
                                     <FontAwesomeIcon
                                       className={`${ICON_PLACE_SELF_CENTER}`}
-                                      icon={faIdBadge}
+                                      icon={faCircleCheck}
                                     />
                                   {verified_recovery_email}
                                 </div>
                               </div>
                             </div>
-                        )
+                        ) : null
                     )}
                     </div>
                   <input
@@ -1045,6 +1082,17 @@ export function SecurityInformation({
                 className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
                           ${showButtonforSecurityInfo ? "hidden" : "block"}`}
               >
+                <button
+                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                        onClick={DiscardChangeRecovery}
+                        type="button"
+                >
+                        <FontAwesomeIcon
+                          className={`${ICON_PLACE_SELF_CENTER}`}
+                          icon={faCircleMinus}
+                        />
+                        Discard
+                      </button>
                 <button
                   className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
                   type="submit"
@@ -1139,6 +1187,31 @@ export function SignInInformation({
     textChangeforUsername: PropTypes.string,
     username: PropTypes.string,
   };
+
+  function DiscardChangePassword() {
+    setProfile(prevState => ({
+        ...prevState,
+        template: true,
+        old_password: "",
+        new_password: "",
+        confirm_password: "",
+        showButtonforPassword: true,
+      errorMessageforPassword: "",
+    }));
+  }
+
+  function DiscardChangeUsername() {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const originalUsername = user.username
+    setProfile(prevState => ({
+        ...prevState,
+        username: originalUsername,
+        showButtonforUsername: true,
+      errorMessageforUsername: "",
+
+    }));
+}
+
   return (
     <div
       className={`flex flex-col w-full p-8 bg-blue-50 rounded-lg shadow space-y-4
@@ -1198,6 +1271,17 @@ export function SignInInformation({
                 className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
                           ${showButtonforUsername ? "hidden" : "block"}`}
               >
+                <button
+                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                        onClick={DiscardChangeUsername}
+                        type="button"
+                >
+                        <FontAwesomeIcon
+                          className={`${ICON_PLACE_SELF_CENTER}`}
+                          icon={faCircleMinus}
+                        />
+                        Discard
+                      </button>
                 <button
                   className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
                   type="submit"
@@ -1313,11 +1397,21 @@ export function SignInInformation({
                   valueAgain={confirm_password}
                 />
                 <div
-                  className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
-                          ${showButtonforPassword ? "hidden" : "block"}`}
+                  className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2`}
                 >
                   <button
-                    className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                        className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
+                        onClick={DiscardChangePassword}
+                        type="button"
+                  >
+                        <FontAwesomeIcon
+                          className={`${ICON_PLACE_SELF_CENTER}`}
+                          icon={faCircleMinus}
+                        />
+                        Discard
+                      </button>
+                  <button
+                    className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${showButtonforPassword ? "hidden" : "block"}`}
                     type="submit"
                   >
                     {okforPassword ? (

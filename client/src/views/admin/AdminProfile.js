@@ -21,6 +21,7 @@ export default function AdminProfile() {
     email: "",
     full_name: "",
     okforPersonalInfo: false,
+    okforPersonalInfo2: false,
     errorEffectforPersonalInfo: false,
     errorMessageforPersonalInfo: "",
     showButtonforPersonalInfo: true,
@@ -58,6 +59,7 @@ export default function AdminProfile() {
     email,
     full_name,
     okforPersonalInfo,
+    okforPersonalInfo2,
     errorEffectforPersonalInfo,
     errorMessageforPersonalInfo,
     showButtonforPersonalInfo,
@@ -211,6 +213,7 @@ export default function AdminProfile() {
               okforPersonalInfo: false,
               showButtonforPersonalInfo: true,
               textChangeforPersonalInfo: "Update",
+              verified_email: "Unverified",
             });
           })
           .catch((error) => {
@@ -238,7 +241,7 @@ export default function AdminProfile() {
     event.preventDefault();
     setProfile({
       ...profile,
-      okforPersonalInfo: true,
+      okforPersonalInfo2: true,
     });
     await httpClient
         .post("/user/verify-email", {
@@ -247,13 +250,13 @@ export default function AdminProfile() {
           toast.success(response.data.message);
           setProfile({
             ...profile,
-            okforPersonalInfo: false
+            okforPersonalInfo2: false
           });
         }).catch((error) => {
             toast.error(error.response.data.message);
             setProfile({
             ...profile,
-            okforPersonalInfo: false
+            okforPersonalInfo2: false
           });
         });
   }
@@ -306,6 +309,7 @@ export default function AdminProfile() {
               okforSecurityInfo: false,
               showButtonforSecurityInfo: true,
               textChangeforSecurityInfo: "Update",
+              verified_recovery_email: "Unverified",
             });
           })
           .catch((error) => {
@@ -466,6 +470,7 @@ export default function AdminProfile() {
               handleVerifyEmail={handleVerifyEmail}
               is_editable
               okforPersonalInfo={okforPersonalInfo}
+              okforPersonalInfo2={okforPersonalInfo2}
               profile={profile}
               setProfile={setProfile}
               showButtonforPersonalInfo={showButtonforPersonalInfo}

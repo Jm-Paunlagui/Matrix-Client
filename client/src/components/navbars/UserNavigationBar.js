@@ -117,23 +117,9 @@ export default function UserNavigationBar() {
       icon_: <BsAwardFill size={24} />,
     },
     {
-      name: "Employee",
-      href: "/user/insights/employees",
-      current: isActiveSubs("employees"),
-      icon: <BsAwardFill size={16} />,
-      icon_: <BsAwardFill size={24} />,
-    },
-    {
       name: "Per Semester Department",
       href: "/user/insights/per-semester-department",
       current: isActiveSubs("per-semester-department"),
-      icon: <BsAwardFill size={16} />,
-      icon_: <BsAwardFill size={24} />,
-    },
-    {
-      name: "Per Semester Employee",
-      href: "/user/insights/per-semester-employee",
-      current: isActiveSubs("per-semester-employee"),
       icon: <BsAwardFill size={16} />,
       icon_: <BsAwardFill size={24} />,
     },

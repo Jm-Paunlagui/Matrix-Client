@@ -6,13 +6,13 @@ import { LoadingPageSkeletonText } from "../../../components/loading/LoadingPage
 import { SearchBar } from "../../../components/searchbar/SearchBar";
 import {
   ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
+  ICON_PLACE_SELF_CENTER, MAIN_BUTTON,
   STATUS_GREEN,
   STATUS_RED,
   STATUS_WARNING,
 } from "../../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCsv } from "@fortawesome/free-solid-svg-icons";
+import {faFileCsv, faIdBadge} from "@fortawesome/free-solid-svg-icons";
 import { isAuth } from "../../../helpers/Auth";
 import { NoData } from "../../../components/warnings/WarningMessages";
 import { toast } from "react-toastify";
@@ -245,27 +245,49 @@ export default function EvalFiles() {
                   </div>
                 </div>
                 {!file.flag_release ? null : (
-                  <div className="col-span-1 w-full">
-                    <div className="flex flex-row w-full px-4">
-                      <h1 className="text-base font-bold leading-none text-blue-500">
-                        Actions
-                      </h1>
-                    </div>
-                    <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
-                      <button
-                        className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
-                        type="button"
-                      >
-                        <Link to={`${file.id}/${folderName}`}>
-                          <FontAwesomeIcon
-                            className={`${ICON_PLACE_SELF_CENTER}`}
-                            icon={faFileCsv}
-                          />
-                          View
-                        </Link>
-                      </button>
-                    </div>
-                  </div>
+                  isAuth().verified_email === "Verified" ? (
+                      <div className="col-span-1 w-full">
+                        <div className="flex flex-row w-full px-4">
+                          <h1 className="text-base font-bold leading-none text-blue-500">
+                            Actions
+                          </h1>
+                        </div>
+                        <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
+                          <button
+                            className={`py-1 px-2 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                            type="button"
+                          >
+                            <Link to={`${file.id}/${folderName}`}>
+                              <FontAwesomeIcon
+                                className={`${ICON_PLACE_SELF_CENTER}`}
+                                icon={faFileCsv}
+                              />
+                              View
+                            </Link>
+                          </button>
+                        </div>
+                      </div>
+                  ) : (
+                      <div className="col-span-1 w-full">
+                        <div className="flex flex-row w-full px-4">
+                          <h1 className="text-base font-bold leading-none text-blue-500">
+                            You need to verify your email to view this file
+                          </h1>
+                        </div>
+                        <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
+                          <div
+                              className={`px-8 py-1 flex flex-row justify-center ${MAIN_BUTTON}`}
+
+                          >
+                            <FontAwesomeIcon
+                                className={`${ICON_PLACE_SELF_CENTER}`}
+                                icon={faIdBadge}
+                            />
+                            Unverified Account
+                          </div>
+                        </div>
+                      </div>
+                  )
                 )}
               </div>
             </div>

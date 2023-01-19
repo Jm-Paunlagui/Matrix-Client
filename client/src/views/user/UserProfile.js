@@ -19,6 +19,7 @@ export default function UserProfile() {
     email: "",
     full_name: "",
     okforPersonalInfo: false,
+    okforPersonalInfo2: false,
     errorEffectforPersonalInfo: false,
     errorMessageforPersonalInfo: "",
     showButtonforPersonalInfo: true,
@@ -56,6 +57,7 @@ export default function UserProfile() {
     email,
     full_name,
     okforPersonalInfo,
+      okforPersonalInfo2,
     errorEffectforPersonalInfo,
     errorMessageforPersonalInfo,
     showButtonforPersonalInfo,
@@ -209,6 +211,7 @@ export default function UserProfile() {
               okforPersonalInfo: false,
               showButtonforPersonalInfo: true,
               textChangeforPersonalInfo: "Update",
+              verified_email: "Unverified",
             });
           })
           .catch((error) => {
@@ -236,7 +239,7 @@ export default function UserProfile() {
     event.preventDefault();
     setProfile({
       ...profile,
-      okforPersonalInfo: true,
+      okforPersonalInfo2: true,
     });
     await httpClient
         .post("/user/verify-email", {
@@ -245,13 +248,13 @@ export default function UserProfile() {
           toast.success(response.data.message);
           setProfile({
             ...profile,
-            okforPersonalInfo: false
+            okforPersonalInfo2: false
           });
         }).catch((error) => {
             toast.error(error.response.data.message);
             setProfile({
             ...profile,
-            okforPersonalInfo: false
+            okforPersonalInfo2: false
           });
         });
   }
@@ -304,6 +307,7 @@ export default function UserProfile() {
               okforSecurityInfo: false,
               showButtonforSecurityInfo: true,
               textChangeforSecurityInfo: "Update",
+              verified_recovery_email: "Unverified",
             });
           })
           .catch((error) => {
@@ -399,6 +403,7 @@ export default function UserProfile() {
           new_password: "",
           confirm_password: "",
           okforPassword: false,
+          template: true,
           textChangeforPassword: "Update",
         });
         toast(response.data.message, { type: "success" });
@@ -477,6 +482,7 @@ export default function UserProfile() {
               handleVerifyEmail={handleVerifyEmail}
               is_editable={false}
               okforPersonalInfo={okforPersonalInfo}
+              okforPersonalInfo2={okforPersonalInfo2}
               profile={profile}
               setProfile={setProfile}
               showButtonforPersonalInfo={showButtonforPersonalInfo}
