@@ -4,12 +4,13 @@ import { toReadableName } from "../../../../helpers/Helper";
 import httpClient from "../../../../http/httpClient";
 import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
 import Buttons from "../../../../components/buttons/buttons";
-import { Header } from "../../../../components/headers/Header";
+import {Header, HeaderEmail} from "../../../../components/headers/Header";
 import { GridItemResponse } from "../../../../components/grid/GridItem";
 import { toast } from "react-toastify";
 import { NoData } from "../../../../components/warnings/WarningMessages";
 import { Paginator } from "../../../../components/listbox/ListBox";
 import { ItemsPerPage } from "../../../../components/items/Items";
+import {isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Displays the sentiment score of the file along with the response
@@ -74,7 +75,8 @@ export default function ManagementFilesReadDataResponse() {
     page,
     per_page,
   ) => {
-    httpClient
+    if (isAuth().verified_email === "Verified"){
+      httpClient
       .get(
         `/data/read-data-response/${fileId}/${read_responses}/${file_name}/${page}/${per_page}`,
       )
@@ -94,6 +96,7 @@ export default function ManagementFilesReadDataResponse() {
         toast.error(error.response.data.message);
         window.location.href = "/login-timeout";
       });
+    }
   };
 
   useEffect(() => {
@@ -112,71 +115,79 @@ export default function ManagementFilesReadDataResponse() {
         text="Back"
         to={`/admin/management/files/data/${fileId}/${read_responses}`}
       />
-      <Header
-        body={`Here is the data response for ${toReadableName(file_name)}`}
-        title={`${toReadableName(file_name)}`}
-      />
-      <ItemsPerPage
-        Datas={readDataResponse}
-        current_page={current_page}
-        has_next={has_next}
-        has_prev={has_prev}
-        items={sentiments_list}
-        moreClasses={"mt-8 mb-8"}
-        page_number={page_number}
-        setDatas={setReadDataResponse}
-        total_items={total_items}
-        total_pages={total_pages}
-      >
-        <Paginator
-          handleSelect={handleSelect}
-          per_page={per_page}
-          per_page_limit={per_page_limit}
-        />
-      </ItemsPerPage>
-      <div className=" place-content-center space-y-8">
-        <div className="grid grid-cols-1 pb-8 md:grid-cols-2 lg:grid-cols-3 gap-y-6 md:gap-6">
-          {loading ? (
+      {
+        isAuth().verified_email === "Verified" ? (
             <>
-              <LoadingPageSkeletonText />
-              <LoadingPageSkeletonText />
-              <LoadingPageSkeletonText />
-            </>
-          ) : sentiments_list.length > 0 ? (
-            sentiments_list.map((sentiment) => (
-              <div
-                className={`flex flex-col p-8 rounded-lg shadow ${
-                  sentiment.sentiment >= 50 ? "bg-green-50" : "bg-red-50"
-                }`}
-                key={sentiment.id}
+              <Header
+                body={`Here is the data response for ${toReadableName(file_name)}`}
+                title={`${toReadableName(file_name)}`}
+              />
+              <ItemsPerPage
+                Datas={readDataResponse}
+                current_page={current_page}
+                has_next={has_next}
+                has_prev={has_prev}
+                items={sentiments_list}
+                moreClasses={"mt-8 mb-8"}
+                page_number={page_number}
+                setDatas={setReadDataResponse}
+                total_items={total_items}
+                total_pages={total_pages}
               >
-                <GridItemResponse key={sentiment.id} sentiment={sentiment} />
+                <Paginator
+                  handleSelect={handleSelect}
+                  per_page={per_page}
+                  per_page_limit={per_page_limit}
+                />
+              </ItemsPerPage>
+              <div className=" place-content-center space-y-8">
+                <div className="grid grid-cols-1 pb-8 md:grid-cols-2 lg:grid-cols-3 gap-y-6 md:gap-6">
+                  {loading ? (
+                    <>
+                      <LoadingPageSkeletonText />
+                      <LoadingPageSkeletonText />
+                      <LoadingPageSkeletonText />
+                    </>
+                  ) : sentiments_list.length > 0 ? (
+                    sentiments_list.map((sentiment) => (
+                      <div
+                        className={`flex flex-col p-8 rounded-lg shadow ${
+                          sentiment.sentiment >= 50 ? "bg-green-50" : "bg-red-50"
+                        }`}
+                        key={sentiment.id}
+                      >
+                        <GridItemResponse key={sentiment.id} sentiment={sentiment} />
+                      </div>
+                    ))
+                  ) : (
+                    <div className={"col-span-full"}>
+                      <NoData message="Data Unavailable" />
+                    </div>
+                  )}
+                </div>
               </div>
-            ))
-          ) : (
-            <div className={"col-span-full"}>
-              <NoData message="Data Unavailable" />
-            </div>
-          )}
-        </div>
-      </div>
-      <ItemsPerPage
-        Datas={readDataResponse}
-        current_page={current_page}
-        has_next={has_next}
-        has_prev={has_prev}
-        items={sentiments_list}
-        page_number={page_number}
-        setDatas={setReadDataResponse}
-        total_items={total_items}
-        total_pages={total_pages}
-      >
-        <Paginator
-          handleSelect={handleSelect}
-          per_page={per_page}
-          per_page_limit={per_page_limit}
-        />
-      </ItemsPerPage>
+              <ItemsPerPage
+                Datas={readDataResponse}
+                current_page={current_page}
+                has_next={has_next}
+                has_prev={has_prev}
+                items={sentiments_list}
+                page_number={page_number}
+                setDatas={setReadDataResponse}
+                total_items={total_items}
+                total_pages={total_pages}
+              >
+                <Paginator
+                  handleSelect={handleSelect}
+                  per_page={per_page}
+                  per_page_limit={per_page_limit}
+                />
+              </ItemsPerPage>
+            </>
+        ) : (
+            <HeaderEmail title={"admin"} />
+        )
+      }
     </div>
   );
 }
