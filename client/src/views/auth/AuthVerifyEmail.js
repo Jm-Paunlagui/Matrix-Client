@@ -27,7 +27,8 @@ export default function AuthVerifyEmail() {
         setMessage(res.data.message);
         await verifyJWT(res.data.token)
           .then(() => {
-            toast.info("Please reload the page");
+            // ok
+
           })
           .catch((err) => {
             toast.error(err.message);
@@ -84,7 +85,7 @@ export default function AuthVerifyEmail() {
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center">
-                      <h1 className="text-2xl font-bold text-gray-800">
+                      <h1 className="text-2xl font-bold text-blue-500">
                         {message}
                       </h1>
                     </div>
