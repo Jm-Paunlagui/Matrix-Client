@@ -28,7 +28,6 @@ export default function AuthVerifyEmail() {
         await verifyJWT(res.data.token)
           .then(() => {
             // ok
-
           })
           .catch((err) => {
             toast.error(err.message);
