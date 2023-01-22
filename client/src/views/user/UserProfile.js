@@ -156,14 +156,14 @@ export default function UserProfile() {
         disabledButtonforPersonalInfo: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforPersonalInfo: false,
-            errorMessageforPersonalInfo: "",
-            showButtonforPersonalInfo: false,
-            disabledButtonforPersonalInfo: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforPersonalInfo: false,
+        errorMessageforPersonalInfo: "",
+        showButtonforPersonalInfo: false,
+        disabledButtonforPersonalInfo: false,
+      });
     }
   };
 
@@ -183,14 +183,14 @@ export default function UserProfile() {
         disabledButtonforSecurityInfo: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforSecurityInfo: false,
-            errorMessageforSecurityInfo: "",
-            showButtonforSecurityInfo: false,
-            disabledButtonforSecurityInfo: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforSecurityInfo: false,
+        errorMessageforSecurityInfo: "",
+        showButtonforSecurityInfo: false,
+        disabledButtonforSecurityInfo: false,
+      });
     }
   };
 
@@ -210,14 +210,14 @@ export default function UserProfile() {
         disabledButtonforUsername: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforUsername: false,
-            errorMessageforUsername: "",
-            showButtonforUsername: false,
-            disabledButtonforUsername: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforUsername: false,
+        errorMessageforUsername: "",
+        showButtonforUsername: false,
+        disabledButtonforUsername: false,
+      });
     }
   };
 
@@ -526,7 +526,8 @@ export default function UserProfile() {
         </div>
         <div className="col-span-2">
           {
-            <PersonalInformation disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
+            <PersonalInformation
+              disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
               email={email}
               errorEffectforPersonalInfo={errorEffectforPersonalInfo}
               errorMessageforPersonalInfo={errorMessageforPersonalInfo}
@@ -545,7 +546,8 @@ export default function UserProfile() {
             />
           }
           {
-            <SecurityInformation disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
+            <SecurityInformation
+              disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
               errorEffectforSecurityInfo={errorEffectforSecurityInfo}
               errorMessageforSecurityInfo={errorMessageforSecurityInfo}
               handleChangeForSecurityInfo={handleChangeForSecurityInfo}
