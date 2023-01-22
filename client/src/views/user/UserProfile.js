@@ -146,7 +146,7 @@ export default function UserProfile() {
    * @returns {(function(*): void)|*}
    */
   const handleChangeForPersonalInfo = (name) => (event) => {
-    if (event.target.value === user.email) {
+    if (event.target.value === user.email || event.target.value === user.full_name) {
       setProfile({
         ...profile,
         [name]: event.target.value,
@@ -154,6 +154,7 @@ export default function UserProfile() {
         errorMessageforPersonalInfo: "",
         showButtonforPersonalInfo: false,
         disabledButtonforPersonalInfo: true,
+        verified_email: user.verified_email,
       });
     } else {
         setProfile({
@@ -163,6 +164,7 @@ export default function UserProfile() {
             errorMessageforPersonalInfo: "",
             showButtonforPersonalInfo: false,
             disabledButtonforPersonalInfo: false,
+            verified_email: (name === "email") ? "Unverified" : user.verified_email,
         });
     }
   };
@@ -181,6 +183,7 @@ export default function UserProfile() {
         errorMessageforSecurityInfo: "",
         showButtonforSecurityInfo: false,
         disabledButtonforSecurityInfo: true,
+        verified_recovery_email: user.verified_recovery_email,
       });
     } else {
         setProfile({
@@ -190,6 +193,7 @@ export default function UserProfile() {
             errorMessageforSecurityInfo: "",
             showButtonforSecurityInfo: false,
             disabledButtonforSecurityInfo: false,
+            verified_recovery_email: (name === "recovery_email") ? "Unverified" : user.verified_recovery_email,
         });
     }
   };
@@ -256,13 +260,22 @@ export default function UserProfile() {
       .then(async (response) => {
         await verifyJWT(response.data.token)
           .then(() => {
-            setProfile({
-              ...profile,
-              okforPersonalInfo: false,
-              showButtonforPersonalInfo: true,
-              textChangeforPersonalInfo: "Update",
-              verified_email: "Unverified",
-            });
+            if (user.email !== email) {
+              setProfile({
+                ...profile,
+                okforPersonalInfo: false,
+                showButtonforPersonalInfo: true,
+                textChangeforPersonalInfo: "Update",
+                verified_email: "Unverified",
+              });
+            } else {
+              setProfile({
+                ...profile,
+                okforPersonalInfo: false,
+                showButtonforPersonalInfo: true,
+                textChangeforPersonalInfo: "Update",
+                });
+            }
           })
           .catch((error) => {
             setProfile({
@@ -356,13 +369,22 @@ export default function UserProfile() {
       .then(async (response) => {
         await verifyJWT(response.data.token)
           .then(() => {
-            setProfile({
-              ...profile,
-              okforSecurityInfo: false,
-              showButtonforSecurityInfo: true,
-              textChangeforSecurityInfo: "Update",
-              verified_recovery_email: "Unverified",
-            });
+            if (user.recovery_email !== recovery_email) {
+              setProfile({
+                ...profile,
+                okforSecurityInfo: false,
+                showButtonforSecurityInfo: true,
+                textChangeforSecurityInfo: "Update",
+                verified_recovery_email: "Unverified",
+              });
+            } else {
+              setProfile({
+                ...profile,
+                okforSecurityInfo: false,
+                showButtonforSecurityInfo: true,
+                textChangeforSecurityInfo: "Update",
+                });
+            }
           })
           .catch((error) => {
             setProfile({
