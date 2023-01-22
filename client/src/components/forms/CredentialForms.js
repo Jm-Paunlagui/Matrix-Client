@@ -809,6 +809,7 @@ export function PersonalInformation({
       showButtonforPersonalInfo: true,
       errorMessageforPersonalInfo: "",
       disabledButtonforPersonalInfo: false,
+      verified_email: user.verified_email,
     }));
   }
 
@@ -1008,6 +1009,8 @@ export function SecurityInformation({
       recovery_email: originalRecoveryEmail,
       showButtonforSecurityInfo: true,
       errorMessageforSecurityInfo: "",
+      disabledButtonforSecurityInfo: false,
+      verified_recovery_email: user.verified_recovery_email,
     }));
   }
 
@@ -1236,6 +1239,7 @@ export function SignInInformation({
       username: originalUsername,
       showButtonforUsername: true,
       errorMessageforUsername: "",
+      showButtonforPassword: true,
     }));
   }
 
