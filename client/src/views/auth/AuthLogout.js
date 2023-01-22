@@ -14,7 +14,7 @@ export default function AuthLogout() {
             <div className="flex flex-col justify-center">
               <div className={`px-5 py-1 pl-4 flex flex-row justify-center`}>
                 {<LoadingAnimation moreClasses="text-teal-600" />}
-                <h6 className="text-xl font-bold text-gray-500">
+                <h6 className="text-xl font-bold text-teal-600">
                   Logging out...
                 </h6>
               </div>
