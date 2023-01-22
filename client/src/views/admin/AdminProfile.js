@@ -25,6 +25,7 @@ export default function AdminProfile() {
     errorEffectforPersonalInfo: false,
     errorMessageforPersonalInfo: "",
     showButtonforPersonalInfo: true,
+    disabledButtonforPersonalInfo: false,
     textChangeforPersonalInfo: "Update",
     recovery_email: "",
     okforSecurityInfo: false,
@@ -32,12 +33,14 @@ export default function AdminProfile() {
     errorEffectforSecurityInfo: false,
     errorMessageforSecurityInfo: "",
     showButtonforSecurityInfo: true,
+    disabledButtonforSecurityInfo: false,
     textChangeforSecurityInfo: "Update",
     username: "",
     okforUsername: false,
     errorEffectforUsername: false,
     errorMessageforUsername: "",
     showButtonforUsername: true,
+    disabledButtonforUsername: false,
     textChangeforUsername: "Update",
     old_password: "",
     new_password: "",
@@ -63,6 +66,7 @@ export default function AdminProfile() {
     errorEffectforPersonalInfo,
     errorMessageforPersonalInfo,
     showButtonforPersonalInfo,
+    disabledButtonforPersonalInfo,
     textChangeforPersonalInfo,
     recovery_email,
     okforSecurityInfo,
@@ -70,12 +74,14 @@ export default function AdminProfile() {
     errorEffectforSecurityInfo,
     errorMessageforSecurityInfo,
     showButtonforSecurityInfo,
+    disabledButtonforSecurityInfo,
     textChangeforSecurityInfo,
     username,
     okforUsername,
     errorEffectforUsername,
     errorMessageforUsername,
     showButtonforUsername,
+    disabledButtonforUsername,
     textChangeforUsername,
     old_password,
     new_password,
@@ -135,20 +141,32 @@ export default function AdminProfile() {
   useEffect(() => {
     loadProfile();
   }, []);
-
+  const user = JSON.parse(localStorage.getItem("user"));
   /**
    * @description Handles the Personal Information form change
    * @param name
    * @returns {(function(*): void)|*}
    */
   const handleChangeForPersonalInfo = (name) => (event) => {
-    setProfile({
-      ...profile,
-      [name]: event.target.value,
-      errorEffectforPersonalInfo: false,
-      errorMessageforPersonalInfo: "",
-      showButtonforPersonalInfo: false,
-    });
+    if (event.target.value === user.email || event.target.value === user.full_name) {
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforPersonalInfo: false,
+        errorMessageforPersonalInfo: "",
+        showButtonforPersonalInfo: false,
+        disabledButtonforPersonalInfo: true,
+      });
+    } else {
+        setProfile({
+            ...profile,
+            [name]: event.target.value,
+            errorEffectforPersonalInfo: false,
+            errorMessageforPersonalInfo: "",
+            showButtonforPersonalInfo: false,
+            disabledButtonforPersonalInfo: false,
+        });
+    }
   };
 
   /**
@@ -157,13 +175,25 @@ export default function AdminProfile() {
    * @returns {(function(*): void)|*}
    */
   const handleChangeForSecurityInfo = (name) => (event) => {
-    setProfile({
-      ...profile,
-      [name]: event.target.value,
-      errorEffectforSecurityInfo: false,
-      errorMessageforSecurityInfo: "",
-      showButtonforSecurityInfo: false,
-    });
+    if (event.target.value === user.recovery_email) {
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforSecurityInfo: false,
+        errorMessageforSecurityInfo: "",
+        showButtonforSecurityInfo: false,
+        disabledButtonforSecurityInfo: true,
+      });
+    } else {
+        setProfile({
+            ...profile,
+            [name]: event.target.value,
+            errorEffectforSecurityInfo: false,
+            errorMessageforSecurityInfo: "",
+            showButtonforSecurityInfo: false,
+            disabledButtonforSecurityInfo: false,
+        });
+    }
   };
 
   /**
@@ -172,13 +202,25 @@ export default function AdminProfile() {
    * @returns {(function(*): void)|*}
    */
   const handleChangeForUsername = (name) => (event) => {
-    setProfile({
-      ...profile,
-      [name]: event.target.value,
-      errorEffectforUsername: false,
-      errorMessageforUsername: "",
-      showButtonforUsername: false,
-    });
+    if (event.target.value === user.username) {
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforUsername: false,
+        errorMessageforUsername: "",
+        showButtonforUsername: false,
+        disabledButtonforUsername: true,
+      });
+    } else {
+        setProfile({
+            ...profile,
+            [name]: event.target.value,
+            errorEffectforUsername: false,
+            errorMessageforUsername: "",
+            showButtonforUsername: false,
+            disabledButtonforUsername: false,
+        });
+    }
   };
 
   /**
@@ -417,6 +459,7 @@ export default function AdminProfile() {
           new_password: "",
           confirm_password: "",
           okforPassword: false,
+          template: true,
           textChangeforPassword: "Update",
         });
         toast(response.data.message, { type: "success" });
@@ -472,7 +515,7 @@ export default function AdminProfile() {
         </div>
         <div className="col-span-2">
           {
-            <PersonalInformation
+            <PersonalInformation disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
               email={email}
               errorEffectforPersonalInfo={errorEffectforPersonalInfo}
               errorMessageforPersonalInfo={errorMessageforPersonalInfo}
@@ -491,7 +534,7 @@ export default function AdminProfile() {
             />
           }
           {
-            <SecurityInformation
+            <SecurityInformation disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
               errorEffectforSecurityInfo={errorEffectforSecurityInfo}
               errorMessageforSecurityInfo={errorMessageforSecurityInfo}
               handleChangeForSecurityInfo={handleChangeForSecurityInfo}
@@ -510,6 +553,7 @@ export default function AdminProfile() {
           {
             <SignInInformation
               confirm_password={confirm_password}
+              disabledButtonforUsername={disabledButtonforUsername}
               errorEffectforPassword={errorEffectforPassword}
               errorEffectforUsername={errorEffectforUsername}
               errorMessageforPassword={errorMessageforPassword}

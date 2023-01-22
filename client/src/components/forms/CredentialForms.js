@@ -760,6 +760,7 @@ export function SendToEmail({
  * @param showButtonforPersonalInfo
  * @param textChangeforPersonalInfo
  * @param is_editable
+ * @param disabledButtonforPersonalInfo
  * @constructor
  */
 export function PersonalInformation({
@@ -778,6 +779,7 @@ export function PersonalInformation({
   showButtonforPersonalInfo,
   textChangeforPersonalInfo,
   is_editable,
+    disabledButtonforPersonalInfo
 }) {
   PersonalInformation.propTypes = {
     email: PropTypes.string,
@@ -795,6 +797,7 @@ export function PersonalInformation({
     showButtonforPersonalInfo: PropTypes.bool,
     textChangeforPersonalInfo: PropTypes.string,
     is_editable: PropTypes.bool,
+    disabledButtonforPersonalInfo: PropTypes.bool,
   };
 
   function DiscardChangeEmail() {
@@ -805,6 +808,7 @@ export function PersonalInformation({
       email: originalEmail,
       showButtonforPersonalInfo: true,
       errorMessageforPersonalInfo: "",
+      disabledButtonforPersonalInfo: false,
     }));
   }
 
@@ -925,7 +929,9 @@ export function PersonalInformation({
                 Discard
               </button>
               <button
-                className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
+                  disabledButtonforPersonalInfo ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
+                disabled={disabledButtonforPersonalInfo}
                 type="submit"
               >
                 {okforPersonalInfo ? (
@@ -975,6 +981,7 @@ export function SecurityInformation({
   setProfile,
   showButtonforSecurityInfo,
   textChangeforSecurityInfo,
+    disabledButtonforSecurityInfo,
 }) {
   SecurityInformation.propTypes = {
     errorEffectforSecurityInfo: PropTypes.bool,
@@ -990,6 +997,7 @@ export function SecurityInformation({
     setProfile: PropTypes.func,
     showButtonforSecurityInfo: PropTypes.bool,
     textChangeforSecurityInfo: PropTypes.string,
+    disabledButtonforSecurityInfo: PropTypes.bool,
   };
 
   function DiscardChangeRecovery() {
@@ -1005,7 +1013,8 @@ export function SecurityInformation({
 
   return (
     <div
-      className={`flex flex-col w-full mb-8 p-8 bg-blue-50 rounded-lg shadow
+      className={`
+                }flex flex-col w-full mb-8 p-8 bg-blue-50 rounded-lg shadow
           ${
             errorEffectforSecurityInfo ? `animate-wiggle outline outline-2` : ""
           }`}
@@ -1107,7 +1116,10 @@ export function SecurityInformation({
                   Discard
                 </button>
                 <button
-                  className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                  className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
+                    disabledButtonforSecurityInfo ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                  }`}
+                  disabled={disabledButtonforSecurityInfo}
                   type="submit"
                 >
                   {okforSecurityInfo ? (
@@ -1132,6 +1144,7 @@ export function SecurityInformation({
 /**
  * @description Sign In Information form.
  * @param confirm_password
+ * @param disabledButtonforUsername
  * @param errorEffectforPassword
  * @param errorEffectforUsername
  * @param errorMessageforPassword
@@ -1156,6 +1169,7 @@ export function SecurityInformation({
  */
 export function SignInInformation({
   confirm_password,
+    disabledButtonforUsername,
   errorEffectforPassword,
   errorEffectforUsername,
   errorMessageforPassword,
@@ -1179,6 +1193,7 @@ export function SignInInformation({
 }) {
   SignInInformation.propTypes = {
     confirm_password: PropTypes.string,
+    disabledButtonforUsername: PropTypes.bool,
     errorEffectforPassword: PropTypes.bool,
     errorEffectforUsername: PropTypes.bool,
     errorMessageforPassword: PropTypes.string,
@@ -1295,7 +1310,9 @@ export function SignInInformation({
                   Discard
                 </button>
                 <button
-                  className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON}`}
+                  className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
+                    disabledButtonforUsername ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                  }`}
                   type="submit"
                 >
                   {okforUsername ? (
@@ -1409,7 +1426,7 @@ export function SignInInformation({
                   valueAgain={confirm_password}
                 />
                 <div
-                  className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2`}
+                  className={`flex flex-wrap content-end justify-start w-full gap-2`}
                 >
                   <button
                     className={`px-8 py-1 flex flex-row justify-center ${DANGER_BUTTON}`}
@@ -1421,6 +1438,11 @@ export function SignInInformation({
                       icon={faCircleMinus}
                     />
                     Discard
+                  </button>
+                  <button className={`${ACCENT_BUTTON}`} type={"button"}>
+                    <Link to={"/forgot-password"}>
+                      <h1 className="px-5 py-1">Forgot password?</h1>
+                    </Link>
                   </button>
                   <button
                     className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
