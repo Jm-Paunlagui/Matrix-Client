@@ -148,7 +148,10 @@ export default function AdminProfile() {
    * @returns {(function(*): void)|*}
    */
   const handleChangeForPersonalInfo = (name) => (event) => {
-    if (event.target.value === user.email || event.target.value === user.full_name) {
+    if (
+      event.target.value === user.email ||
+      event.target.value === user.full_name
+    ) {
       setProfile({
         ...profile,
         [name]: event.target.value,
@@ -158,14 +161,14 @@ export default function AdminProfile() {
         disabledButtonforPersonalInfo: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforPersonalInfo: false,
-            errorMessageforPersonalInfo: "",
-            showButtonforPersonalInfo: false,
-            disabledButtonforPersonalInfo: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforPersonalInfo: false,
+        errorMessageforPersonalInfo: "",
+        showButtonforPersonalInfo: false,
+        disabledButtonforPersonalInfo: false,
+      });
     }
   };
 
@@ -185,14 +188,14 @@ export default function AdminProfile() {
         disabledButtonforSecurityInfo: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforSecurityInfo: false,
-            errorMessageforSecurityInfo: "",
-            showButtonforSecurityInfo: false,
-            disabledButtonforSecurityInfo: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforSecurityInfo: false,
+        errorMessageforSecurityInfo: "",
+        showButtonforSecurityInfo: false,
+        disabledButtonforSecurityInfo: false,
+      });
     }
   };
 
@@ -212,14 +215,14 @@ export default function AdminProfile() {
         disabledButtonforUsername: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforUsername: false,
-            errorMessageforUsername: "",
-            showButtonforUsername: false,
-            disabledButtonforUsername: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforUsername: false,
+        errorMessageforUsername: "",
+        showButtonforUsername: false,
+        disabledButtonforUsername: false,
+      });
     }
   };
 
@@ -515,7 +518,8 @@ export default function AdminProfile() {
         </div>
         <div className="col-span-2">
           {
-            <PersonalInformation disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
+            <PersonalInformation
+              disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
               email={email}
               errorEffectforPersonalInfo={errorEffectforPersonalInfo}
               errorMessageforPersonalInfo={errorMessageforPersonalInfo}
@@ -534,7 +538,8 @@ export default function AdminProfile() {
             />
           }
           {
-            <SecurityInformation disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
+            <SecurityInformation
+              disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
               errorEffectforSecurityInfo={errorEffectforSecurityInfo}
               errorMessageforSecurityInfo={errorMessageforSecurityInfo}
               handleChangeForSecurityInfo={handleChangeForSecurityInfo}
