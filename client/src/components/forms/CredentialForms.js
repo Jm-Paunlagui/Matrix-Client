@@ -779,7 +779,7 @@ export function PersonalInformation({
   showButtonforPersonalInfo,
   textChangeforPersonalInfo,
   is_editable,
-    disabledButtonforPersonalInfo
+  disabledButtonforPersonalInfo,
 }) {
   PersonalInformation.propTypes = {
     email: PropTypes.string,
@@ -930,7 +930,10 @@ export function PersonalInformation({
               </button>
               <button
                 className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
-                  disabledButtonforPersonalInfo ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
+                  disabledButtonforPersonalInfo
+                    ? "opacity-50 cursor-not-allowed pointer-events-none"
+                    : ""
+                }`}
                 disabled={disabledButtonforPersonalInfo}
                 type="submit"
               >
@@ -981,7 +984,7 @@ export function SecurityInformation({
   setProfile,
   showButtonforSecurityInfo,
   textChangeforSecurityInfo,
-    disabledButtonforSecurityInfo,
+  disabledButtonforSecurityInfo,
 }) {
   SecurityInformation.propTypes = {
     errorEffectforSecurityInfo: PropTypes.bool,
@@ -1117,7 +1120,9 @@ export function SecurityInformation({
                 </button>
                 <button
                   className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
-                    disabledButtonforSecurityInfo ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                    disabledButtonforSecurityInfo
+                      ? "opacity-50 cursor-not-allowed pointer-events-none"
+                      : ""
                   }`}
                   disabled={disabledButtonforSecurityInfo}
                   type="submit"
@@ -1169,7 +1174,7 @@ export function SecurityInformation({
  */
 export function SignInInformation({
   confirm_password,
-    disabledButtonforUsername,
+  disabledButtonforUsername,
   errorEffectforPassword,
   errorEffectforUsername,
   errorMessageforPassword,
@@ -1311,7 +1316,9 @@ export function SignInInformation({
                 </button>
                 <button
                   className={`px-8 py-1 flex flex-row justify-center ${ACCENT_BUTTON} ${
-                    disabledButtonforUsername ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                    disabledButtonforUsername
+                      ? "opacity-50 cursor-not-allowed pointer-events-none"
+                      : ""
                   }`}
                   type="submit"
                 >
