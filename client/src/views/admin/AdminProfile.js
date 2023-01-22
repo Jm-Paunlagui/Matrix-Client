@@ -119,10 +119,10 @@ export default function AdminProfile() {
           verified_email: response.data.user.verified_email,
           verified_recovery_email: response.data.user.verified_recovery_email,
         });
-        if (response.data.user.verified_email === "Unverified") {
+        if (response.data.user.verified_email === "Unverified" && response.data.user.email !== null) {
           toast.warn("Unverified email. Please verify your email.");
         }
-        if (response.data.user.verified_recovery_email === "Unverified") {
+        if (response.data.user.verified_recovery_email === "Unverified" && response.data.user.recovery_email !== null) {
           toast.warn(
             "Unverified recovery email. Please verify your recovery email.",
           );
