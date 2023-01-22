@@ -914,7 +914,7 @@ export function PersonalInformation({
               </div>
             ) : null}
             <div
-              className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
+              className={`flex flex-wrap content-end justify-start w-full gap-2 mt-8
                         ${showButtonforPersonalInfo ? "hidden" : "block"}`}
             >
               <button
@@ -1101,7 +1101,7 @@ export function SecurityInformation({
                 </div>
               ) : null}
               <div
-                className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
+                className={`flex flex-wrap content-end justify-start w-full gap-2 mt-8
                           ${showButtonforSecurityInfo ? "hidden" : "block"}`}
               >
                 <button
@@ -1295,7 +1295,7 @@ export function SignInInformation({
                 </div>
               ) : null}
               <div
-                className={`flex flex-col justify-start w-full mt-8 lg:flex-row lg:space-x-2
+                className={`flex flex-wrap content-end justify-start w-full gap-2 mt-8
                           ${showButtonforUsername ? "hidden" : "block"}`}
               >
                 <button
