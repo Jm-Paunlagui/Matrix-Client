@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
-      expires: 1,
+      expires: 30,
     });
   }
 };

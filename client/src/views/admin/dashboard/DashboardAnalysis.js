@@ -438,11 +438,16 @@ export default function DashboardAnalysis() {
                           {loading_analysis ? (
                             <LoadingPageSkeletonImage />
                           ) : (
-                            <img
-                              alt="sentiment_v_pol"
-                              className="shadow rounded-lg"
-                              src={`data:image/jpeg;base64,${image_path_polarity_v_sentiment}`}
-                            />
+                              <>
+                                <img
+                                  alt="sentiment_v_pol"
+                                  className="shadow rounded-lg"
+                                  src={`data:image/jpeg;base64,${image_path_polarity_v_sentiment}`}
+                                />
+                                <p className="text-base font-medium text-gray-500 mb-4">
+                                  Polar words and phrases are usually associated with strong or clearly defined sentiment, while non-polar refers to words and phrases typically used in everyday.
+                                </p>
+                              </>
                           )}
                         </div>
                       </div>
@@ -464,23 +469,26 @@ export default function DashboardAnalysis() {
                               provided but sometimes the sentiment can be negative but the
                               response is still detailed.
                             </p>
-                            <p className="text-base font-medium text-gray-500 mb-4">
-                              Note: When the students are happy with there professor, the
-                              responses are usually short and positive. When the students are
-                              unhappy with there professor, the responses are usually long and
-                              negative.
-                            </p>
+
                           </DisclosureTogglable>
                         </div>
                         <div className="flex flex-col items-start justify-start w-full p-4 rounded-lg space-y-2">
                           {loading_analysis ? (
                             <LoadingPageSkeletonImage />
                           ) : (
-                            <img
-                              alt="review_len_v_sentiment"
-                              className="shadow rounded-lg"
-                              src={`data:image/jpeg;base64,${image_path_review_length_v_sentiment}`}
-                            />
+                             <>
+                              <img
+                                alt="review_len_v_sentiment"
+                                className="shadow rounded-lg"
+                                src={`data:image/jpeg;base64,${image_path_review_length_v_sentiment}`}
+                              />
+                              <p className="text-base font-medium text-gray-500 mb-4">
+                                When the students are happy with there professor, the
+                                responses are usually short and positive. When the students are
+                                unhappy with there professor, the responses are usually long and
+                                negative.
+                              </p>
+                            </>
                           )}
                         </div>
                       </div>
@@ -508,11 +516,16 @@ export default function DashboardAnalysis() {
                           {loading_analysis ? (
                             <LoadingPageSkeletonImage />
                           ) : (
-                            <img
-                              alt="wordcloud"
-                              className="shadow rounded-lg"
-                              src={`data:image/jpeg;base64,${image_path_wordcloud}`}
-                            />
+                            <>
+                              <img
+                                alt="wordcloud"
+                                className="shadow rounded-lg"
+                                src={`data:image/jpeg;base64,${image_path_wordcloud}`}
+                              />
+                              <p className="text-base font-medium text-gray-500 mb-4">
+                                The word cloud shows the most common words in the responses. The larger the word, the more common it is.
+                              </p>
+                            </>
                           )}
                         </div>
                       </div>
