@@ -11,28 +11,28 @@
 /admin-unlock/* /admin-unlock/:token 200
 /remove-email-from-account/* /remove-email-from-account/:token 200
 /verify-email/* /verify-email/:token 200
-/admin/insights/departments		/admin/insights/departments
-/admin/insights/employees			/admin/insights/employees
-/admin/insights/per-semester-department		/admin/insights/per-semester-department
-/admin/insights/per-semester-employee			/admin/insights/per-semester-employee
-/admin/sentiment-analyzer		/admin/sentiment-analyzer
-/admin/profile/:username		/admin/profile/:username
+/admin/insights/departments		/admin/insights/departments 200
+/admin/insights/employees			/admin/insights/employees 200
+/admin/insights/per-semester-department		/admin/insights/per-semester-department 200
+/admin/insights/per-semester-employee			/admin/insights/per-semester-employee 200
+/admin/sentiment-analyzer		/admin/sentiment-analyzer 200
+/admin/profile/:username		/admin/profile/:username 200
 /admin/settings				/admin/settings
-/admin/dashboard/sentiment-analysis		/admin/dashboard/sentiment-analysis
-/admin/management/files/data			/admin/management/files/data
-/admin/management/files/data/:fileId		/admin/management/files/data/:fileId
-/admin/management/files/data/:fileId/:read_responses		/admin/management/files/data/:fileId/:read_responses
-/admin/management/files/data/:fileId/:read_responses/:file_name		/admin/management/files/data/:fileId/:read_responses/:file_name
-/admin/management/files/deleted-files		/admin/management/files/deleted-files
-/admin/management/users/professors			/admin/management/users/professors
-/admin/logout				/admin/logout
-/user/evaluation-results/files /user/evaluation-results/files/:fileId/:folderName
-/user/evaluation-results/files/:fileId/:folderName/:fileName /user/evaluation-results/files/:fileId/:folderName
-/user/dashboard/sentiment-analysis /user/dashboard
-/user/profile/:username /user
-/user/insights/departments /user/insights
-/user/insights/per-semester-department /user/insights
-/user/logout /user
-/unauthorized-access /
-/login-timeout /
-/invalid-token /
+/admin/dashboard/sentiment-analysis		/admin/dashboard/sentiment-analysis 200
+/admin/management/files/data			/admin/management/files/data 200
+/admin/management/files/data/:fileId		/admin/management/files/data/:fileId 200
+/admin/management/files/data/:fileId/:read_responses		/admin/management/files/data/:fileId/:read_responses 200
+/admin/management/files/data/:fileId/:read_responses/:file_name		/admin/management/files/data/:fileId/:read_responses/:file_name 200
+/admin/management/files/deleted-files		/admin/management/files/deleted-files 200
+/admin/management/users/professors			/admin/management/users/professors 200
+/admin/logout				/admin/logout 200
+/user/evaluation-results/files /user/evaluation-results/files/:fileId/:folderName 200
+/user/evaluation-results/files/:fileId/:folderName/:fileName /user/evaluation-results/files/:fileId/:folderName 200
+/user/dashboard/sentiment-analysis /user/dashboard 200
+/user/profile/:username /user/profile/:username 200
+/user/insights/departments /user/insights/departments 200
+/user/insights/per-semester-department /user/insights/per-semester-department 200
+/user/logout /user/logout 200
+/unauthorized-access /unauthorized-access 200
+/login-timeout /login-timeout 200
+/invalid-token /invalid-token 200
