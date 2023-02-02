@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {redirect, useNavigate} from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -252,7 +252,7 @@ export default function AuthLogin() {
               });
               isAuth().role === "admin"
                 ? navigate(response.data.path)
-                : navigate(response.data.path)
+                : navigate(response.data.path);
             });
           })
           .catch((error) => {
