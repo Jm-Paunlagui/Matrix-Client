@@ -251,8 +251,8 @@ export default function AuthLogin() {
                 textChange: "Success",
               });
               isAuth().role === "admin"
-                ? redirect(`${response.data.path}`)
-                : redirect(`${response.data.path}`);
+                ? navigate(response.data.path)
+                : navigate(response.data.path)
             });
           })
           .catch((error) => {
