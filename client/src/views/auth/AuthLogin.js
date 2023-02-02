@@ -232,6 +232,7 @@ export default function AuthLogin() {
     await httpClient
       .post("/user/verify-2fa", {
         code,
+        username,
       })
       .then(async (response) => {
         jwtVerify(
