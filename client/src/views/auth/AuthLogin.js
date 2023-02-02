@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -230,10 +230,14 @@ export default function AuthLogin() {
       textChange: "Verifying",
     });
     await httpClient
-      .post("/user/verify-2fa", {
-        code,
-        username,
-      }, { withCredentials: true})
+      .post(
+        "/user/verify-2fa",
+        {
+          code,
+          username,
+        },
+        { withCredentials: true },
+      )
       .then(async (response) => {
         jwtVerify(
           response.data.token,
@@ -252,7 +256,7 @@ export default function AuthLogin() {
               });
               isAuth().role === "admin"
                 ? navigate(response.data.path)
-                : navigate(response.data.path)
+                : navigate(response.data.path);
             });
           })
           .catch((error) => {
