@@ -233,7 +233,7 @@ export default function AuthLogin() {
       .post("/user/verify-2fa", {
         code,
         username,
-      }, { withCredentials: true})
+      })
       .then(async (response) => {
         jwtVerify(
           response.data.token,
