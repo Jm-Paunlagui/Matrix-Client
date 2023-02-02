@@ -1,1 +1,38 @@
-/*    /index.html   200
+/aboutus   /aboutus  200
+/department-sentiment-overall    /department-sentiment-overall  200
+/department-sentiment   /department-sentiment 200
+/legal/privacy-policy /legal/privacy-policy 200
+/legal/terms-and-conditions /legal/terms-and-conditions 200
+/cant-sign-in /cant-sign-in 200
+/forgot-password /forgot-password 200
+/forgot-username /forgot-username 200
+/auth /auth 200
+/reset-password/* /reset-password/:token 200
+/admin-unlock/* /admin-unlock/:token 200
+/remove-email-from-account/* /remove-email-from-account/:token 200
+/verify-email/* /verify-email/:token 200
+/admin/insights/departments		/admin/insights/departments
+/admin/insights/employees			/admin/insights/employees
+/admin/insights/per-semester-department		/admin/insights/per-semester-department
+/admin/insights/per-semester-employee			/admin/insights/per-semester-employee
+/admin/sentiment-analyzer		/admin/sentiment-analyzer
+/admin/profile/:username		/admin/profile/:username
+/admin/settings				/admin/settings
+/admin/dashboard/sentiment-analysis		/admin/dashboard/sentiment-analysis
+/admin/management/files/data			/admin/management/files/data
+/admin/management/files/data/:fileId		/admin/management/files/data/:fileId
+/admin/management/files/data/:fileId/:read_responses		/admin/management/files/data/:fileId/:read_responses
+/admin/management/files/data/:fileId/:read_responses/:file_name		/admin/management/files/data/:fileId/:read_responses/:file_name
+/admin/management/files/deleted-files		/admin/management/files/deleted-files
+/admin/management/users/professors			/admin/management/users/professors
+/admin/logout				/admin/logout
+/user/evaluation-results/files /user/evaluation-results/files/:fileId/:folderName
+/user/evaluation-results/files/:fileId/:folderName/:fileName /user/evaluation-results/files/:fileId/:folderName
+/user/dashboard/sentiment-analysis /user/dashboard
+/user/profile/:username /user
+/user/insights/departments /user/insights
+/user/insights/per-semester-department /user/insights
+/user/logout /user
+/unauthorized-access /
+/login-timeout /
+/invalid-token /

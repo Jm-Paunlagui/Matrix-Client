@@ -311,19 +311,9 @@ export default function App() {
                   path="departments"
                 />
                 <Route
-                  element={<InsightsEmployees />}
-                  exact="true"
-                  path="employees"
-                />
-                <Route
                   element={<InsightsPerSemesterDepartment />}
                   exact="true"
                   path="per-semester-department"
-                />
-                <Route
-                  element={<InsightsPerSemesterEmployees />}
-                  exact="true"
-                  path="per-semester-employee"
                 />
               </Route>
               <Route element={<AuthLogout />} exact="true" path="logout" />
