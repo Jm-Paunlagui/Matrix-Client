@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {redirect, useNavigate} from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
