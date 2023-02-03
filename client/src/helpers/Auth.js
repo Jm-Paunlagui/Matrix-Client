@@ -11,9 +11,9 @@ import { toast } from "react-toastify";
 export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
-      domain: '.vercel.app',
-      path: '/',
-      sameSite: 'none',
+      domain: ".vercel.app",
+      path: "/",
+      sameSite: "none",
       secure: true,
     });
   }
