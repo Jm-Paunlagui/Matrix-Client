@@ -12,8 +12,8 @@ export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
       domain: window.location.hostname,
-      path: '/',
-      sameSite: 'none',
+      path: "/",
+      sameSite: "none",
       secure: true,
     });
   }
