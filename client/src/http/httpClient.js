@@ -8,6 +8,5 @@ export default axios.create({
   baseURL: "http://localhost:5000",
   headers: {
     "Content-type": "application/json",
-    "Access-Control-Expose-Headers:": "Content-Disposition",
   },
 });
