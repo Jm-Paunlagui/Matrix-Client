@@ -13,7 +13,7 @@ export const setCookie = (key, value) => {
     cookie.set(key, value, {
       domain: window.location.hostname,
       path: '/',
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
   }
