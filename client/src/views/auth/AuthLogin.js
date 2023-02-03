@@ -241,8 +241,11 @@ export default function AuthLogin() {
           await importSPKI(MATRIX_RSA_PUBLIC_KEY, "RS256"),
         )
           .then((result) => {
+            console.log(result);
             setLocalStorage("user", result.payload);
+            console.log(result.payload);
             authenticate(response, () => {
+              console.log(response);
               toast(`Welcome back ${username}!`, {
                 type: "success",
                 bodyClassName: "toastify-body",
@@ -258,7 +261,7 @@ export default function AuthLogin() {
           })
           .catch((error) => {
             toast(`Error: ${error}`, { type: "error" });
-            navigate("/invalid-token");
+            // navigate("/invalid-token");
           });
       })
       .catch((error) => {
