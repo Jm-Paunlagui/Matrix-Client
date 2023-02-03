@@ -12,7 +12,7 @@ export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
       expires: 30,
-      domain: '.example.com',
+      domain: 'localhost',
       sameSite: 'none',
       secure: true,
     });
