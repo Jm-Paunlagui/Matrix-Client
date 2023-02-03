@@ -11,9 +11,9 @@ import { toast } from "react-toastify";
 export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
-      domain: 'localhost',
-      path: '/',
-      sameSite: 'none',
+      domain: "localhost",
+      path: "/",
+      sameSite: "none",
       secure: true,
     });
   }
