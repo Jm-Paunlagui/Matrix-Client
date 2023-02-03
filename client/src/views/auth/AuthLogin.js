@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ import {
 } from "../../components/forms/CredentialForms";
 import { importSPKI, jwtVerify } from "jose";
 import { MATRIX_RSA_PUBLIC_KEY } from "../../helpers/Helper";
-import {authenticate, isAuth, setLocalStorage} from "../../helpers/Auth";
+import { authenticate, isAuth, setLocalStorage } from "../../helpers/Auth";
 
 /**
  * @description User login form for the application
