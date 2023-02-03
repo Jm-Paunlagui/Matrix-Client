@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
-      domain: 'matrix-lab-client.vercel.app',
+      domain: '.vercel.app',
+      path: '/',
       sameSite: 'none',
       secure: true,
     });
