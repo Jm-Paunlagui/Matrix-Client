@@ -12,8 +12,8 @@ export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
       expires: 9000,
-      domain: 'localhost',
-      sameSite: 'none',
+      domain: "localhost",
+      sameSite: "none",
       secure: true,
     });
   }
