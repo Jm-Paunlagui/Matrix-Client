@@ -12,8 +12,8 @@ export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
       domain: window.location.hostname,
-      path: '/',
-      sameSite: 'lax',
+      path: "/",
+      sameSite: "lax",
       secure: true,
     });
   }
@@ -27,8 +27,8 @@ export const removeCookie = (key) => {
   if (typeof window !== "undefined") {
     cookie.remove(key, {
       domain: window.location.hostname,
-      path: '/',
-      sameSite: 'lax',
+      path: "/",
+      sameSite: "lax",
       expires: 1,
     });
   }
