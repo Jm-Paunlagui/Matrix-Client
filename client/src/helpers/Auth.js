@@ -26,6 +26,9 @@ export const setCookie = (key, value) => {
 export const removeCookie = (key) => {
   if (typeof window !== "undefined") {
     cookie.remove(key, {
+      domain: window.location.hostname,
+      path: '/',
+      sameSite: 'lax',
       expires: 1,
     });
   }
