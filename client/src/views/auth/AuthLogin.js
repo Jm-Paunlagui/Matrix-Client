@@ -17,7 +17,7 @@ import {
 } from "../../components/forms/CredentialForms";
 import { importSPKI, jwtVerify } from "jose";
 import { MATRIX_RSA_PUBLIC_KEY } from "../../helpers/Helper";
-import { authenticate, isAuth, setLocalStorage } from "../../helpers/Auth";
+import {authenticate, isAuth, setLocalStorage} from "../../helpers/Auth";
 
 /**
  * @description User login form for the application
@@ -235,6 +235,7 @@ export default function AuthLogin() {
         username,
       })
       .then(async (response) => {
+        console.log(response);
         jwtVerify(
           response.data.token,
           await importSPKI(MATRIX_RSA_PUBLIC_KEY, "RS256"),
@@ -251,8 +252,8 @@ export default function AuthLogin() {
                 textChange: "Success",
               });
               isAuth().role === "admin"
-                ? navigate(response.data.path)
-                : navigate(response.data.path)
+                ? navigate("/admin/dashboard/sentiment-analysis")
+                : navigate("/user/dashboard/sentiment-analysis");
             });
           })
           .catch((error) => {

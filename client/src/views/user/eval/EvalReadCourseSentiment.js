@@ -114,6 +114,18 @@ export default function EvalReadCourseSentiment() {
     );
   }, [fileId, folderName, fileName, page_number, per_page_limit]);
 
+  // Count the number of Positive and Negative sentiments
+    let positive = 0;
+    let negative = 0;
+
+    sentiments_list.map((sentiment) => {
+        if (sentiment.sentiment >= 50) {
+            positive += 1;
+        } else {
+            negative += 1;
+        }
+    });
+
   return folderNameV === folderName ? (
     <div className="px-6 mx-auto max-w-7xl">
       <Buttons
@@ -124,7 +136,7 @@ export default function EvalReadCourseSentiment() {
         isAuth().verified_email === "Verified" ? (
             <>
               <Header
-                body={`Here is the data response for ${toReadableName(fileName)}`}
+                body={`Here is the comments for ${toReadableName(fileName)} with a total of ${positive} positive and ${negative} negative sentiments.`}
                 title={`${toReadableName(fileName)}`}
               />
               <ItemsPerPage
@@ -146,7 +158,7 @@ export default function EvalReadCourseSentiment() {
                 />
               </ItemsPerPage>
               <div className=" place-content-center space-y-8">
-                <div className="grid grid-cols-1 pb-8 md:grid-cols-2 lg:grid-cols-3 gap-y-6 md:gap-6">
+                <div className="grid grid-cols-1 pb-8 gap-y-6 md:gap-6">
                   {loading ? (
                     <>
                       <LoadingPageSkeletonText />
@@ -155,14 +167,16 @@ export default function EvalReadCourseSentiment() {
                     </>
                   ) : sentiments_list.length > 0 ? (
                     sentiments_list.map((sentiment) => (
-                      <div
-                        className={`flex flex-col p-8 rounded-lg shadow ${
+                     <ol
+                        className={`flex flex-col py-4 px-8 rounded-lg shadow list-disc ${
                           sentiment.sentiment >= 50 ? "bg-green-50" : "bg-red-50"
-                        }`}
+                        } marker:text-blue-500`}
                         key={sentiment.id}
-                      >
-                        <GridItemResponse key={sentiment.id} sentiment={sentiment} />
-                      </div>
+                     >
+                        <li key={sentiment.id}>
+                          <GridItemResponse key={sentiment.id} sentiment={sentiment} />
+                        </li>
+                      </ol>
                     ))
                   ) : (
                     <div className={"col-span-full"}>
