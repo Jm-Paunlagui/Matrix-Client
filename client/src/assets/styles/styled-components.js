@@ -17,7 +17,7 @@ export const DEFAULT_BUTTON_TRANSITION = `${DELAY_3} border border-transparent r
 // px-5 py-3 pl-4 for a button
 // px-5 py-3 for link
 export const ACCENT_BUTTON = `font-semibold tracking-wide text-teal-600 bg-blue-100 hover:bg-teal-700 hover:text-blue-50 shadow ${DEFAULT_BUTTON_TRANSITION}`;
-export const DANGER_BUTTON = `font-semibold tracking-wide text-red-600 bg-blue-100 hover:bg-red-700 hover:text-red-50 shadow ${DEFAULT_BUTTON_TRANSITION}`;
+export const DANGER_BUTTON = `font-semibold tracking-wide text-blue-600 bg-blue-100 hover:bg-blue-700 hover:text-blue-50 shadow ${DEFAULT_BUTTON_TRANSITION}`;
 export const MAIN_BUTTON = `font-semibold tracking-wide text-blue-500 bg-blue-100 hover:bg-blue-500 hover:text-blue-50 shadow ${DEFAULT_BUTTON_TRANSITION}`;
 
 export const STATUS_GREEN =

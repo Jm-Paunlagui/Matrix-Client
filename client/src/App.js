@@ -250,7 +250,7 @@ export default function App() {
                   <Route
                     element={<ManagementFileBin />}
                     exact="true"
-                    path="deleted-files"
+                    path="archived-files"
                   />
                 </Route>
 

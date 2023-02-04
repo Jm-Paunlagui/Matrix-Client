@@ -14,11 +14,10 @@ import {
 } from "../../../../assets/styles/styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBolt,
+  faBolt, faBoxArchive,
   faCircleXmark,
   faLock,
   faRotate,
-  faTrash,
   faUnlock,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalConfirm from "../../../../components/modal/ModalConfirm";
@@ -123,7 +122,7 @@ export default function ManagementFilesUsers() {
     massRestore: false,
     textChangeRestore: "Restore all",
     massDelete: false,
-    textChangeDelete: "Delete all",
+    textChangeDelete: "Archive all",
   });
 
   const {
@@ -514,7 +513,7 @@ export default function ManagementFilesUsers() {
       ...loadingAnimation,
       massDisable: true,
       massDelete: true,
-      textChangeDelete: "Deleting...",
+      textChangeDelete: "Archiving...",
     });
     await httpClient
       .put(`/user/mass-delete-account`)
@@ -527,7 +526,7 @@ export default function ManagementFilesUsers() {
           ...loadingAnimation,
           massDisable: false,
           massDelete: false,
-          textChangeDelete: "Delete all",
+          textChangeDelete: "Archive all",
         });
       })
       .catch((error) => {
@@ -537,7 +536,7 @@ export default function ManagementFilesUsers() {
           ...loadingAnimation,
           massDisable: false,
           massDelete: false,
-          textChangeDelete: "Delete all",
+          textChangeDelete: "Archive all",
         });
       });
   };
@@ -592,7 +591,7 @@ export default function ManagementFilesUsers() {
   }, [page_number, per_page_limit]);
 
   return (
-    <div className="px-6 mx-auto mt-8 max-w-7xl">
+    <div className="px-6 mx-auto mt-8 max-w-7xl mb-60">
       {
         isAuth().verified_email === "Verified" ? (
           <>
@@ -645,12 +644,12 @@ export default function ManagementFilesUsers() {
                     placeholder="Search"
                     type="text"
                   />
-                  <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6">
-                    <div className="w-full p-4 mt-8 rounded-lg shadow-md bg-blue-50">
+                  <div className="grid grid-cols-1 md:gap-6">
+                    <div className="w-full p-4 mt-8 rounded-lg shadow bg-blue-50">
                       <div className="flex flex-wrap content-end justify-start w-full gap-2">
                         <div className="flex flex-row w-full">
                           <h1 className="text-base font-bold leading-none text-blue-500">
-                            Mass Actions
+                            Multiple Actions at once
                           </h1>
                         </div>
                         <ModalConfirm
@@ -722,15 +721,6 @@ export default function ManagementFilesUsers() {
                             </>
                           )}
                         </ModalConfirm>
-                      </div>
-                    </div>
-                    <div className="w-full p-4 mt-8 rounded-lg shadow-md bg-blue-50">
-                      <div className="flex flex-wrap content-end justify-start w-full gap-2">
-                        <div className="flex flex-row w-full">
-                          <h1 className="text-base font-bold leading-none text-blue-500">
-                            Mass Danger Actions
-                          </h1>
-                        </div>
                         <ModalConfirm
                           body={`Are you sure you want to deactivate all users?`}
                           description="This action cannot be undone. The users you are trying to Deactivate will not be able to login to the system to view their sentiment scores."
@@ -780,13 +770,13 @@ export default function ManagementFilesUsers() {
                           )}
                         </ModalConfirm>
                         <ModalConfirm
-                          body={`Are you sure you want to temporarily delete all users account to the system?`}
-                          description="This action cannot be undone. This will temporarily delete the users account from the system."
+                          body={`Are you sure you want to archive all users account to the system?`}
+                          description="This action cannot be undone. This will archive all the users account from the system."
                           disabled={massDisable}
                           is_danger
                           is_manny
                           onConfirm={() => handleDeleteAllUsers()}
-                          title="Delete User Confirmation"
+                          title="Archive User Confirmation"
                         >
                           {massDelete ? (
                             <>
@@ -797,7 +787,7 @@ export default function ManagementFilesUsers() {
                             <>
                               <FontAwesomeIcon
                                 className={`${ICON_PLACE_SELF_CENTER}`}
-                                icon={faTrash}
+                                icon={faBoxArchive}
                               />
                               {textChangeDelete}
                             </>
@@ -812,7 +802,7 @@ export default function ManagementFilesUsers() {
                     has_next={has_next}
                     has_prev={has_prev}
                     items={users}
-                    moreClasses={"mt-8 mb-8"}
+                    moreClasses={"mb-8"}
                     page_number={page_number}
                     setDatas={setUserDatas}
                     total_items={total_items}
@@ -877,7 +867,7 @@ export default function ManagementFilesUsers() {
                                   }`}
                                 >
                                   <h1 className="text-sm leading-none uppercase">
-                                    {user.is_deleted ? "Deleted" : "Not Deleted"}
+                                    {user.is_deleted ? "Archived" : "Unarchived"}
                                   </h1>
                                 </div>
                               </div>
@@ -998,13 +988,6 @@ export default function ManagementFilesUsers() {
                                     </>
                                   )}
                                 </ModalConfirm>
-                              </div>
-                              <div className="flex flex-row w-full px-4">
-                                <h1 className="text-base font-bold leading-none text-blue-500">
-                                  Danger Zone
-                                </h1>
-                              </div>
-                              <div className="flex flex-wrap content-end justify-start w-full gap-2 p-4">
                                 <ModalConfirm
                                   body={`Are you sure you want to deactivate the user account of ${user.full_name}?`}
                                   description="This action cannot be undone. The user you are trying to deactivate will be unable to access the system to view their sentiment scores."
@@ -1068,15 +1051,15 @@ export default function ManagementFilesUsers() {
                                   {loadingIDDelete[user.id] ? (
                                     <>
                                       <LoadingAnimation moreClasses="text-red-600" />
-                                      Deleting...
+                                      Archiving...
                                     </>
                                   ) : (
                                     <>
                                       <FontAwesomeIcon
                                         className={`${ICON_PLACE_SELF_CENTER}`}
-                                        icon={faTrash}
+                                        icon={faBoxArchive}
                                       />
-                                      Delete
+                                      Archive
                                     </>
                                   )}
                                 </ModalConfirm>

@@ -10,9 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFileCsv,
   faFileArrowDown,
-  faTrash,
   faUpLong,
-  faDownLong,
+  faDownLong, faBoxArchive,
 } from "@fortawesome/free-solid-svg-icons";
 import httpClient from "../../../../http/httpClient";
 import {
@@ -88,7 +87,7 @@ export default function ManagementFilesCSV() {
   const [loadingAnimation, setLoadingAnimation] = useState({
     massDisable: false,
     massDelete: false,
-    textChangeDelete: "Delete all temporarily",
+    textChangeDelete: "Archive all",
     massPublish: false,
     textChangePublish: "Publish all",
     massUnpublished: false,
@@ -251,7 +250,7 @@ export default function ManagementFilesCSV() {
       ...loadingAnimation,
       massDisable: true,
       massDelete: true,
-      textChangeDelete: "Deleting files temporarily...",
+      textChangeDelete: "Archiving all files...",
     });
     httpClient
       .put("/data/delete-csv-file-all")
@@ -262,7 +261,7 @@ export default function ManagementFilesCSV() {
           ...loadingAnimation,
           massDisable: false,
           massDelete: false,
-          textChangeDelete: "Delete all temporarily",
+          textChangeDelete: "Archive all",
         });
         toast.success(response.data.message);
       })
@@ -272,7 +271,7 @@ export default function ManagementFilesCSV() {
           ...loadingAnimation,
           massDisable: false,
           massDelete: false,
-          textChangeDelete: "Delete all temporarily",
+          textChangeDelete: "Archive all",
         });
         toast.error(error.response.data.message);
       });
@@ -421,7 +420,7 @@ export default function ManagementFilesCSV() {
   };
 
   return (
-    <div className="px-6 mx-auto max-w-7xl mt-8">
+    <div className="px-6 mx-auto mt-8 max-w-7xl mb-60">
       {
         isAuth().verified_email === "Verified" ? (
             <>
@@ -439,7 +438,7 @@ export default function ManagementFilesCSV() {
                 placeholder="Search"
                 type="text"
               />
-              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6">
+              <div className="grid grid-cols-1 md:gap-6">
                 <div className="w-full bg-blue-50 rounded-lg shadow-md p-4 mt-8">
                   <div className="content-end flex flex-wrap justify-start w-full gap-2">
                     <div className="flex flex-row w-full">
@@ -493,23 +492,14 @@ export default function ManagementFilesCSV() {
                         </>
                       )}
                     </ModalTypeOfDownload>
-                  </div>
-                </div>
-                <div className="w-full bg-blue-50 rounded-lg shadow-md p-4 mt-8">
-                  <div className="content-end flex flex-wrap justify-start w-full gap-2">
-                    <div className="flex flex-row w-full">
-                      <h1 className="text-base font-bold leading-none text-blue-500">
-                        Mass Danger Actions
-                      </h1>
-                    </div>
                     <ModalConfirm
-                      body={`Are you sure you want to temporarily delete all files from the system?`}
-                      description="This action cannot be undone. This will temporarily delete all files from the system and they will be restored if you restore all files."
+                      body={`Are you sure you want to archive all files from the system?`}
+                      description="This action cannot be undone. This will archive all files from the system and they will be restored if you restore all files."
                       disabled={massDisable}
                       is_danger
                       is_manny
                       onConfirm={() => handleDeleteAll()}
-                      title="Delete All Files (Temporarily)"
+                      title="Archive All Files"
                     >
                       {massDelete ? (
                         <>
@@ -520,7 +510,7 @@ export default function ManagementFilesCSV() {
                         <>
                           <FontAwesomeIcon
                             className={`${ICON_PLACE_SELF_CENTER}`}
-                            icon={faTrash}
+                            icon={faBoxArchive}
                           />
                           {textChangeDelete}
                         </>
@@ -721,35 +711,28 @@ export default function ManagementFilesCSV() {
                                 </>
                               )}
                             </ModalConfirm>
-                          </div>
-                          <div className="flex flex-row w-full px-4">
-                            <h1 className="text-base font-bold leading-none text-blue-500">
-                              Danger Zone
-                            </h1>
-                          </div>
-                          <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
                             <ModalConfirm
-                              body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                              description="This action cannot be undone. This will unpublished the file and its associated data from the system and can no longer view by the professors."
+                              body={`Are you sure you want to archive ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
+                              description="This action cannot be undone. This will archive the file and its associated data from the system and can no longer view by the professors."
                               disabled={disabledAllButtons[file.id]}
                               id={file.id}
                               is_danger
                               is_manny={false}
                               onConfirm={handleDelete}
-                              title="Delete File Confirmation"
+                              title="Archive File Confirmation"
                             >
                               {loadingIdDelete[file.id] ? (
                                 <>
                                   <LoadingAnimation moreClasses="text-red-600" />
-                                  Deleting...
+                                  Archiving File...
                                 </>
                               ) : (
                                 <>
                                   <FontAwesomeIcon
                                     className={`${ICON_PLACE_SELF_CENTER}`}
-                                    icon={faTrash}
+                                    icon={faBoxArchive}
                                   />
-                                  Delete
+                                  Archive File
                                 </>
                               )}
                             </ModalConfirm>

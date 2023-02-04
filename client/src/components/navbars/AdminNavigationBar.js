@@ -155,9 +155,9 @@ export default function AdminNavigationBar() {
       icon_: <BsAwardFill size={24} />,
     },
     {
-      name: "Deleted Files",
-      href: "/admin/management/files/deleted-files",
-      current: isActiveSubs4("deleted-files"),
+      name: "Archived Files",
+      href: "/admin/management/files/archived-files",
+      current: isActiveSubs4("archived-files"),
       icon: <BsAwardFill size={16} />,
       icon_: <BsAwardFill size={24} />,
     },

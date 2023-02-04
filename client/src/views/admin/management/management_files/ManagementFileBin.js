@@ -248,9 +248,9 @@ export default function ManagementFileBin() {
             <>
               <Header
                 body={
-                  "Permanently delete files from the system that have been deleted temporarily."
+                  "This page contains all the files that have been Archived. You can restore them or delete them permanently."
                 }
-                title={"Deleted Files"}
+                title={"Archived Files"}
               />
               <SearchBar
                 customStyle="mt-8"
@@ -295,7 +295,7 @@ export default function ManagementFileBin() {
                   <div className="content-end flex flex-wrap justify-start w-full gap-2">
                     <div className="flex flex-row w-full">
                       <h1 className="text-base font-bold leading-none text-blue-500">
-                        Mass Danger Actions
+                        Mass Danger Actions (This action is destructive and irreversible)
                       </h1>
                     </div>
                     <ModalConfirm
@@ -381,7 +381,7 @@ export default function ManagementFileBin() {
                             >
                               <h1 className="text-sm leading-none uppercase">
                                 {file.flag_deleted
-                                  ? "Deleted Temporarily"
+                                  ? "Archived"
                                   : "Available"}
                               </h1>
                             </div>
@@ -433,8 +433,8 @@ export default function ManagementFileBin() {
                           </div>
                           <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
                             <ModalConfirm
-                              body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                              description="This action cannot be undone. This will permanently delete the file and its associated data from the system."
+                              body={`Are you sure you want to restore ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
+                              description="This action cannot be undone. This will restore the file and its associated data from the system."
                               id={file.id}
                               is_manny={false}
                               onConfirm={handleRestore}
@@ -458,13 +458,13 @@ export default function ManagementFileBin() {
                           </div>
                           <div className="flex flex-row w-full px-4">
                             <h1 className="text-base font-bold leading-none text-blue-500">
-                              Danger Zone
+                              Danger Zone (Destructive and Irreversible)
                             </h1>
                           </div>
                           <div className="p-4 content-end flex flex-wrap justify-start w-full gap-2">
                             <ModalConfirm
                               body={`Are you sure you want to delete ${file.csv_question} with a school year of ${file.school_year} and a school semester of ${file.school_semester}?`}
-                              description="This action cannot be undone. This will permanently delete the file from the system and it will not be restored."
+                              description="This action is destructive and irreversible. This will permanently delete the file and its associated data from the system."
                               id={file.id}
                               is_danger
                               is_manny={false}

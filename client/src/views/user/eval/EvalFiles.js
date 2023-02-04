@@ -209,7 +209,7 @@ export default function EvalFiles() {
                             >
                               <h1 className="text-sm leading-none uppercase">
                                 {file.flag_deleted
-                                  ? "Deleted Temporarily"
+                                  ? "Archived"
                                   : "Available"}
                               </h1>
                             </div>
