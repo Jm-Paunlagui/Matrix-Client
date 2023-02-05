@@ -1,12 +1,9 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import React from "react";
-import {
-  ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-} from "../../assets/styles/styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faSignIn } from "@fortawesome/free-solid-svg-icons";
-import { signout } from "../../helpers/Auth";
+import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHome, faSignIn} from "@fortawesome/free-solid-svg-icons";
+import {signout} from "../../helpers/Auth";
 
 /**
  * @description Unauthorized component for the application

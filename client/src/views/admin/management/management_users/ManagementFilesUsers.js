@@ -1,30 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {Header, HeaderEmail} from "../../../../components/headers/Header";
 import httpClient from "../../../../http/httpClient";
-import {
-  LoadingAnimation,
-  LoadingPageSkeletonText,
-} from "../../../../components/loading/LoadingPage";
-import { SearchBar } from "../../../../components/searchbar/SearchBar";
+import {LoadingAnimation, LoadingPageSkeletonText,} from "../../../../components/loading/LoadingPage";
+import {SearchBar} from "../../../../components/searchbar/SearchBar";
 import {
   ICON_PLACE_SELF_CENTER,
   STATUS_GREEN,
   STATUS_RED,
   STATUS_WARNING,
 } from "../../../../assets/styles/styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBolt, faBoxArchive,
-  faCircleXmark,
-  faLock,
-  faRotate,
-  faUnlock,
-} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBolt, faBoxArchive, faCircleXmark, faLock, faRotate, faUnlock,} from "@fortawesome/free-solid-svg-icons";
 import ModalConfirm from "../../../../components/modal/ModalConfirm";
-import { toast } from "react-toastify";
-import { Paginator } from "../../../../components/listbox/ListBox";
-import { NoData } from "../../../../components/warnings/WarningMessages";
-import { ItemsPerPage } from "../../../../components/items/Items";
+import {toast} from "react-toastify";
+import {Paginator} from "../../../../components/listbox/ListBox";
+import {NoData} from "../../../../components/warnings/WarningMessages";
+import {ItemsPerPage} from "../../../../components/items/Items";
 import {isAuth} from "../../../../helpers/Auth";
 
 /**

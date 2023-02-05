@@ -1,5 +1,5 @@
-import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import {Disclosure, Transition} from "@headlessui/react";
+import {ChevronUpIcon} from "@heroicons/react/20/solid";
 import React from "react";
 import PropTypes from "prop-types";
 

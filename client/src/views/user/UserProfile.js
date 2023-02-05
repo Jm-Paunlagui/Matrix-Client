@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { getCookie, signout, verifyJWT } from "../../helpers/Auth";
+import React, {useEffect, useState} from "react";
+import {getCookie, signout, verifyJWT} from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
-import { toast } from "react-toastify";
-import {
-  PersonalInformation,
-  SecurityInformation,
-  SignInInformation,
-} from "../../components/forms/CredentialForms";
-import { Header } from "../../components/headers/Header";
-import { LoadingAnimation } from "../../components/loading/LoadingPage";
+import {toast} from "react-toastify";
+import {PersonalInformation, SecurityInformation, SignInInformation,} from "../../components/forms/CredentialForms";
+import {Header} from "../../components/headers/Header";
+import {LoadingAnimation} from "../../components/loading/LoadingPage";
 
 /**
  * @description Handles the admin profile

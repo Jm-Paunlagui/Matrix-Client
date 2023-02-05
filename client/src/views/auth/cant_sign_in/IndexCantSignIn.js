@@ -2,8 +2,8 @@ import React from "react";
 
 import BackNavigation from "../../../components/navbars/BackNavigation";
 import logo from "../../../assets/img/android-chrome-192x192.png";
-import { ACCENT_BUTTON } from "../../../assets/styles/styled-components";
-import { Link } from "react-router-dom";
+import {ACCENT_BUTTON} from "../../../assets/styles/styled-components";
+import {Link} from "react-router-dom";
 
 export default function IndexCantSignIn() {
   return (

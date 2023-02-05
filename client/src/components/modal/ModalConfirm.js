@@ -1,18 +1,10 @@
-import React, { Fragment, useRef, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import {
-  ExclamationTriangleIcon,
-  BoltIcon,
-  DocumentArrowDownIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ACCENT_BUTTON,
-  DANGER_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-} from "../../assets/styles/styled-components";
+import React, {Fragment, useRef, useState} from "react";
+import {Dialog, Transition} from "@headlessui/react";
+import {BoltIcon, DocumentArrowDownIcon, ExclamationTriangleIcon,} from "@heroicons/react/24/outline";
+import {ACCENT_BUTTON, DANGER_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
 import PropTypes from "prop-types";
-import { faFileCsv, faFileExcel } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faFileCsv, faFileExcel} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 /**
  * @description A modal to confirm the deletion of a file

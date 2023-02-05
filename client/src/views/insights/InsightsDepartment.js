@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import { LoadingPageSkeletonText } from "../../components/loading/LoadingPage";
+import {LoadingPageSkeletonText} from "../../components/loading/LoadingPage";
 import httpClient from "../../http/httpClient";
-import { Header } from "../../components/headers/Header";
-import { SearchBar } from "../../components/searchbar/SearchBar";
-import { NoData } from "../../components/warnings/WarningMessages";
-import { isAuth } from "../../helpers/Auth";
+import {Header} from "../../components/headers/Header";
+import {SearchBar} from "../../components/searchbar/SearchBar";
+import {NoData} from "../../components/warnings/WarningMessages";
+import {useLocation} from "react-router-dom";
 
 /**
  * @description Handles the Insights for the department
  */
 export default function InsightsDepartment() {
+
+  const location = useLocation();
+
   const [topDepartment, setTopDepartment] = useState({
     loading: true,
     top_department: [],
@@ -136,7 +139,7 @@ export default function InsightsDepartment() {
                         Professors
                       </h1>
                     </div>
-                    {isAuth().role === "admin" || isAuth().role === "user" ? (
+                    {location.pathname === "department-sentiment-overall" ? (
                       <>
                         <div className="flex flex-col items-center justify-center w-full">
                           <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded">

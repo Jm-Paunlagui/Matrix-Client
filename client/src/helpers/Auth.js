@@ -1,7 +1,7 @@
 import cookie from "js-cookie";
-import { importSPKI, jwtVerify } from "jose";
-import { MATRIX_RSA_PUBLIC_KEY } from "./Helper";
-import { toast } from "react-toastify";
+import {importSPKI, jwtVerify} from "jose";
+import {MATRIX_RSA_PUBLIC_KEY} from "./Helper";
+import {toast} from "react-toastify";
 
 /**
  * @description Sets the cookie for the application

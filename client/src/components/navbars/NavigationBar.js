@@ -1,14 +1,14 @@
 import React from "react";
-import { AiFillHome } from "react-icons/ai";
-import { FaSignInAlt } from "react-icons/fa";
-import { MdLeaderboard } from "react-icons/md";
-import { NavLink, useLocation } from "react-router-dom";
-import { BsAwardFill } from "react-icons/bs";
-import { Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {AiFillHome} from "react-icons/ai";
+import {FaSignInAlt} from "react-icons/fa";
+import {MdLeaderboard} from "react-icons/md";
+import {NavLink, useLocation} from "react-router-dom";
+import {BsAwardFill} from "react-icons/bs";
+import {Menu, Transition} from "@headlessui/react";
+import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import { DELAY_1 } from "../../assets/styles/styled-components";
+import {DELAY_1} from "../../assets/styles/styled-components";
 
 /**
  * @description NavigationBar component with useful links

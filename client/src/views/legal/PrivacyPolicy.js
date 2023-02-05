@@ -2,7 +2,7 @@ import React from "react";
 
 import Privacy from "../../assets/img/privacy.svg";
 import BackNavigation from "../../components/navbars/BackNavigation";
-import { ACCENT_BUTTON } from "../../assets/styles/styled-components";
+import {ACCENT_BUTTON} from "../../assets/styles/styled-components";
 
 /**
  * @description Privacy policy component for the application

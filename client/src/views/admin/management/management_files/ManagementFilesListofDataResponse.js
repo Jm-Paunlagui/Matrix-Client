@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import {
-  ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-} from "../../../../assets/styles/styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCsv } from "@fortawesome/free-solid-svg-icons";
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../../../assets/styles/styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFileCsv} from "@fortawesome/free-solid-svg-icons";
 import httpClient from "../../../../http/httpClient";
-import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
-import { toReadableName } from "../../../../helpers/Helper";
+import {LoadingPageSkeletonText} from "../../../../components/loading/LoadingPage";
+import {toReadableName} from "../../../../helpers/Helper";
 import Buttons from "../../../../components/buttons/buttons";
 import {Header, HeaderEmail} from "../../../../components/headers/Header";
-import { SearchBar } from "../../../../components/searchbar/SearchBar";
-import { NoData } from "../../../../components/warnings/WarningMessages";
-import { toast } from "react-toastify";
-import { ItemsPerPage } from "../../../../components/items/Items";
-import { Paginator } from "../../../../components/listbox/ListBox";
+import {SearchBar} from "../../../../components/searchbar/SearchBar";
+import {NoData} from "../../../../components/warnings/WarningMessages";
+import {toast} from "react-toastify";
+import {ItemsPerPage} from "../../../../components/items/Items";
+import {Paginator} from "../../../../components/listbox/ListBox";
 import {isAuth} from "../../../../helpers/Auth";
 
 /**

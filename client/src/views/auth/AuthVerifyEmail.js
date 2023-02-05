@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import logo from "../../assets/img/android-chrome-192x192.png";
-import { ACCENT_BUTTON } from "../../assets/styles/styled-components";
-import { Link, useParams } from "react-router-dom";
+import {ACCENT_BUTTON} from "../../assets/styles/styled-components";
+import {Link, useParams} from "react-router-dom";
 
-import { LoadingAnimation } from "../../components/loading/LoadingPage";
+import {LoadingAnimation} from "../../components/loading/LoadingPage";
 import httpClient from "../../http/httpClient";
-import { toast } from "react-toastify";
-import { verifyJWT } from "../../helpers/Auth";
+import {toast} from "react-toastify";
+import {verifyJWT} from "../../helpers/Auth";
 
 export default function AuthVerifyEmail() {
   /**

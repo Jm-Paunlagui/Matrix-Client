@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import { ICON_PLACE_SELF_CENTER } from "../../assets/styles/styled-components";
+import {ICON_PLACE_SELF_CENTER} from "../../assets/styles/styled-components";
 import BackNavigation from "../../components/navbars/BackNavigation";
 import httpClient from "../../http/httpClient";
-import { toast } from "react-toastify";
-import {
-  TFAbyEmail,
-  UsernamePassword,
-  VerifyTFA,
-} from "../../components/forms/CredentialForms";
-import { importSPKI, jwtVerify } from "jose";
-import { MATRIX_RSA_PUBLIC_KEY } from "../../helpers/Helper";
-import { authenticate, isAuth, setLocalStorage } from "../../helpers/Auth";
+import {toast} from "react-toastify";
+import {TFAbyEmail, UsernamePassword, VerifyTFA,} from "../../components/forms/CredentialForms";
+import {importSPKI, jwtVerify} from "jose";
+import {MATRIX_RSA_PUBLIC_KEY} from "../../helpers/Helper";
+import {authenticate, isAuth, setLocalStorage} from "../../helpers/Auth";
 
 /**
  * @description User login form for the application

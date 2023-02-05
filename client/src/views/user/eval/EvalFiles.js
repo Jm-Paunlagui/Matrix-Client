@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import {Header, HeaderEmail} from "../../../components/headers/Header";
 import httpClient from "../../../http/httpClient";
-import { LoadingPageSkeletonText } from "../../../components/loading/LoadingPage";
-import { SearchBar } from "../../../components/searchbar/SearchBar";
+import {LoadingPageSkeletonText} from "../../../components/loading/LoadingPage";
+import {SearchBar} from "../../../components/searchbar/SearchBar";
 import {
   ACCENT_BUTTON,
   ICON_PLACE_SELF_CENTER,
@@ -12,16 +12,13 @@ import {
   STATUS_WARNING,
   WARNING_BUTTON,
 } from "../../../assets/styles/styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleExclamation,
-  faFileCsv,
-} from "@fortawesome/free-solid-svg-icons";
-import { isAuth } from "../../../helpers/Auth";
-import { NoData } from "../../../components/warnings/WarningMessages";
-import { toast } from "react-toastify";
-import { ItemsPerPage } from "../../../components/items/Items";
-import { Paginator } from "../../../components/listbox/ListBox";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCircleExclamation, faFileCsv,} from "@fortawesome/free-solid-svg-icons";
+import {isAuth} from "../../../helpers/Auth";
+import {NoData} from "../../../components/warnings/WarningMessages";
+import {toast} from "react-toastify";
+import {ItemsPerPage} from "../../../components/items/Items";
+import {Paginator} from "../../../components/listbox/ListBox";
 
 /**
  * @description Handles evaluation pages for the application

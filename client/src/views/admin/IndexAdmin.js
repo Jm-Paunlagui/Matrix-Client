@@ -1,9 +1,8 @@
 import AdminNavigationBar from "../../components/navbars/AdminNavigationBar";
-import { Navigate, Outlet } from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
 import React from "react";
-import { isAuth } from "../../helpers/Auth";
+import {isAuth} from "../../helpers/Auth";
 import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
-import Footer from "../../components/footers/Footer";
 
 /**
  * @description Handles admin pages for the application

@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {
-  ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-  STATUS_GREEN,
-  STATUS_RED,
-  STATUS_WARNING,
+    ACCENT_BUTTON,
+    ICON_PLACE_SELF_CENTER,
+    STATUS_GREEN,
+    STATUS_RED,
+    STATUS_WARNING,
 } from "../../../../assets/styles/styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFileCsv,
-  faFileArrowDown,
-  faUpLong,
-  faDownLong, faBoxArchive,
-} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBoxArchive, faDownLong, faFileArrowDown, faFileCsv, faUpLong,} from "@fortawesome/free-solid-svg-icons";
 import httpClient from "../../../../http/httpClient";
-import {
-  LoadingAnimation,
-  LoadingPageSkeletonText,
-} from "../../../../components/loading/LoadingPage";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import {LoadingAnimation, LoadingPageSkeletonText,} from "../../../../components/loading/LoadingPage";
+import {toast} from "react-toastify";
+import {Link} from "react-router-dom";
 import {Header, HeaderEmail} from "../../../../components/headers/Header";
-import { SearchBar } from "../../../../components/searchbar/SearchBar";
-import { Paginator } from "../../../../components/listbox/ListBox";
-import { NoData } from "../../../../components/warnings/WarningMessages";
-import ModalConfirm, {
-  ModalTypeOfDownload,
-} from "../../../../components/modal/ModalConfirm";
-import { ItemsPerPage } from "../../../../components/items/Items";
+import {SearchBar} from "../../../../components/searchbar/SearchBar";
+import {Paginator} from "../../../../components/listbox/ListBox";
+import {NoData} from "../../../../components/warnings/WarningMessages";
+import ModalConfirm, {ModalTypeOfDownload,} from "../../../../components/modal/ModalConfirm";
+import {ItemsPerPage} from "../../../../components/items/Items";
 import {isAuth} from "../../../../helpers/Auth";
 
 /**

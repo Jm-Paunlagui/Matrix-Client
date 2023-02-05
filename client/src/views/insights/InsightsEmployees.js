@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import { LoadingPageSkeletonText } from "../../components/loading/LoadingPage";
+import {LoadingPageSkeletonText} from "../../components/loading/LoadingPage";
 import httpClient from "../../http/httpClient";
-import { Header } from "../../components/headers/Header";
-import { SearchBar } from "../../components/searchbar/SearchBar";
-import { NoData } from "../../components/warnings/WarningMessages";
+import {Header} from "../../components/headers/Header";
+import {SearchBar} from "../../components/searchbar/SearchBar";
+import {NoData} from "../../components/warnings/WarningMessages";
 
 /**
  * @description Handles the Insights for the department

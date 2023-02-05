@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
-import {
-    ACCENT_BUTTON,
-    ICON_PLACE_SELF_CENTER,
-} from "../../../../assets/styles/styled-components";
-import { Link, useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, {useEffect, useState} from "react";
+import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../../../assets/styles/styled-components";
+import {Link, useParams} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFileCsv} from "@fortawesome/free-solid-svg-icons";
 import httpClient from "../../../../http/httpClient";
-import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
-import { removeComma } from "../../../../helpers/Helper";
-import { toast } from "react-toastify";
+import {LoadingPageSkeletonText} from "../../../../components/loading/LoadingPage";
+import {removeComma} from "../../../../helpers/Helper";
+import {toast} from "react-toastify";
 import Buttons from "../../../../components/buttons/buttons";
 import {Header, HeaderEmail} from "../../../../components/headers/Header";
-import { SearchBar } from "../../../../components/searchbar/SearchBar";
-import { NoData } from "../../../../components/warnings/WarningMessages";
-import { Paginator } from "../../../../components/listbox/ListBox";
-import { ItemsPerPage } from "../../../../components/items/Items";
+import {SearchBar} from "../../../../components/searchbar/SearchBar";
+import {NoData} from "../../../../components/warnings/WarningMessages";
+import {Paginator} from "../../../../components/listbox/ListBox";
+import {ItemsPerPage} from "../../../../components/items/Items";
 import {isAuth} from "../../../../helpers/Auth";
 
 /**
@@ -225,7 +222,7 @@ export default function ManagementFilesData() {
                               </div>
                               <div className="flex flex-row items-start w-full py-2">
                                 <h1 className="text-base font-medium leading-none text-gray-500">
-                                  Share of Voice:
+                                  Share of Comments:
                                 </h1>
                                 <h1 className="ml-2 text-base leading-none text-gray-500">
                                   {department.share}%
@@ -337,7 +334,7 @@ export default function ManagementFilesData() {
                               </div>
                               <div className="flex flex-row items-start w-full py-2">
                                 <h1 className="text-base font-medium leading-none text-gray-500">
-                                  Share of Voice:
+                                  Share of Comments:
                                 </h1>
                                 <h1 className="ml-2 text-base leading-none text-gray-500">
                                   {professor.share}%

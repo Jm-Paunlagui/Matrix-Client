@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { TEXT_FIELD } from "../../assets/styles/styled-components";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import PropTypes, { arrayOf, shape } from "prop-types";
+import React, {Fragment} from "react";
+import {Listbox, Transition} from "@headlessui/react";
+import {TEXT_FIELD} from "../../assets/styles/styled-components";
+import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/20/solid";
+import PropTypes, {arrayOf, shape} from "prop-types";
 
 /**
  * @description ListBox component for the application

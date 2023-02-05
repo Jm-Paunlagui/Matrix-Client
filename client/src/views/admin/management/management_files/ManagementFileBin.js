@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Header, HeaderEmail} from "../../../../components/headers/Header";
-import {
-  LoadingAnimation,
-  LoadingPageSkeletonText,
-} from "../../../../components/loading/LoadingPage";
+import {LoadingAnimation, LoadingPageSkeletonText,} from "../../../../components/loading/LoadingPage";
 import httpClient from "../../../../http/httpClient";
-import { SearchBar } from "../../../../components/searchbar/SearchBar";
-import { Paginator } from "../../../../components/listbox/ListBox";
+import {SearchBar} from "../../../../components/searchbar/SearchBar";
+import {Paginator} from "../../../../components/listbox/ListBox";
 import ModalConfirm from "../../../../components/modal/ModalConfirm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
   ICON_PLACE_SELF_CENTER,
   STATUS_GREEN,
   STATUS_RED,
   STATUS_WARNING,
 } from "../../../../assets/styles/styled-components";
-import { faRotate, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { NoData } from "../../../../components/warnings/WarningMessages";
-import { toast } from "react-toastify";
-import { ItemsPerPage } from "../../../../components/items/Items";
+import {faRotate, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {NoData} from "../../../../components/warnings/WarningMessages";
+import {toast} from "react-toastify";
+import {ItemsPerPage} from "../../../../components/items/Items";
 import {isAuth} from "../../../../helpers/Auth";
 
 /**

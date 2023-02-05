@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import Eval from "../../assets/img/hero.svg";
-import { ACCENT_BUTTON } from "../../assets/styles/styled-components";
+import {ACCENT_BUTTON} from "../../assets/styles/styled-components";
 
 /**
  * @description PublicHome listbox component for the application

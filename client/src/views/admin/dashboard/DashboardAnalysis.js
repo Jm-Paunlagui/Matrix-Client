@@ -1,31 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import {
-  LoadingPageSkeletonImage,
-  LoadingPageSkeletonText,
-} from "../../../components/loading/LoadingPage";
+import {LoadingPageSkeletonImage, LoadingPageSkeletonText,} from "../../../components/loading/LoadingPage";
 import httpClient from "../../../http/httpClient";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import {Header, HeaderEmail} from "../../../components/headers/Header";
-import {
-  CsvQuestion,
-  SchoolYearList,
-  SemesterList,
-} from "../../../components/listbox/ListBox";
+import {CsvQuestion, SchoolYearList, SemesterList,} from "../../../components/listbox/ListBox";
 import DisclosureTogglable from "../../../components/disclosure/DisclosureTogglable";
 
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  PointElement,
-  LineElement,
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import {Bar} from "react-chartjs-2";
 import {isAuth} from "../../../helpers/Auth";
 
 ChartJS.register(

@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
-import { BsAwardFill } from "react-icons/bs";
-import { NavLink, useLocation } from "react-router-dom";
+import React, {Fragment} from "react";
+import {BsAwardFill} from "react-icons/bs";
+import {NavLink, useLocation} from "react-router-dom";
 
-import { Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {Menu, Transition} from "@headlessui/react";
+import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import { isAuth, signout } from "../../helpers/Auth";
+import {isAuth, signout} from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 /**
  * @description Handles the admin navigation bar for the application

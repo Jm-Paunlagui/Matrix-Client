@@ -1,26 +1,19 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import SuccessAnimation from "actually-accessible-react-success-animation";
 
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import logo from "../../../assets/img/android-chrome-192x192.png";
 import BackNavigation from "../../../components/navbars/BackNavigation";
-import {
-  AssociatedEmails,
-  SendToEmail,
-  Username,
-} from "../../../components/forms/CredentialForms";
-import { maskEmail, MATRIX_RSA_PUBLIC_KEY } from "../../../helpers/Helper";
+import {AssociatedEmails, SendToEmail, Username,} from "../../../components/forms/CredentialForms";
+import {maskEmail, MATRIX_RSA_PUBLIC_KEY} from "../../../helpers/Helper";
 import httpClient from "../../../http/httpClient";
 
-import { jwtVerify, importSPKI } from "jose";
-import { MailOptions } from "../../../components/buttons/buttons";
-import {
-  ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-} from "../../../assets/styles/styled-components";
-import { faSignIn } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import {importSPKI, jwtVerify} from "jose";
+import {MailOptions} from "../../../components/buttons/buttons";
+import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../../assets/styles/styled-components";
+import {faSignIn} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
 
 /**
  * @description Handles the forgot password request listbox

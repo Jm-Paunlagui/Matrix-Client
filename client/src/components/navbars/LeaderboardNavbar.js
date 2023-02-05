@@ -1,8 +1,8 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BsAwardFill } from "react-icons/bs";
+import {NavLink, useLocation} from "react-router-dom";
+import {Menu, Transition} from "@headlessui/react";
+import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
+import {BsAwardFill} from "react-icons/bs";
 
 export default function LeaderboardNavbar() {
   /**

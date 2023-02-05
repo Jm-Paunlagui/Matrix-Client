@@ -1,7 +1,7 @@
 import Footer from "../../components/footers/Footer";
 import NavigationBar from "../../components/navbars/NavigationBar";
-import { Outlet, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import {Outlet, useLocation} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 
 /**
  * @description Handles about, home, insights, privacy, and terms listbox for the application

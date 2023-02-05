@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import {
-  LoadingPageSkeletonImage,
-  LoadingPageSkeletonText,
-} from "../../../components/loading/LoadingPage";
+import {LoadingPageSkeletonImage, LoadingPageSkeletonText,} from "../../../components/loading/LoadingPage";
 import httpClient from "../../../http/httpClient";
 import {Header, HeaderEmail} from "../../../components/headers/Header";
-import {
-  CsvQuestion,
-  SchoolYearList,
-  SemesterList,
-} from "../../../components/listbox/ListBox";
+import {CsvQuestion, SchoolYearList, SemesterList,} from "../../../components/listbox/ListBox";
 import DisclosureTogglable from "../../../components/disclosure/DisclosureTogglable";
 import {isAuth} from "../../../helpers/Auth";
 

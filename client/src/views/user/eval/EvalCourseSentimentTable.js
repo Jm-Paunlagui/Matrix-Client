@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 
-import { Link, Navigate, useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCsv } from "@fortawesome/free-solid-svg-icons";
+import {Link, Navigate, useParams} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFileCsv} from "@fortawesome/free-solid-svg-icons";
 
 import httpClient from "../../../http/httpClient";
-import {
-  ACCENT_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-} from "../../../assets/styles/styled-components";
+import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../../assets/styles/styled-components";
 import {Header, HeaderEmail} from "../../../components/headers/Header";
-import { SearchBar } from "../../../components/searchbar/SearchBar";
-import { toReadableName } from "../../../helpers/Helper";
-import { LoadingPageSkeletonText } from "../../../components/loading/LoadingPage";
+import {SearchBar} from "../../../components/searchbar/SearchBar";
+import {toReadableName} from "../../../helpers/Helper";
+import {LoadingPageSkeletonText} from "../../../components/loading/LoadingPage";
 import Buttons from "../../../components/buttons/buttons";
-import { isAuth } from "../../../helpers/Auth";
-import { NoData } from "../../../components/warnings/WarningMessages";
-import { toast } from "react-toastify";
-import { ItemsPerPage } from "../../../components/items/Items";
-import { Paginator } from "../../../components/listbox/ListBox";
+import {isAuth} from "../../../helpers/Auth";
+import {NoData} from "../../../components/warnings/WarningMessages";
+import {toast} from "react-toastify";
+import {ItemsPerPage} from "../../../components/items/Items";
+import {Paginator} from "../../../components/listbox/ListBox";
 
 /**
  * @description Handles the lists data of the file department and professor

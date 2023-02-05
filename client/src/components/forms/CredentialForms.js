@@ -1,36 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
-  faCheck,
-  faCaretRight,
-  faEnvelope,
-  faForward,
-  faRepeat,
-  faSignIn,
-  faPenToSquare,
-  faCaretLeft,
-  faCheckDouble,
-  faCircleExclamation,
-  faCircleCheck,
-  faCircleMinus,
+    faCaretLeft,
+    faCaretRight,
+    faCheck,
+    faCheckDouble,
+    faCircleCheck,
+    faCircleExclamation,
+    faCircleMinus,
+    faEnvelope,
+    faForward,
+    faPenToSquare,
+    faRepeat,
+    faSignIn,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import {
-  ACCENT_BUTTON,
-  DANGER_BUTTON,
-  EMAIL_NOT_SET,
-  ICON_PLACE_SELF_CENTER,
-  MAIN_BUTTON,
-  PRIMARY_RADIO,
-  TEXT_FIELD,
-  WARNING_BUTTON,
+    ACCENT_BUTTON,
+    DANGER_BUTTON,
+    EMAIL_NOT_SET,
+    ICON_PLACE_SELF_CENTER,
+    MAIN_BUTTON,
+    PRIMARY_RADIO,
+    TEXT_FIELD,
+    WARNING_BUTTON,
 } from "../../assets/styles/styled-components";
-import { maskEmail, emailRegex } from "../../helpers/Helper";
+import {emailRegex, maskEmail} from "../../helpers/Helper";
 import PasswordChecklist from "react-password-checklist";
-import { LoadingAnimation } from "../loading/LoadingPage";
+import {LoadingAnimation} from "../loading/LoadingPage";
 import PropTypes from "prop-types";
 
 /**

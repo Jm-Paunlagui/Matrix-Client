@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { toReadableName } from "../../../../helpers/Helper";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {toReadableName} from "../../../../helpers/Helper";
 import httpClient from "../../../../http/httpClient";
-import { LoadingPageSkeletonText } from "../../../../components/loading/LoadingPage";
+import {LoadingPageSkeletonText} from "../../../../components/loading/LoadingPage";
 import Buttons from "../../../../components/buttons/buttons";
-import { Header, HeaderEmail } from "../../../../components/headers/Header";
-import { GridItemResponse } from "../../../../components/grid/GridItem";
-import { toast } from "react-toastify";
-import { NoData } from "../../../../components/warnings/WarningMessages";
-import { Paginator } from "../../../../components/listbox/ListBox";
-import { ItemsPerPage } from "../../../../components/items/Items";
-import { isAuth } from "../../../../helpers/Auth";
+import {Header, HeaderEmail} from "../../../../components/headers/Header";
+import {GridItemResponse} from "../../../../components/grid/GridItem";
+import {toast} from "react-toastify";
+import {NoData} from "../../../../components/warnings/WarningMessages";
+import {Paginator} from "../../../../components/listbox/ListBox";
+import {ItemsPerPage} from "../../../../components/items/Items";
+import {isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Displays the sentiment score of the file along with the response

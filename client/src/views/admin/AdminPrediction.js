@@ -1,33 +1,23 @@
-import React, { Fragment, useState, useCallback, useEffect } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import {
-  ACCENT_BUTTON,
-  DANGER_BUTTON,
-  ICON_PLACE_SELF_CENTER,
-  TEXT_FIELD,
-} from "../../assets/styles/styled-components";
+import React, {Fragment, useCallback, useEffect, useState} from "react";
+import {Listbox, Transition} from "@headlessui/react";
+import {ACCENT_BUTTON, DANGER_BUTTON, ICON_PLACE_SELF_CENTER, TEXT_FIELD,} from "../../assets/styles/styled-components";
 import httpClient from "../../http/httpClient";
-import { toast } from "react-toastify";
-import { importSPKI, jwtVerify } from "jose";
+import {toast} from "react-toastify";
+import {importSPKI, jwtVerify} from "jose";
+import {getNameFromString, getNumberFromString, MATRIX_RSA_PUBLIC_KEY, timeFormat,} from "../../helpers/Helper";
+import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/20/solid";
 import {
-  getNameFromString,
-  getNumberFromString,
-  MATRIX_RSA_PUBLIC_KEY,
-  timeFormat,
-} from "../../helpers/Helper";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import {
-  faMagnifyingGlassChart,
   faCaretLeft,
-  faFlagCheckered,
   faCircleMinus,
   faFileCsv,
+  faFlagCheckered,
+  faMagnifyingGlassChart,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Header, HeaderEmail} from "../../components/headers/Header";
-import { useDropzone } from "react-dropzone";
-import { LoadingAnimation } from "../../components/loading/LoadingPage";
-import { Link } from "react-router-dom";
+import {useDropzone} from "react-dropzone";
+import {LoadingAnimation} from "../../components/loading/LoadingPage";
+import {Link} from "react-router-dom";
 import DisclosureTogglable from "../../components/disclosure/DisclosureTogglable";
 import {getCookie, isAuth, signout} from "../../helpers/Auth";
 import Papa from "papaparse";
@@ -750,6 +740,11 @@ export default function AdminPrediction() {
                             encType={"multipart/form-data"}
                             onSubmit={handleSubmitCSVToView}
                           >
+                            <div className="p-2 rounded bg-yellow-100 mb-4">
+                              <h1 className="text-sm font-medium text-yellow-500">
+                                <b>Note:</b> Make sure that the CSV file contains the overall data before uploading. Mismatched data from the previous analyzed CSV file will be rejected. If you want to analyze a new CSV file which contains new set of professors and departments, please archive all/previous the data first.
+                              </h1>
+                            </div>
                             <div className="flex flex-col space-y-4">
                               <div className="flex flex-col w-full space-y-2">
                                 <div
