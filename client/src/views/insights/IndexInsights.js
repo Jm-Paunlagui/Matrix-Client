@@ -1,6 +1,6 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import React from "react";
-import {isAuth} from "../../helpers/Auth";
+import { isAuth } from "../../helpers/Auth";
 
 /**
  * @description Handles admin pages for the application

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
 
 import AboutUs from "../../assets/img/aboutus.svg";
 import Profile from "../../assets/img/profile.svg";

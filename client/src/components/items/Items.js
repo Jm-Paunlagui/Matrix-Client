@@ -1,6 +1,9 @@
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretLeft, faCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+} from "../../assets/styles/styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import PropTypes from "prop-types";
 

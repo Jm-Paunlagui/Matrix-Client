@@ -1,10 +1,13 @@
 import React from "react";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
-import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowLeft, faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+} from "../../assets/styles/styled-components";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import {faGoogle, faYahoo} from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faYahoo } from "@fortawesome/free-brands-svg-icons";
 
 export default function Buttons({ to, text }) {
   Buttons.propTypes = {
