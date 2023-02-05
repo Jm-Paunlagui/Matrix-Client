@@ -1,16 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BackNavigation from "../../../components/navbars/BackNavigation";
 import logo from "../../../assets/img/android-chrome-192x192.png";
 import httpClient from "../../../http/httpClient";
-import {toast} from "react-toastify";
-import {Link, NavLink} from "react-router-dom";
-import {VerifyTFA} from "../../../components/forms/CredentialForms";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER, TEXT_FIELD,} from "../../../assets/styles/styled-components";
-import {LoadingAnimation} from "../../../components/loading/LoadingPage";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCaretRight, faSignIn} from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { Link, NavLink } from "react-router-dom";
+import { VerifyTFA } from "../../../components/forms/CredentialForms";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+  TEXT_FIELD,
+} from "../../../assets/styles/styled-components";
+import { LoadingAnimation } from "../../../components/loading/LoadingPage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretRight, faSignIn } from "@fortawesome/free-solid-svg-icons";
 import SuccessAnimation from "actually-accessible-react-success-animation";
-import {MailOptions} from "../../../components/buttons/buttons";
+import { MailOptions } from "../../../components/buttons/buttons";
 
 export default function AuthForgotUsernameRequest() {
   const [resetForm, setResetForm] = useState({
