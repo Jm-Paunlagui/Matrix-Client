@@ -1,20 +1,30 @@
-import React, {useEffect, useState} from "react";
-import {LoadingAnimation, LoadingPageSkeletonText,} from "../../components/loading/LoadingPage";
+import React, { useEffect, useState } from "react";
+import {
+  LoadingAnimation,
+  LoadingPageSkeletonText,
+} from "../../components/loading/LoadingPage";
 import httpClient from "../../http/httpClient";
-import {Header} from "../../components/headers/Header";
-import {SearchBar} from "../../components/searchbar/SearchBar";
-import {NoData} from "../../components/warnings/WarningMessages";
-import {CsvQuestion, SchoolYearList, SemesterList,} from "../../components/listbox/ListBox";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlassChart} from "@fortawesome/free-solid-svg-icons";
-import {useLocation} from "react-router-dom";
+import { Header } from "../../components/headers/Header";
+import { SearchBar } from "../../components/searchbar/SearchBar";
+import { NoData } from "../../components/warnings/WarningMessages";
+import {
+  CsvQuestion,
+  SchoolYearList,
+  SemesterList,
+} from "../../components/listbox/ListBox";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+} from "../../assets/styles/styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlassChart } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
 
 /**
  * @description Handles the Insights for the department per semester
  */
 export default function InsightsPerSemesterDepartment() {
-  const location = useLocation()
+  const location = useLocation();
   /**
    * @description The initial state of the data
    */
@@ -261,7 +271,14 @@ export default function InsightsPerSemesterDepartment() {
                           </div>
                         </div>
                         <div className="col-span-4 place-self-center">
-                          <div className={`grid grid-cols-2 gap-8 py-4 ${location.pathname === "/admin/insights/per-semester-department" ? "lg:grid-cols-3 md:gap-20" : "lg:grid-cols-4"}`}>
+                          <div
+                            className={`grid grid-cols-2 gap-8 py-4 ${
+                              location.pathname ===
+                              "/admin/insights/per-semester-department"
+                                ? "lg:grid-cols-3 md:gap-20"
+                                : "lg:grid-cols-4"
+                            }`}
+                          >
                             <div className="flex flex-col items-center justify-center w-full">
                               <div
                                 className={`flex items-center justify-center w-10 h-10 text-white rounded ${
@@ -304,7 +321,8 @@ export default function InsightsPerSemesterDepartment() {
                                 Professors
                               </h1>
                             </div>
-                            {location.pathname === "/admin/insights/per-semester-department" ? (
+                            {location.pathname ===
+                            "/admin/insights/per-semester-department" ? (
                               <>
                                 <div className="flex flex-col items-center justify-center w-full">
                                   <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded">
