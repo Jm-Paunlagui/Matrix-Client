@@ -1,13 +1,23 @@
-import React, {useEffect, useState} from "react";
-import {LoadingAnimation, LoadingPageSkeletonText,} from "../../components/loading/LoadingPage";
+import React, { useEffect, useState } from "react";
+import {
+  LoadingAnimation,
+  LoadingPageSkeletonText,
+} from "../../components/loading/LoadingPage";
 import httpClient from "../../http/httpClient";
-import {Header} from "../../components/headers/Header";
-import {SearchBar} from "../../components/searchbar/SearchBar";
-import {NoData} from "../../components/warnings/WarningMessages";
-import {CsvQuestion, SchoolYearList, SemesterList,} from "../../components/listbox/ListBox";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlassChart} from "@fortawesome/free-solid-svg-icons";
+import { Header } from "../../components/headers/Header";
+import { SearchBar } from "../../components/searchbar/SearchBar";
+import { NoData } from "../../components/warnings/WarningMessages";
+import {
+  CsvQuestion,
+  SchoolYearList,
+  SemesterList,
+} from "../../components/listbox/ListBox";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+} from "../../assets/styles/styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlassChart } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * @description Handles the Insights for the department per semester

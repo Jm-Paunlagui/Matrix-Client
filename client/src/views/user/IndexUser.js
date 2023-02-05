@@ -1,7 +1,7 @@
 import UserNavigationBar from "../../components/navbars/UserNavigationBar";
-import {Navigate, Outlet} from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import React from "react";
-import {isAuth} from "../../helpers/Auth";
+import { isAuth } from "../../helpers/Auth";
 import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
 
 /**

@@ -1,6 +1,11 @@
-import React, {useLayoutEffect} from "react";
-import {BrowserRouter as Router, Route, Routes, useLocation,} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
+import React, { useLayoutEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import DashboardAnalysis from "./views/admin/dashboard/DashboardAnalysis.js";
@@ -25,7 +30,12 @@ import TermsAndConditions from "./views/legal/TermsAndConditions.js";
 import IndexPublic from "./views/public/IndexPublic.js";
 import PublicAbout from "./views/public/PublicAbout.js";
 import PublicHome from "./views/public/PublicHome.js";
-import {InvalidToken, LoginTimeOut, PageNotFound, Unauthorized,} from "./views/response/ClientErrorResponses.js";
+import {
+  InvalidToken,
+  LoginTimeOut,
+  PageNotFound,
+  Unauthorized,
+} from "./views/response/ClientErrorResponses.js";
 import IndexUser from "./views/user/IndexUser";
 
 import UserProfile from "./views/user/UserProfile";
@@ -36,8 +46,7 @@ import IndexManagementFiles from "./views/admin/management/IndexManagementFiles"
 import ManagementFilesCSV from "./views/admin/management/management_files/ManagementFilesCSV";
 import ManagementFilesUsers from "./views/admin/management/management_users/ManagementFilesUsers";
 import ManagementFilesData from "./views/admin/management/management_files/ManagementFilesData";
-import ManagementFilesListofDataResponse
-    from "./views/admin/management/management_files/ManagementFilesListofDataResponse";
+import ManagementFilesListofDataResponse from "./views/admin/management/management_files/ManagementFilesListofDataResponse";
 import ManagementFilesReadDataResponse from "./views/admin/management/management_files/ManagementFilesReadDataResponse";
 import IndexFiles from "./views/admin/management/management_files/IndexFiles";
 import IndexUsers from "./views/admin/management/management_users/IndexUsers";

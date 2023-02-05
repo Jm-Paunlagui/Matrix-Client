@@ -1,11 +1,15 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
-import {CONTRAST, DEFAULT_BUTTON, ICON_PLACE_SELF_CENTER_1,} from "../../assets/styles/styled-components";
+import {
+  CONTRAST,
+  DEFAULT_BUTTON,
+  ICON_PLACE_SELF_CENTER_1,
+} from "../../assets/styles/styled-components";
 
 /**
  * @description Back Navigation for the application

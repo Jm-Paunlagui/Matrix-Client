@@ -2,7 +2,7 @@ import React from "react";
 
 import Terms from "../../assets/img/terms.svg";
 import BackNavigation from "../../components/navbars/BackNavigation";
-import {ACCENT_BUTTON} from "../../assets/styles/styled-components";
+import { ACCENT_BUTTON } from "../../assets/styles/styled-components";
 
 /**
  * @description Terms and conditions listbox for the application

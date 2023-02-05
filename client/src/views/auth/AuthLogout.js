@@ -1,6 +1,6 @@
 import React from "react";
 
-import {LoadingAnimation} from "../../components/loading/LoadingPage";
+import { LoadingAnimation } from "../../components/loading/LoadingPage";
 
 /**
  * @description Logout in the loading animation

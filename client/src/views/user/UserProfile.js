@@ -1,10 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {getCookie, signout, verifyJWT} from "../../helpers/Auth";
+import React, { useEffect, useState } from "react";
+import { getCookie, signout, verifyJWT } from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
-import {toast} from "react-toastify";
-import {PersonalInformation, SecurityInformation, SignInInformation,} from "../../components/forms/CredentialForms";
-import {Header} from "../../components/headers/Header";
-import {LoadingAnimation} from "../../components/loading/LoadingPage";
+import { toast } from "react-toastify";
+import {
+  PersonalInformation,
+  SecurityInformation,
+  SignInInformation,
+} from "../../components/forms/CredentialForms";
+import { Header } from "../../components/headers/Header";
+import { LoadingAnimation } from "../../components/loading/LoadingPage";
 
 /**
  * @description Handles the admin profile
@@ -113,10 +117,16 @@ export default function UserProfile() {
           verified_email: response.data.user.verified_email,
           verified_recovery_email: response.data.user.verified_recovery_email,
         });
-        if (response.data.user.verified_email === "Unverified" && response.data.user.email !== null) {
+        if (
+          response.data.user.verified_email === "Unverified" &&
+          response.data.user.email !== null
+        ) {
           toast.warn("Unverified email. Please verify your email.");
         }
-        if (response.data.user.verified_recovery_email === "Unverified" && response.data.user.recovery_email !== null) {
+        if (
+          response.data.user.verified_recovery_email === "Unverified" &&
+          response.data.user.recovery_email !== null
+        ) {
           toast.warn(
             "Unverified recovery email. Please verify your recovery email.",
           );
@@ -142,7 +152,10 @@ export default function UserProfile() {
    * @returns {(function(*): void)|*}
    */
   const handleChangeForPersonalInfo = (name) => (event) => {
-    if (event.target.value === user.email || event.target.value === user.full_name) {
+    if (
+      event.target.value === user.email ||
+      event.target.value === user.full_name
+    ) {
       setProfile({
         ...profile,
         [name]: event.target.value,
@@ -153,15 +166,15 @@ export default function UserProfile() {
         verified_email: user.verified_email,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforPersonalInfo: false,
-            errorMessageforPersonalInfo: "",
-            showButtonforPersonalInfo: false,
-            disabledButtonforPersonalInfo: false,
-            verified_email: (name === "email") ? "Unverified" : user.verified_email,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforPersonalInfo: false,
+        errorMessageforPersonalInfo: "",
+        showButtonforPersonalInfo: false,
+        disabledButtonforPersonalInfo: false,
+        verified_email: name === "email" ? "Unverified" : user.verified_email,
+      });
     }
   };
 
@@ -182,15 +195,18 @@ export default function UserProfile() {
         verified_recovery_email: user.verified_recovery_email,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforSecurityInfo: false,
-            errorMessageforSecurityInfo: "",
-            showButtonforSecurityInfo: false,
-            disabledButtonforSecurityInfo: false,
-            verified_recovery_email: (name === "recovery_email") ? "Unverified" : user.verified_recovery_email,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforSecurityInfo: false,
+        errorMessageforSecurityInfo: "",
+        showButtonforSecurityInfo: false,
+        disabledButtonforSecurityInfo: false,
+        verified_recovery_email:
+          name === "recovery_email"
+            ? "Unverified"
+            : user.verified_recovery_email,
+      });
     }
   };
 
@@ -210,14 +226,14 @@ export default function UserProfile() {
         disabledButtonforUsername: true,
       });
     } else {
-        setProfile({
-            ...profile,
-            [name]: event.target.value,
-            errorEffectforUsername: false,
-            errorMessageforUsername: "",
-            showButtonforUsername: false,
-            disabledButtonforUsername: false,
-        });
+      setProfile({
+        ...profile,
+        [name]: event.target.value,
+        errorEffectforUsername: false,
+        errorMessageforUsername: "",
+        showButtonforUsername: false,
+        disabledButtonforUsername: false,
+      });
     }
   };
 
@@ -270,7 +286,7 @@ export default function UserProfile() {
                 okforPersonalInfo: false,
                 showButtonforPersonalInfo: true,
                 textChangeforPersonalInfo: "Update",
-                });
+              });
             }
           })
           .catch((error) => {
@@ -379,7 +395,7 @@ export default function UserProfile() {
                 okforSecurityInfo: false,
                 showButtonforSecurityInfo: true,
                 textChangeforSecurityInfo: "Update",
-                });
+              });
             }
           })
           .catch((error) => {
@@ -544,7 +560,8 @@ export default function UserProfile() {
         </div>
         <div className="col-span-2">
           {
-            <PersonalInformation disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
+            <PersonalInformation
+              disabledButtonforPersonalInfo={disabledButtonforPersonalInfo}
               email={email}
               errorEffectforPersonalInfo={errorEffectforPersonalInfo}
               errorMessageforPersonalInfo={errorMessageforPersonalInfo}
@@ -563,7 +580,8 @@ export default function UserProfile() {
             />
           }
           {
-            <SecurityInformation disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
+            <SecurityInformation
+              disabledButtonforSecurityInfo={disabledButtonforSecurityInfo}
               errorEffectforSecurityInfo={errorEffectforSecurityInfo}
               errorMessageforSecurityInfo={errorMessageforSecurityInfo}
               handleChangeForSecurityInfo={handleChangeForSecurityInfo}

@@ -1,7 +1,7 @@
 import cookie from "js-cookie";
-import {importSPKI, jwtVerify} from "jose";
-import {MATRIX_RSA_PUBLIC_KEY} from "./Helper";
-import {toast} from "react-toastify";
+import { importSPKI, jwtVerify } from "jose";
+import { MATRIX_RSA_PUBLIC_KEY } from "./Helper";
+import { toast } from "react-toastify";
 
 /**
  * @description Sets the cookie for the application
@@ -14,10 +14,10 @@ export const setCookie = (key, value) => {
     expirationDate.setDate(expirationDate.getDate() + 30);
     cookie.set(key, value, {
       domain: window.location.hostname,
-      path: '/',
-      sameSite: 'lax',
+      path: "/",
+      sameSite: "lax",
       secure: true,
-      expires: expirationDate
+      expires: expirationDate,
     });
   }
 };
@@ -30,8 +30,8 @@ export const removeCookie = (key) => {
   if (typeof window !== "undefined") {
     cookie.remove(key, {
       domain: window.location.hostname,
-      path: '/',
-      sameSite: 'lax',
+      path: "/",
+      sameSite: "lax",
       expires: 1,
     });
   }
