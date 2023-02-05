@@ -1,20 +1,23 @@
-import React, {useEffect, useState} from "react";
-import {Link, NavLink, useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useParams } from "react-router-dom";
 
-import {faCircleCheck, faCircleXmark,} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
 import {
-    ACCENT_BUTTON,
-    DANGER_RADIO,
-    ICON_PLACE_SELF_CENTER,
-    PRIMARY_RADIO,
+  ACCENT_BUTTON,
+  DANGER_RADIO,
+  ICON_PLACE_SELF_CENTER,
+  PRIMARY_RADIO,
 } from "../../assets/styles/styled-components";
 import httpClient from "../../http/httpClient";
-import {maskUsername} from "../../helpers/Helper";
-import {toast} from "react-toastify";
-import {LoadingAnimation} from "../../components/loading/LoadingPage";
+import { maskUsername } from "../../helpers/Helper";
+import { toast } from "react-toastify";
+import { LoadingAnimation } from "../../components/loading/LoadingPage";
 
 /**
  * @description Handles the forgot password request listbox

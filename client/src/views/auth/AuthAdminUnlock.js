@@ -1,17 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BackNavigation from "../../components/navbars/BackNavigation";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
-import {Link, NavLink, useParams} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSignIn} from "@fortawesome/free-solid-svg-icons";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+} from "../../assets/styles/styled-components";
+import { Link, NavLink, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignIn } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/img/android-chrome-192x192.png";
-import {maskEmail, MATRIX_RSA_PUBLIC_KEY} from "../../helpers/Helper";
-import {AssociatedEmails, SendToEmail, Username, VerifyTFA,} from "../../components/forms/CredentialForms";
+import { maskEmail, MATRIX_RSA_PUBLIC_KEY } from "../../helpers/Helper";
+import {
+  AssociatedEmails,
+  SendToEmail,
+  Username,
+  VerifyTFA,
+} from "../../components/forms/CredentialForms";
 import SuccessAnimation from "actually-accessible-react-success-animation";
 import httpClient from "../../http/httpClient";
-import {importSPKI, jwtVerify} from "jose";
-import {toast} from "react-toastify";
-import {MailOptions} from "../../components/buttons/buttons";
+import { importSPKI, jwtVerify } from "jose";
+import { toast } from "react-toastify";
+import { MailOptions } from "../../components/buttons/buttons";
 
 export default function AuthAdminUnlock() {
   /**

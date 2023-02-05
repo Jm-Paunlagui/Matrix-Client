@@ -1,17 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
-import {Link, NavLink, useParams} from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
-import {faSignIn} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faSignIn } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SuccessAnimation from "actually-accessible-react-success-animation";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER, TEXT_FIELD,} from "../../assets/styles/styled-components";
+import {
+  ACCENT_BUTTON,
+  ICON_PLACE_SELF_CENTER,
+  TEXT_FIELD,
+} from "../../assets/styles/styled-components";
 import BackNavigation from "../../components/navbars/BackNavigation";
 import httpClient from "../../http/httpClient";
-import {toast} from "react-toastify";
-import {LoadingAnimation} from "../../components/loading/LoadingPage";
+import { toast } from "react-toastify";
+import { LoadingAnimation } from "../../components/loading/LoadingPage";
 
 /**
  * @description Handles the forgot password request listbox
