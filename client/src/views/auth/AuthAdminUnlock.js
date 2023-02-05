@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import BackNavigation from "../../components/navbars/BackNavigation";
 import {ACCENT_BUTTON, ICON_PLACE_SELF_CENTER,} from "../../assets/styles/styled-components";
-import {Link, useParams} from "react-router-dom";
+import {Link, NavLink, useParams} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignIn} from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/img/android-chrome-192x192.png";
@@ -316,9 +316,11 @@ export default function AuthAdminUnlock() {
               </div>
             ) : (
               <div className={"px-6 lg:px-28"}>
-                <div className="flex items-center justify-center py-2 text-gray-800">
-                  <img alt="logo" className="w-12 h-12 -mt-12" src={logo} />
-                </div>
+                <NavLink to="/">
+                  <div className="flex items-center justify-center py-2 text-gray-800">
+                    <img alt="logo" className="w-12 h-12 -mt-12" src={logo} />
+                  </div>
+                </NavLink>
                 <div className="flex-auto mb-24 space-y-6 -mt-14">
                   <div className="mb-3 text-start">
                     <h6 className="mt-16 text-lg font-bold text-blue-500 xl:text-2xl">

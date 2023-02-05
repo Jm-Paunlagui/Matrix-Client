@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import logo from "../../assets/img/android-chrome-192x192.png";
 import {ACCENT_BUTTON} from "../../assets/styles/styled-components";
-import {Link, useParams} from "react-router-dom";
+import {Link, NavLink, useParams} from "react-router-dom";
 
 import {LoadingAnimation} from "../../components/loading/LoadingPage";
 import httpClient from "../../http/httpClient";
@@ -56,13 +56,15 @@ export default function AuthVerifyEmail() {
           >
             <div className={"px-6 lg:px-28"}>
               <div className="flex items-center justify-between py-4 text-gray-800">
-                <div className="flex items-center">
-                  <img alt="logo" className="w-12 h-12" src={logo} />
-                  <h1 className="ml-2 text-2xl font-bold">Matrix</h1>
-                  <h1 className="hidden ml-2 text-2xl font-light md:block">
-                    | Verify Email
-                  </h1>
-                </div>
+                <NavLink to="/">
+                  <div className="flex items-center">
+                    <img alt="logo" className="w-12 h-12" src={logo} />
+                    <h1 className="ml-2 text-2xl font-bold">Matrix</h1>
+                    <h1 className="hidden ml-2 text-2xl font-light md:block">
+                      | Verify Email
+                    </h1>
+                  </div>
+                </NavLink>
                 {/*  Sign in button*/}
                 <button className={`${ACCENT_BUTTON}`} type={"button"}>
                   <Link to={"/auth"}>

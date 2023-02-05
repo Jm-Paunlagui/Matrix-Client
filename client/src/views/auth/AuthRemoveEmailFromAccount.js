@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, NavLink, useParams} from "react-router-dom";
 
 import {faCircleCheck, faCircleXmark,} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -151,14 +151,15 @@ export default function AuthRemoveEmailFromAccount() {
           >
             <div className={"px-6 lg:px-28"}>
               <div className="flex items-center justify-between py-4 text-gray-800">
-                <div className="flex items-center">
-                  <img alt="logo" className="w-12 h-12" src={logo} />
-                  <h1 className="ml-2 text-2xl font-bold">Matrix</h1>
-                  <h1 className="hidden ml-2 text-2xl font-light md:block">
-                    | Account
-                  </h1>
-                </div>
-
+                <NavLink to="/">
+                  <div className="flex items-center">
+                    <img alt="logo" className="w-12 h-12" src={logo} />
+                    <h1 className="ml-2 text-2xl font-bold">Matrix</h1>
+                    <h1 className="hidden ml-2 text-2xl font-light md:block">
+                      | Account
+                    </h1>
+                  </div>
+                </NavLink>
                 {/*  Sign in button*/}
                 <button className={`${ACCENT_BUTTON}`} type={"button"}>
                   <Link to={"/auth"}>

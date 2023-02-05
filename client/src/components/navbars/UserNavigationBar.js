@@ -146,19 +146,20 @@ export default function UserNavigationBar() {
                 </Menu.Button>
               </div>
               <div className="flex items-center justify-center flex-1 sm:items-stretch lg:justify-start">
-                <div className="flex items-center flex-shrink-0">
-                  <img
-                    alt="Your Company"
-                    className="block w-auto h-10 md:hidden"
-                    src={logo}
-                  />
-                  <img
-                    alt="Your Company"
-                    className="hidden w-auto h-10 md:block"
-                    src={logo}
-                  />
-                </div>
-
+                <NavLink to="/">
+                  <div className="flex items-center flex-shrink-0">
+                    <img
+                      alt="Your Company"
+                      className="block w-auto h-10 md:hidden"
+                      src={logo}
+                    />
+                    <img
+                      alt="Your Company"
+                      className="hidden w-auto h-10 md:block"
+                      src={logo}
+                    />
+                  </div>
+                </NavLink>
                 <div className="hidden sm:ml-6 lg:block">
                   <div className="flex space-x-4">
                     <div className="text-base font-medium">

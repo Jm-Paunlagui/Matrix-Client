@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
@@ -285,9 +285,11 @@ export default function AuthLogin() {
           >
             <BackNavigation backTo={"/"} hasText={false} isSmall />
             <div className={"px-6 lg:px-28"}>
-              <div className="flex items-center justify-center py-2 text-gray-800">
-                <img alt="logo" className="w-12 h-12 -mt-12" src={logo} />
-              </div>
+              <NavLink to="/">
+                <div className="flex items-center justify-center py-2 text-gray-800">
+                  <img alt="logo" className="w-12 h-12 -mt-12" src={logo} />
+                </div>
+              </NavLink>
               <div className="flex-auto pt-0 mb-24 -mt-14">
                 <h6 className="mt-16 text-lg font-bold text-blue-500 xl:text-2xl">
                   {count === 1

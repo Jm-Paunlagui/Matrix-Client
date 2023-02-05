@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PasswordChecklist from "react-password-checklist";
-import {Link, useParams} from "react-router-dom";
+import {Link, NavLink, useParams} from "react-router-dom";
 
 import {faSignIn} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -152,9 +152,11 @@ export default function AuthResetPassword() {
               </div>
             ) : (
               <div className={"px-6 lg:px-28"}>
-                <div className="flex items-center justify-center py-2 text-gray-800">
-                  <img alt="logo" className="w-12 h-12 -mt-12" src={logo} />
-                </div>
+                <NavLink to="/">
+                  <div className="flex items-center justify-center py-2 text-gray-800">
+                    <img alt="logo" className="w-12 h-12 -mt-12" src={logo} />
+                  </div>
+                </NavLink>
                 <div className="flex-auto mb-24 space-y-6 -mt-14">
                   <div className="mb-3 text-start">
                     <h6 className="mt-16 text-lg font-bold text-gray-500 xl:text-2xl">
