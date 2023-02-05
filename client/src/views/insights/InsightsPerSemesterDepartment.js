@@ -261,7 +261,7 @@ export default function InsightsPerSemesterDepartment() {
                           </div>
                         </div>
                         <div className="col-span-4 place-self-center">
-                          <div className="grid grid-cols-2 gap-8 py-4 lg:grid-cols-3 md:gap-20">
+                          <div className={`grid grid-cols-2 gap-8 py-4 ${location.pathname === "/admin/insights/per-semester-department" ? "lg:grid-cols-3 md:gap-20" : "lg:grid-cols-4"}`}>
                             <div className="flex flex-col items-center justify-center w-full">
                               <div
                                 className={`flex items-center justify-center w-10 h-10 text-white rounded ${
@@ -304,7 +304,7 @@ export default function InsightsPerSemesterDepartment() {
                                 Professors
                               </h1>
                             </div>
-                            {location.pathname === "department-sentiment-overall" ? (
+                            {location.pathname === "/admin/insights/per-semester-department" ? (
                               <>
                                 <div className="flex flex-col items-center justify-center w-full">
                                   <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded">
