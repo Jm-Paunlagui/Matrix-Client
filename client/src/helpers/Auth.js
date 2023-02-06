@@ -10,14 +10,11 @@ import {toast} from "react-toastify";
  */
 export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 30);
     cookie.set(key, value, {
-      domain: window.location.hostname,
-      path: '/',
-      sameSite: 'lax',
+      domain: "matrix-lab-client.vercel.app",
+      sameSite: "none",
       secure: true,
-      expires: expirationDate
+      httpOnly: true,
     });
   }
 };
