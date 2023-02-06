@@ -35,16 +35,15 @@ ChartJS.register(
  * @description Handles the admin profile
  */
 export default function DashboardAnalysis() {
+  // Get the cookie for the application
+  const cookie = getCookie("token");
+  console.log(cookie);
   const [data, setData] = useState({
     loading: true,
     details: [],
   });
 
   const { loading, details } = data;
-
-  // Get the cookie for the application
-  const cookie = getCookie("token");
-  console.log(cookie);
 
   /**
    * @description Fetches the data from the server
