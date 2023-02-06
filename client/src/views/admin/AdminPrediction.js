@@ -157,11 +157,11 @@ function CsvPreview({ file, rowCount = 5 }) {
  * @description Handles the admin prediction
  */
 export default function AdminPrediction() {
+  const token = getCookie("token");
   /**
    * @description decode the jwt token and return the payload
    */
   const loadProcessBy = () => {
-    const token = getCookie("token");
     httpClient
       .get("/user/get_user", {
         headers: {
@@ -202,7 +202,13 @@ export default function AdminPrediction() {
     p_school_year,
   } = previousData;
   const get_previous_evaluated_file = () => {
-    httpClient.get("/data/get-previous-evaluated-file").then((response) => {
+    httpClient.get("/data/get-previous-evaluated-file",
+        {
+        headers: {
+          Authorization: token,
+          Cookie: token,
+        }
+      }).then((response) => {
       setPreviousData({
         ...previousData,
         p_csv_question: response.data.p_csv_question,

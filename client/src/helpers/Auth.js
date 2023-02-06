@@ -12,9 +12,9 @@ export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
       domain: window.location.hostname,
-      SameSite:"None",
+      SameSite:"Lax",
+      path: '/',
       secure: true,
-      httpOnly: true,
     });
   }
 };

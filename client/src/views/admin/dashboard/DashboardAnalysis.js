@@ -35,9 +35,7 @@ ChartJS.register(
  * @description Handles the admin profile
  */
 export default function DashboardAnalysis() {
-  // Get the cookie for the application
-  const cookie = getCookie("token");
-  console.log(cookie);
+  const token = getCookie("token");
   const [data, setData] = useState({
     loading: true,
     details: [],
@@ -51,7 +49,11 @@ export default function DashboardAnalysis() {
   const get_file_details = () => {
     if (isAuth().verified_email === "Verified"){
       httpClient
-      .get("/analysis/dashboard-data-csv")
+      .get("/analysis/dashboard-data-csv", {
+        headers: {
+          Authorization: token,
+        }
+      })
       .then((response) => {
         setData({
           ...data,
@@ -141,6 +143,11 @@ export default function DashboardAnalysis() {
       httpClient
         .get(
           `/analysis/sentiment_vs_polarity/${school_year}/${school_semester}/${csv_question}`,
+            {
+              headers: {
+                Authorization: token,
+              }
+            }
         )
         .then((response) => {
           setAnalysis({
