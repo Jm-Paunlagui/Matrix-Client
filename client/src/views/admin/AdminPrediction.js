@@ -585,11 +585,13 @@ export default function AdminPrediction() {
           setCount(count + 1);
         })
         .catch((error) => {
-          toast.error(error.message);
-          removeAll();
-          // Back to the first step
-          setCount(1);
-          handleResetWhenDone("error");
+          setHandlers({
+            ...handlers,
+            okToAnS: false,
+            errorEffectToAnS: true,
+            errorMessageToAnS: error.response.data.message,
+            textChangeToAnS: "Analyze Sentiment and Save",
+          });
         });
     }
   };
@@ -1069,7 +1071,7 @@ export default function AdminPrediction() {
                             </div>
                             {/* Error message */}
                             {errorMessageToAnS ? (
-                              <div className="mt-2 text-sm font-semibold text-red-500">
+                              <div className="mt-2 text-sm font-semibold text-red-500 bg-red-100 rounded p-2">
                                 {errorMessageToAnS}
                               </div>
                             ) : null}
