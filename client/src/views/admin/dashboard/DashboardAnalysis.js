@@ -19,7 +19,7 @@ import {
     Tooltip,
 } from "chart.js";
 import {Bar} from "react-chartjs-2";
-import {isAuth} from "../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../helpers/Auth";
 
 ChartJS.register(
   CategoryScale,
@@ -41,6 +41,10 @@ export default function DashboardAnalysis() {
   });
 
   const { loading, details } = data;
+
+  // Get the cookie for the application
+  const cookie = getCookie("token");
+  console.log(cookie);
 
   /**
    * @description Fetches the data from the server

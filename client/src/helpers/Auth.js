@@ -11,8 +11,8 @@ import {toast} from "react-toastify";
 export const setCookie = (key, value) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
-      domain: "matrix-client.herokuapp.com",
-      sameSite: "none",
+      domain: window.location.hostname,
+      SameSite:"None",
       secure: true,
       httpOnly: true,
     });
