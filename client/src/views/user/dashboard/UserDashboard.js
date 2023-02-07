@@ -5,12 +5,13 @@ import httpClient from "../../../http/httpClient";
 import {Header, HeaderEmail} from "../../../components/headers/Header";
 import {CsvQuestion, SchoolYearList, SemesterList,} from "../../../components/listbox/ListBox";
 import DisclosureTogglable from "../../../components/disclosure/DisclosureTogglable";
-import {isAuth} from "../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../helpers/Auth";
 
 /**
  * @description Handles the admin profile
  */
 export default function UserDashboard() {
+  const token = getCookie("token");
   const [analysis, setAnalysis] = useState({
     loading_analysis: true,
     overall_sentiments: [],
@@ -71,7 +72,7 @@ export default function UserDashboard() {
     });
     httpClient
       .get(
-        `/analysis/for_analysis_options_user/${school_year}/${school_semester}/${csv_question}`,
+        `/analysis/for_analysis_options_user/${school_year}/${school_semester}/${csv_question}/${token}`,
       )
       .then((response) => {
         setAnalysis({
