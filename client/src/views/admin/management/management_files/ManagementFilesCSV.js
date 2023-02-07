@@ -18,12 +18,13 @@ import {Paginator} from "../../../../components/listbox/ListBox";
 import {NoData} from "../../../../components/warnings/WarningMessages";
 import ModalConfirm, {ModalTypeOfDownload,} from "../../../../components/modal/ModalConfirm";
 import {ItemsPerPage} from "../../../../components/items/Items";
-import {isAuth} from "../../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Handles the files to view and delete
  */
 export default function ManagementFilesCSV() {
+  const token = getCookie("token");
   const per_page = [
     { value: 25, label: "25", id: 1 },
     { value: 50, label: "50", id: 2 },
@@ -135,7 +136,7 @@ export default function ManagementFilesCSV() {
     // });
     isAuth().verified_email === "Verified" ? (
         httpClient
-      .get(`/data/list-of-csv-files-to-view/${page}/${per_page_limit}`)
+      .get(`/data/list-of-csv-files-to-view/${page}/${per_page_limit}/${token}`)
       .then((response) => {
         setFileData({
           ...fileData,

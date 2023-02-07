@@ -10,6 +10,7 @@ import {LoadingAnimation} from "../../components/loading/LoadingPage";
  * @description Handles the admin profile
  */
 export default function AdminProfile() {
+  const token = getCookie("token");
   /**
    * @description State variables for the admin profile form.
    */
@@ -97,13 +98,8 @@ export default function AdminProfile() {
    * @description Handles the Profile form change
    */
   const loadProfile = () => {
-    const token = getCookie("token");
     httpClient
-      .get("/user/get_user", {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .get(`/user/get_user/${token}`)
       .then((response) => {
         setProfile({
           ...profile,
@@ -254,6 +250,7 @@ export default function AdminProfile() {
       .put("/user/update-personal-info", {
         email,
         full_name,
+        token
       })
       .then(async (response) => {
         await verifyJWT(response.data.token)
@@ -363,6 +360,7 @@ export default function AdminProfile() {
     await httpClient
       .put("/user/update-security-info", {
         recovery_email,
+        token
       })
       .then(async (response) => {
         await verifyJWT(response.data.token)
@@ -420,6 +418,7 @@ export default function AdminProfile() {
     await httpClient
       .put("/user/update-username", {
         username,
+        token
       })
       .then(async (response) => {
         await verifyJWT(response.data.token)
@@ -469,6 +468,7 @@ export default function AdminProfile() {
         old_password,
         new_password,
         confirm_password,
+        token
       })
       .then((response) => {
         setProfile({

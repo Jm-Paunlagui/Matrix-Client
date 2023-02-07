@@ -10,12 +10,13 @@ import {toast} from "react-toastify";
 import {NoData} from "../../../../components/warnings/WarningMessages";
 import {Paginator} from "../../../../components/listbox/ListBox";
 import {ItemsPerPage} from "../../../../components/items/Items";
-import {isAuth} from "../../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Displays the sentiment score of the file along with the response
  */
 export default function ManagementFilesReadDataResponse() {
+  const token = getCookie("token");
   const per_page = [
     { value: 25, label: "25", id: 1 },
     { value: 50, label: "50", id: 2 },
@@ -78,7 +79,7 @@ export default function ManagementFilesReadDataResponse() {
     if (isAuth().verified_email === "Verified") {
       httpClient
         .get(
-          `/data/read-data-response/${fileId}/${read_responses}/${file_name}/${page}/${per_page}`,
+          `/data/read-data-response/${fileId}/${read_responses}/${file_name}/${page}/${per_page}/${token}`,
         )
         .then((response) => {
           setReadDataResponse({

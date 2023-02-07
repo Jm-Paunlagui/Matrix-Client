@@ -16,12 +16,13 @@ import {faRotate, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {NoData} from "../../../../components/warnings/WarningMessages";
 import {toast} from "react-toastify";
 import {ItemsPerPage} from "../../../../components/items/Items";
-import {isAuth} from "../../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description ManagementFileBin component for the application to manage the files in the bin
  */
 export default function ManagementFileBin() {
+  const token = getCookie("token");
   const per_page = [
     { value: 25, label: "25", id: 1 },
     { value: 50, label: "50", id: 2 },
@@ -111,7 +112,7 @@ export default function ManagementFileBin() {
       });
       httpClient
         .get(
-          `/data/getting-list-of-temporarily-deleted-csv-files/${page}/${per_page_limit}`,
+          `/data/getting-list-of-temporarily-deleted-csv-files/${page}/${per_page_limit}/${token}`
         )
         .then((response) => {
           setFileData({

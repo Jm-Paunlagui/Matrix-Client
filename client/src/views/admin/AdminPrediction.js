@@ -163,11 +163,7 @@ export default function AdminPrediction() {
    */
   const loadProcessBy = () => {
     httpClient
-      .get("/user/get_user", {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .get(`/user/get_user/${token}`)
       .then((response) => {
         toast.info(
           `Get ready to analyze the data ${response.data.user.username}!`,
@@ -202,13 +198,7 @@ export default function AdminPrediction() {
     p_school_year,
   } = previousData;
   const get_previous_evaluated_file = () => {
-    httpClient.get("/data/get-previous-evaluated-file",
-        {
-        headers: {
-          Authorization: token,
-          Cookie: token,
-        }
-      }).then((response) => {
+    httpClient.get("/data/get-previous-evaluated-file").then((response) => {
       setPreviousData({
         ...previousData,
         p_csv_question: response.data.p_csv_question,
@@ -562,6 +552,7 @@ export default function AdminPrediction() {
             selected_column_for_sentence,
           ),
           selected_semester,
+          token
         })
         .then((response) => {
           toast.success(response.data.message);

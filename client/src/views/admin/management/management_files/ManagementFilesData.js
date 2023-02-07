@@ -13,12 +13,13 @@ import {SearchBar} from "../../../../components/searchbar/SearchBar";
 import {NoData} from "../../../../components/warnings/WarningMessages";
 import {Paginator} from "../../../../components/listbox/ListBox";
 import {ItemsPerPage} from "../../../../components/items/Items";
-import {isAuth} from "../../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Handles the lists data of the file department and professor
  */
 export default function ManagementFilesData() {
+  const token = getCookie("token");
   /**
    * @description Gets the file id from the url to load the data
    * @type {string}
@@ -79,7 +80,7 @@ export default function ManagementFilesData() {
   const loadAll = (fileId, page, per_page_limit) => {
     if (isAuth().verified_email === "Verified"){
       httpClient
-      .get(`/data/view-csv-file/${fileId}/${page}/${per_page_limit}`)
+      .get(`/data/view-csv-file/${fileId}/${page}/${per_page_limit}/${token}`)
       .then((response) => {
         setFileInfo({
           ...fileInfo,

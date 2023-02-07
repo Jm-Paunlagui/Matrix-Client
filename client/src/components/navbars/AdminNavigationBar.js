@@ -6,7 +6,7 @@ import {Menu, Transition} from "@headlessui/react";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import {isAuth, signout} from "../../helpers/Auth";
+import {getCookie, isAuth, signout} from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
 import {toast} from "react-toastify";
 
@@ -18,6 +18,7 @@ export default function AdminNavigationBar() {
    * @description Gets the user data from the Auth helper
    */
   const user = isAuth();
+  const token = getCookie("token");
 
   /**
    * @description Navigation bar array of objects for the navigation bar links
@@ -68,7 +69,7 @@ export default function AdminNavigationBar() {
    */
   const logoutUser = async () => {
     await httpClient
-      .post("/user/sign-out")
+      .post(`/user/sign-out/${token}`)
       .then((response) => {
         toast.success(response.data.message);
         setTimeout(() => {

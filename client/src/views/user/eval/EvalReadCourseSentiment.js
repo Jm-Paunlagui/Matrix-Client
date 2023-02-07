@@ -6,7 +6,7 @@ import {Header, HeaderEmail} from "../../../components/headers/Header";
 import {toReadableName} from "../../../helpers/Helper";
 import Buttons from "../../../components/buttons/buttons";
 import {GridItemResponse} from "../../../components/grid/GridItem";
-import {isAuth} from "../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../helpers/Auth";
 import {NoData} from "../../../components/warnings/WarningMessages";
 import {toast} from "react-toastify";
 import {ItemsPerPage} from "../../../components/items/Items";
@@ -16,6 +16,7 @@ import {Paginator} from "../../../components/listbox/ListBox";
  * @description Displays the sentiment score of the file along with the response
  */
 export default function EvalReadCourseSentiment() {
+  const token = getCookie("token");
   const per_page = [
     { value: 25, label: "25", id: 1 },
     { value: 50, label: "50", id: 2 },
@@ -83,7 +84,7 @@ export default function EvalReadCourseSentiment() {
     if (isAuth().verified_email === "Verified") {
       httpClient
         .get(
-          `/data/read-data-response/${fileId}/${read_responses}/${file_name}/${page}/${per_page}`,
+          `/data/read-data-response/${fileId}/${read_responses}/${file_name}/${page}/${per_page}/${token}`,
         )
         .then((response) => {
           setReadDataResponse({

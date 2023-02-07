@@ -16,12 +16,13 @@ import {toast} from "react-toastify";
 import {Paginator} from "../../../../components/listbox/ListBox";
 import {NoData} from "../../../../components/warnings/WarningMessages";
 import {ItemsPerPage} from "../../../../components/items/Items";
-import {isAuth} from "../../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Handles the admin tables
  */
 export default function ManagementFilesUsers() {
+  const token = getCookie("token");
   const [data, setData] = useState({
     loading_: true,
     details: [],
@@ -178,7 +179,7 @@ export default function ManagementFilesUsers() {
   const loadListOfUsers = (page, per_page_limit) => {
     if (isAuth().verified_email === "Verified"){
       httpClient
-      .get(`/data/list-of-users-to-view/${page}/${per_page_limit}`)
+      .get(`/data/list-of-users-to-view/${page}/${per_page_limit}/${token}`)
       .then((response) => {
         setUserDatas({
           ...userDatas,

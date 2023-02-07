@@ -4,7 +4,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import React, {Fragment} from "react";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import {isAuth, signout} from "../../helpers/Auth";
+import {getCookie, isAuth, signout} from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
 import {BsAwardFill} from "react-icons/bs";
 import {toast} from "react-toastify";
@@ -14,6 +14,7 @@ export default function UserNavigationBar() {
    * @description Gets the user data from the Auth helper
    */
   const user = isAuth();
+  const token = getCookie("token");
 
   /**
    * @description Navigation bar array of objects for the navigation bar links
@@ -55,7 +56,7 @@ export default function UserNavigationBar() {
    */
   const logoutUser = async () => {
     await httpClient
-      .post("/user/sign-out")
+      .post(`/user/sign-out/${token}`)
       .then((response) => {
         toast.success(response.data.message);
         setTimeout(() => {

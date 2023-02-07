@@ -13,12 +13,13 @@ import {NoData} from "../../../../components/warnings/WarningMessages";
 import {toast} from "react-toastify";
 import {ItemsPerPage} from "../../../../components/items/Items";
 import {Paginator} from "../../../../components/listbox/ListBox";
-import {isAuth} from "../../../../helpers/Auth";
+import {getCookie, isAuth} from "../../../../helpers/Auth";
 
 /**
  * @description Lists the courses to read each course's data
  */
 export default function ManagementFilesListofDataResponse() {
+  const token = getCookie("token");
   const per_page = [
     { value: 25, label: "25", id: 1 },
     { value: 50, label: "50", id: 2 },
@@ -83,7 +84,7 @@ export default function ManagementFilesListofDataResponse() {
     if (isAuth().verified_email === "Verified"){
       httpClient
       .get(
-        `/data/get-list-of-taught-courses/${fileId}/${read_responses}/${page}/${per_page}`,
+        `/data/get-list-of-taught-courses/${fileId}/${read_responses}/${page}/${per_page}/${token}`,
       )
       .then((response) => {
         setListOfTaughtCourses({
