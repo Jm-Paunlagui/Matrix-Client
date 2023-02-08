@@ -189,7 +189,7 @@ export default function UserDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6 pb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8" >
                 <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
                   <div className="w-full">
                     <h1 className="text-md font-bold text-blue-500 mb-4">
@@ -356,7 +356,7 @@ export default function UserDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2">
+              <div className="flex flex-col items-start w-full p-4 bg-blue-50 rounded-lg shadow space-y-2 ">
                 <div className="w-full">
                   <h1 className="text-md font-bold text-blue-500 mb-4">
                     Most Common Words in Trigrams (3 words)
