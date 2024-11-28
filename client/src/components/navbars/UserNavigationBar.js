@@ -1,13 +1,13 @@
-import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
-import {Menu, Transition} from "@headlessui/react";
-import {NavLink, useLocation} from "react-router-dom";
-import React, {Fragment} from "react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Menu, Transition } from "@headlessui/react";
+import { NavLink, useLocation } from "react-router-dom";
+import React, { Fragment } from "react";
 
 import logo from "../../assets/img/android-chrome-192x192.png";
-import {getCookie, isAuth, signout} from "../../helpers/Auth";
+import { getCookie, isAuth, signout } from "../../helpers/Auth";
 import httpClient from "../../http/httpClient";
-import {BsAwardFill} from "react-icons/bs";
-import {toast} from "react-toastify";
+import { BsAwardFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 export default function UserNavigationBar() {
   /**
